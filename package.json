@@ -4,6 +4,10 @@
   "description": "A simple starter to get up and developing quickly with Gatsby",
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+    "engines": {
+    "node": "14.x",
+    "npm": "8.x"
+  },
   "dependencies": {
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
@@ -36,7 +40,7 @@
   ],
   "license": "0BSD",
   "scripts": {
-    "build": "tailwindcss -i ./src/style/index.css -o ./src/style/tailwind.css --minify && gatsby build",
+    "build": "tailwindcss -i ./src/style/index.css -o ./src/style/tailwind.css --minify && gatsby build && gatsby serve",
     "watch_tail": "tailwindcss -i ./src/style/index.css -o ./src/style/tailwind.css --watch",
     "dev": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
