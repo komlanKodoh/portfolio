@@ -3,16 +3,21 @@ import PropTypes from "prop-types"
 import { AnimatePresence, motion } from "framer-motion"
 
 interface Props {
-  type: "from_big"
+  delay?: number
   visible: boolean
   className?: string
-  onClick: () => void
+  onClick?: () => void
   children: React.ReactNode
+  type: "from_big" | "from_bottom"
 }
 
 const variants = {
   from_big: {
     scale: 1.2,
+    opacity: 0,
+  },
+  from_bottom: {
+    y: "100",
     opacity: 0,
   },
   visible: {
@@ -24,9 +29,10 @@ const variants = {
 }
 const FadeIn: React.FC<Props> = ({
   type,
+  delay,
+  onClick,
   visible,
   children,
-  onClick,
   className,
 }) => {
   return (
@@ -34,13 +40,13 @@ const FadeIn: React.FC<Props> = ({
       {visible && (
         <motion.div
           key="modalkl"
-          initial={type}
-          animate={'visible'}
           exit={type}
+          initial={type}
+          onClick={onClick}
+          animate={"visible"}
           variants={variants}
           className={className}
-          onClick={onClick}
-          transition={{type:"linear"}}
+          transition={{ type: "linear" , delay}}
         >
           {children}
         </motion.div>
