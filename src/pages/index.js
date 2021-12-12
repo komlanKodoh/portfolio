@@ -43,7 +43,7 @@ const Page = () => {
 const Section = ({ observer, className, theme }) => {
   const sectionRef = React.useRef()
   useEffect(() => {
-    observer.observe(sectionRef.current)
+    observer?.observe(sectionRef.current)
   }, [])
   return (
     <div
