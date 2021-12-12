@@ -6,24 +6,30 @@ import Layout, { useNavContext } from "../components/Layout"
 
 const Page = () => {
   const { theme, setTheme } = useNavContext()
-  const observer = new IntersectionObserver(
-    entries =>{
-      console.log("dd")
-      entries.forEach(entry => {
-        
-        if (entry.isIntersecting) {
-          console.log("All ",entries.map(entry => entry.target.dataset.theme))
-          console.log("Intersecting ",entries.filter(entry => entry.isIntersecting).map(entry => entry.target.dataset.theme) )
-          setTheme(entry.target.dataset.theme)
+  const [observer, setObserver] = useState()
+  
 
-        }
-      })},
-    {
-      root: document.querySelector('#gatsby-focus-wrapper'),
-      rootMargin: "0% 0%  -99% 0%",
-
-    }
-  )
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries =>{
+        console.log("dd")
+        entries.forEach(entry => {
+          
+          if (entry.isIntersecting) {
+            console.log("All ",entries.map(entry => entry.target.dataset.theme))
+            console.log("Intersecting ",entries.filter(entry => entry.isIntersecting).map(entry => entry.target.dataset.theme) )
+            setTheme(entry.target.dataset.theme)
+  
+          }
+        })},
+      {
+        root: document.querySelector('#gatsby-focus-wrapper'),
+        rootMargin: "0% 0%  -99% 0%",
+  
+      }
+    )
+    setObserver(observer)
+  }, [])
 
   return (
     <>
