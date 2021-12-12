@@ -1,0 +1,25 @@
+
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+#gatsby-focus-wrapper{
+    overflow-y: auto;
+    overflow-x: hidden;
+    position:fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* .full{
+
+} */
+
+.lm-shape{
+    max-width: 1024px;
+    margin: auto;
+}
