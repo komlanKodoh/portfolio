@@ -17,26 +17,21 @@ import { any } from "prop-types"
 export const Link_data = {}
 export const Links = ["About", "Contact", "Blog", "Work and Skills"]
 
-export const NavContext = React.createContext<{ [key: string]: any }>({
-  setTheme: () => console.log(0),
-  theme: "dark"
-})
-export const useNavContext = () => {
-  return React.useContext(NavContext)
-}
+export const NavContext = React.createContext<{ [key: string]: any }>({})
+
 
 const Layout = ({ children }) => {
-  const [open, setOpen] = React.useState(false);
-  const [theme, setTheme] = React.useState("default");
-
-  console.log("the theme is ", theme)
-
+  const sections = React.useRef([])
+  
   return (
-    <NavContext.Provider value={{ open, setOpen, theme, setTheme }}>
+    <NavContext.Provider value={{ sections}}>
       <NavBar Links={Links} data={Link_data} />
       <main className="">{children}</main>
     </NavContext.Provider>
   )
 }
 
+export const useNavContext = () => {
+  return React.useContext(NavContext)
+}
 export default Layout
