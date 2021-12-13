@@ -41,7 +41,7 @@
   "license": "0BSD",
   "scripts": {
     "build": "tailwindcss -i ./src/style/index.css -o ./src/style/tailwind.css --minify && gatsby build",
-    "deploy:common": "git add . && git commit -m \"continuous integration strategy\" && git push -u origin main", 
+    "deploy": "git add . && git commit -m \"continuous integration strategy\" && git push -u origin main", 
     "watch_tail": "tailwindcss -i ./src/style/index.css -o ./src/style/tailwind.css --watch",
     "dev": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",

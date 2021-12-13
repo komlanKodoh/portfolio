@@ -25,6 +25,11 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
 
   const getScrollSpeed = (current, previousScroll) => {
     if (current < 100) return setVisible(true)
+        if (current - previousScroll < -10) {
+      setVisible(true)
+    } else if (current - previousScroll > 10) {
+      setVisible(false)
+    }
   }
 
   const updateTheme = scrollTop => {
