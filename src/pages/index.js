@@ -3,56 +3,40 @@ import { Link } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
 
 import Layout, { useNavContext } from "../components/Layout"
-import { useIntersectionObserver } from "../lib/hooks"
 
 const Page = () => {
-  const { theme, setTheme } = useNavContext()
-  
-  const observer = useIntersectionObserver(
-    entries => {
-      console.log("dd")
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          console.log(
-            "All ",
-            entries.map(entry => entry.target.dataset.theme)
-          )
-          console.log(
-            "Intersecting ",
-            entries
-              .filter(entry => entry.isIntersecting)
-              .map(entry => entry.target.dataset.theme)
-          )
-          setTheme(entry.target.dataset.theme)
-        }
-      })
-    },
-    {
-      rootMargin: "0% 0%  -99% 0%",
-    },
-    () => document.querySelector("#gatsby-focus-wrapper")
-  )
-
   return (
     <>
-      <Section observer={observer} className=" bg-slate-900" theme="dark" />
-      <Section observer={observer} className=" bg-white" theme="white" />
-      <Section observer={observer} className=" bg-blue-800" theme="blue" />
+      <Section className=" bg-slate-900" index="0">
+        <div className="lm-size h-full flex text-white">
+          <p className="w-[50%] my-auto ml-3">
+            <span className="text-lg block">Hello, I am Daniel</span>
+
+            <span className="text-5xl block py-2 leading-[1.5em]">A FULL STACK DEVELOPPER</span><br/>
+            
+          </p>
+          <p></p>
+        </div>
+      </Section>
+      <Section className=" bg-white" index="1"></Section>
+      <Section className=" bg-blue-800" index="2"></Section>
     </>
   )
 }
 
-const Section = ({ observer, className, theme }) => {
+const Section = ({ className, index, children }) => {
   const sectionRef = React.useRef()
+  const { sections } = useNavContext()
   useEffect(() => {
-    observer?.observe(sectionRef.current)
-  }, [])
+    sections.current[index] = sectionRef.current?.offsetHeight
+  }, [sectionRef.current])
   return (
     <div
       ref={sectionRef}
-      data-theme={theme}
       className={`${className} w-full h-screen max-h-[1250px]`}
-    ></div>
+    >
+      {children}
+    </div>
   )
 }
 
