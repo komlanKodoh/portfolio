@@ -25,7 +25,7 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
 
   const getScrollSpeed = (current, previousScroll) => {
     if (current < 100) return setVisible(true)
-        if (current - previousScroll < -10) {
+    if (current - previousScroll < -10) {
       setVisible(true)
     } else if (current - previousScroll > 10) {
       setVisible(false)
@@ -35,7 +35,6 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
   const updateTheme = scrollTop => {
     let index = 0
     let height_threshold = 0
-    console.log(sections.current)
 
     for (const heights of sections.current) {
       height_threshold += heights
@@ -50,7 +49,7 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
     const scrollTop = e.target.scrollTop
     const height = e.target.clientHeight
 
-    const threshold = 10
+    const threshold = 1000
 
     const opacity = clamp(scrollTop / threshold, 0, 0.25)
 
@@ -72,17 +71,13 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
     <>
       <nav className="sticky top-0 ">
         <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-full h-0 `}>
-          <div className={`p-2 ${styles[theme]} ${styles.nav} `}>
-            <div
-              className={`p-1 h-10 lm-size  rounded flex`}
-              style={{
-                boxShadow: visible
-                  ? `0 25px 50px -12px rgba(0,0,0, ${shadow})`
-                  : "0 0 0 0 rgba(0,0,0,0)",
-                transform: visible ? "translateY(0%)" : "translateY(-150%)",
-              }}
-              id="nav_header"
-            >
+          <div
+            className={`p-2 ${styles[theme]} ${styles.nav} `}
+            style={{
+              boxShadow: `0 25px 50px -12px rgba(0,0,0, ${shadow})`,
+            }}
+          >
+            <div className={`p-1 h-8 lm-size rounded flex`} style={{height: visible && "2.5em" }} id="nav_header">
               <Burger
                 className={"sm:hidden"}
                 state={open}
