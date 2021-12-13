@@ -1,19 +1,23 @@
-.nav{
-    transition: all 0.7s linear ;
-    background-color: rgb(15 23 42);
-    color: white;
-    
+.nav {
+  transition: transform 0.7s linear, background-color 0.3s linear,
+    color 0.3s linear;
+  background-color: rgb(15 23 42);
+  color: white;
+
+  &>div{
+      transition-duration: 0.7s;
+  }
 }
 
 .dark {
-    background-color: rgb(15 23 42);
+  background-color: rgb(15 23 42);
 }
 
-.white{
-    background-color: white;
-    color: black;
+.white {
+  background-color: white;
+  color: black;
 }
 
-.blue{
-    background-color: blue;
+.blue {
+  background-color: blue;
 }
