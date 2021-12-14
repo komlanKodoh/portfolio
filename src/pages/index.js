@@ -1,21 +1,32 @@
 import React, { useEffect, useRef } from "react"
-import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
+import Button from "../components/Basic/Button"
+import TurningWord from "../components/Effect/preset/TurningWord"
+import { Rotate } from "../components/Effect/Rotate"
 
 import Layout, { useNavContext } from "../components/Layout"
 
 const Page = () => {
   return (
     <>
-      <Section className=" bg-slate-900" index="0">
-        <div className="lm-size h-full flex text-white">
-          <p className="w-[50%] my-auto ml-3">
-            <span className="text-lg block">Hello, I am Daniel</span>
-
-            <span className="text-5xl block py-2 leading-[1.5em]">A FULL STACK DEVELOPPER</span><br/>
-            
-          </p>
-          <p></p>
+      <Section className=" bg-slate-900 relative " index="0">
+        <TurningWord className="absolute w-full h-full top-0 z-10" classNameWord=" text-blue-900 text-"/>
+        <div className="lm-size h-full flex text-white relative z-20" >
+          <div className="my-auto ml-3 w-[60ch] ">
+            <p className="m-0 p-0">
+              <span className=" text-zinc-200">Hello, I am </span> &nbsp;{" "}
+              <span className=" text-zinc-200 text-2xl">Daniel</span>
+              <span className=" text-4xl block py-2">
+                LOREM IPSUM DOLOER
+              </span>
+            </p>
+            <p className="m-0 p-0 text-slate-600">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+              tempus ac nisi sit amet molestie. Nunc non accumsan velit. Mauris
+              mattis auctor lorem sed tincidunt. Vivamus egestas dapibus
+              scelerisque. Nam cursus elit quis erat venenatis volutpat
+            </p>
+            <Button className="mt-3" >Get In Touch</Button>
+          </div>
         </div>
       </Section>
       <Section className=" bg-white" index="1"></Section>
