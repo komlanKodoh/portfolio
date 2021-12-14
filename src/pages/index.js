@@ -8,10 +8,10 @@ import Layout, { useNavContext } from "../components/Layout"
 const Page = () => {
   return (
     <>
-      <Section className=" bg-slate-900 relative " index="0">
-        <TurningWord className="absolute w-full h-full top-0 z-10" classNameWord=" text-blue-900 text-"/>
+      <Section className=" bg-slate-900  bg-cover relative " index="0">
+        {/* <TurningWord className="absolute w-full h-full top-0 z-10" classNameWord=" text-blue-900 transition-transform"/> */}
         <div className="lm-size h-full flex text-white relative z-20" >
-          <div className="my-auto ml-3 w-[60ch] ">
+          <div className="my-auto ml-3 w-[60ch]">
             <p className="m-0 p-0">
               <span className=" text-zinc-200">Hello, I am </span> &nbsp;{" "}
               <span className=" text-zinc-200 text-2xl">Daniel</span>
@@ -27,6 +27,7 @@ const Page = () => {
             </p>
             <Button className="mt-3" >Get In Touch</Button>
           </div>
+
         </div>
       </Section>
       <Section className=" bg-white" index="1"></Section>
