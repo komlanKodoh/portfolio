@@ -1,7 +1,7 @@
 .nav {
   transition: transform 0.7s linear, background-color 0.3s linear,
     color 0.3s linear;
-  background-color: rgb(15 23 42);
+  background-color: rgb(12 12 12);
   color: white;
 
   &>div{
@@ -10,7 +10,7 @@
 }
 
 .dark {
-  background-color: rgb(15 23 42);
+  background-color: rgb(12, 12, 12);
 }
 
 .white {
