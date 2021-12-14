@@ -69,7 +69,7 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
 
   return (
     <>
-      <nav className="sticky top-0 ">
+      <nav className="sticky top-0 z-40 ">
         <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-full h-0 `}>
           <div
             className={`p-2 ${styles[theme]} ${styles.nav} `}
@@ -108,7 +108,7 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
           </div>
           <ul className="m-auto text-white text-center text-2xl pb-10">
             {Links.map((link_name, index) => (
-              <FadeIn visible={open} type="from_bottom" delay={index / 5}>
+              <FadeIn visible={open} type="from_bottom" delay={index / 10}>
                 <li className={" py-4"}>{link_name}</li>
               </FadeIn>
             ))}
