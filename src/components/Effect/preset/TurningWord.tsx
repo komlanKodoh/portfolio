@@ -49,34 +49,26 @@ const TurningWord = ({ classNameWord, className }) => {
   useEffect(() => {
     setWidth(ctnRef.current.clientWidth)
   }, [])
-  console.log(Matrix.map(m => ({phi: m.phi * 180/Math.PI, theta : m.theta * 180/Math.PI})))
+  // console.log(Matrix.map(m => ({phi: m.phi * 180/Math.PI, theta : m.theta * 180/Math.PI})))
 
   const [phi, setPhi] = useState(0)
   const [theta, setTheta] = useState(0)
 
-  const [vPhi, setVPhi] = useState(SPEED)
-  const [vTheta, setVTheta] = useState(SPEED)
+  const lastTime = useRef(0)
   useEffect(() => {
-    const intervals = [
-      setInterval(() => {
-        setPhi(p => {
-          
-          let nextPhi = p + vPhi
-          if (nextPhi >= 2 * Math.PI){
-            nextPhi = 0;
-          }
-          return nextPhi;
-        })
-        setTheta(p => p + vTheta)
-      }, 10),
+    const animate = (timestamp) => {
+      console.log(timestamp)
+      const elapsed = timestamp - lastTime.current;
+      const motion = elapsed /2000000
+      setPhi(p => p+motion)
+      // setTheta(p => p + motion)
 
-      setInterval(() => {
-        setVPhi(SPEED)
-        setVTheta(SPEED)
-      }, 1000 * 60 * 2),
-    ]
+      window.requestAnimationFrame(animate)
+    }
 
-    return () => intervals.forEach(interval => clearInterval(interval))
+    window.requestAnimationFrame(animate)
+
+    // return () => intervals.forEach(interval => clearInterval(interval))
   }, [])
 
   return (

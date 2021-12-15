@@ -99,14 +99,14 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
           className=" md:hidden fixed flex flex-col  top-0 left-0 w-full h-screen bg-gray-900 bg-opacity-98 z-10 "
           // onClick={() => setOpen(prev => !prev)}
         >
-          <div className="m-2 p-1 h-10">
+          <div className="m-2 p-1 h-10 absolute">
             <Burger
               className={"sm:hidden"}
               state={open}
               onClick={() => setOpen(prev => !prev)}
             />
           </div>
-          <ul className="m-auto text-white text-center text-2xl pb-10">
+          <ul className="m-auto text-white text-center text-2xl pb-32">
             {Links.map((link_name, index) => (
               <FadeIn visible={open} type="from_bottom" delay={index / 10}>
                 <li className={" py-4"}>{link_name}</li>
