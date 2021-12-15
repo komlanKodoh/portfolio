@@ -35,7 +35,7 @@ export const Rotate: React.FC<Props> = ({ children, width, className, rotation, 
       className={`absolute rounded-full p-2  left-1/2 top-1/2  ${className}`}
       style={{
         transform: `translate3d(calc( ${x}px - 50%), calc( ${y}px - 50%) , ${z}px)`,
-        color: `hsla(100, 100%, 100%, ${z/ (100*2)+0.5})`
+        color: `hsla(0, 0%, 0%, ${z/ (100*2)+0.5})`
       }}
     >
       {children}

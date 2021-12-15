@@ -4,7 +4,7 @@
   "description": "A simple starter to get up and developing quickly with Gatsby",
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
-    "engines": {
+  "engines": {
     "node": "14.x",
     "npm": "8.x"
   },
@@ -30,6 +30,7 @@
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
     "sass": "^1.45.0",
+    "styled-components": "^5.3.3",
     "tailwindcss": "^3.0.1"
   },
   "devDependencies": {
@@ -41,9 +42,9 @@
   "license": "0BSD",
   "scripts": {
     "build": "tailwindcss -i ./src/style/index.css -o ./src/style/tailwind.css --minify && gatsby build",
-    "deploy:common": "git add . && git commit -m \"continuous integration strategy\" && git push -u origin main", 
+    "deploy:common": "git add . && git commit -m \"continuous integration strategy\" && git push -u origin main",
     "watch_tail": "tailwindcss -i ./src/style/index.css -o ./src/style/tailwind.css --watch",
-    "dev": "gatsby develop -p 3000",
+    "dev": "gatsby develop -H 0.0.0.0",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "gatsby develop",
     "serve": "gatsby serve",
