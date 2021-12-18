@@ -1,23 +1,49 @@
-.nav {
-  transition: transform 0.7s linear, background-color 0.3s linear,
-    color 0.3s linear;
-  background-color: rgb(12 12 12);
-  color: white;
+.ctn{
+  --color: white;
+  --bg-color: rgb(12, 12 ,12);
+  --bar-bg-color: rgb(12, 12, 12);
+  --burger-bg-color: rgb(206, 195, 195);
+  color: var(--color);
+}
 
-  &>div{
-      transition-duration: 0.7s;
+.nav {
+  transition: transform 0.27s linear, background-color 0.2s linear,
+    color 0.2s linear;
+
+  background-color: var(--bg-color);
+  & > div {
+    transition: transform 0.2s linear, background-color 0.2s linear,
+      color 0.2s linear;
+    background-color: var(--bar-bg-color);
   }
 }
 
+.burger_bar {
+  background-color: var(--burger-bg-color);
+  transition: transform 0.2s linear, background-color 0.2s linear,
+    color 0.2s linear;
+}
+
+.overlay{
+  background-color: var(--bg-color);
+}
+
 .dark {
-  background-color: rgb(12, 12, 12);
+  --color: white;
+  --bg-color: hsl(0, 0%, 5%);
+  --bar-bg-color: hsl(0, 0%, 7%);
+  --burger-bg-color: rgb(206, 195, 195);
 }
 
 .white {
-  background-color: white;
-  color: hsl(0, 0%, 0%);
+  --color: rgb(0, 0, 0);
+  --bg-color: hsl(0, 0%, 95%);
+  --bar-bg-color: hsl(0, 0%, 100%);
+  --burger-bg-color: hsl(0, 0%, 10%);
 }
 
 .blue {
-  background-color: hsl(226, 71%, 40%);
+  --color: white;
+  --bg-color: hsl(217, 33%, 10%);
+  --bar-bg-color: hsl(217, 33%, 14%);
 }

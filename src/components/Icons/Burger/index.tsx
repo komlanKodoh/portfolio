@@ -5,7 +5,8 @@ import * as styles from "./style.module.scss"
 interface Props {
   state: boolean,
   onClick: () => void,
-  className: string
+  className: string,
+  classNameBar: string,
 }
 
 const progress = ["open", "mid", "close"]
@@ -14,7 +15,7 @@ const map = {
     false: "close"
 }
 
-const Burger: React.FC<Props> = ({ state , onClick , className}) => {
+const Burger: React.FC<Props> = ({ state , onClick , className, classNameBar}) => {
   const [myState, setMyState] = useState("close")
 
 //   const onClick = () => {
@@ -26,7 +27,7 @@ const Burger: React.FC<Props> = ({ state , onClick , className}) => {
       setMyState(prev => prev ==="mid"?  map[`${state}`] : "mid")
   }, [state])
 
-  const b_style = "w-8 h-1 bg-slate-700"
+  // const b_style = "w-8 h-1 bg-white"
   return (
     <div
       onClick={onClick}
@@ -39,9 +40,9 @@ const Burger: React.FC<Props> = ({ state , onClick , className}) => {
           setMyState(state ? "open" : "close")
         }}
       >
-        <div className="bg-slate-700"></div>
-        <div className="bg-slate-700"></div>
-        <div className="bg-slate-700"></div>
+        <div className={classNameBar}></div>
+        <div className={classNameBar}></div>
+        <div className={classNameBar}></div>
       </div>
       {/* <div className={b_style}></div> */}
     </div>

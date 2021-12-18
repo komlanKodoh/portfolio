@@ -23,3 +23,8 @@
     max-width: 1024px;
     margin: auto;
 }
+
+.lm-size > div{
+    padding-left: 1em !important;
+    padding-right: 1em !important;
+}
