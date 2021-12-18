@@ -30,7 +30,7 @@ const Input: React.FC<InputProps> = props => {
   }
   return (
     <div>
-      <label htmlFor={id}>{label} : {props.required && <span className=" text-red-600">*</span>}</label>
+      <label htmlFor={id}>{label}  {props.required && <span className=" text-red-600">*</span>}</label>
       <input
         id={id}
         {...rest}

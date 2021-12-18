@@ -7,8 +7,18 @@ const ContactForm = () => {
   return (
     <div className="flex flex-col gap-4">
       <NormalInput
+        name={"Name"}
+        label={"Name"}
+        placeholder={"Your Name"}
+        id={"form_contact_field"}
+        required={true}
+        state={[inputValue, setInputValue]}
+        className={"w-full border-2 border-slate-900 p-1"}
+      />
+      <NormalInput
         name={"contact"}
-        label={"Email or phone Number"}
+        label={"Contact"}
+        placeholder={"Email or phone Number"}
         id={"form_contact_field"}
         required={true}
         state={[inputValue, setInputValue]}
@@ -16,7 +26,8 @@ const ContactForm = () => {
       />
       <TextArea
         name={"message"}
-        label={"Write something"}
+        label={"Message"}
+        placeholder={"Write your message"}
         id={"form_message_field"}
         required={true}
         state={[inputValue, setInputValue]}
