@@ -84,10 +84,16 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
             <div className={`p-1 h-8 lm-size rounded flex`} id="nav_header">
               <Burger
                 classNameBar={styles.burger_bar}
-                className={"sm:hidden"}
+                className={"sm:hidden mr-auto"}
                 state={open}
                 onClick={() => setOpen(prev => !prev)}
               />
+
+              <div className="">
+                <p>
+                  Daniel Kodoh
+                </p>
+              </div>
 
               <ul className="hidden m-auto mr-16 gap-16 sm:flex text-sm justify-between">
                 {Links.map(link => (

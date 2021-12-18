@@ -9,8 +9,12 @@ import Triangle from "../components/Icons/markers/triangle"
 import Layout, { useNavContext } from "../components/Layout"
 import Human from "../components/svg/Human"
 import ContactForm from "../components/Complex/ContactForm"
+import SeparationH from "../components/Basic/SeparationH"
+import Facebook from "../components/svg/Facebook"
+import Linkedin from "../components/svg/Linkedin"
 
 const Page = ({ data }) => {
+  console.log(data)
   // console.log()
   return (
     <>
@@ -46,10 +50,13 @@ const Page = ({ data }) => {
         className="flex bg-white  text-gray-900 relative flex-wrap"
         index="1"
       >
-        <div className="lm-size w-full grid sm:grid-cols-2">
-          <div></div>
-          <div className=" py-20 text-justify">
-            <h1 className=" text-4xl -sm:text-2xl text-center m-4">About me</h1>
+        <div className="lm-size w-full grid sm:grid-cols-2  py-10 text-justify" >
+        <h1 className=" text-2xl text-center m-4 sm:hidden">About me</h1>
+          <div className="flex w-full h-full py-5">
+            <Img className="w-1/2 m-auto rounded-xl border-4 shadow-2xl " fluid={data.me.childImageSharp.fluid} />
+          </div>
+          <div className="">
+            <h1 className=" text-4xl -sm:hidden text-center m-4">About me</h1>
             <p>
               I am Daniel, a computer science major. When not studying to
               maintain my 4.0 gpa, I like learning about new technology and
@@ -72,7 +79,7 @@ const Page = ({ data }) => {
                 "React",
                 "Next.js",
               ].map((item, index) => (
-                <li className="inline-block" key={item}>
+                <li className="inline-block whitespace-nowrap" key={item}>
                   # - {item}
                 </li>
               ))}
@@ -81,15 +88,15 @@ const Page = ({ data }) => {
           {/* <TurningWord className="relative flex-1 top-0 z-10 min-h-[400px] w-2/4"  classNameWord=" text-blue-900 transition-transform"/>  */}
         </div>
       </Section>
-      <Section className=" bg-slate-900  flex py-4 " index="2">
-        <div className="lm-size text-blue-200 relative flex-wrap">
-          <h1 className=" text-4xl -sm:text-2xl text-center m-8 mb-12 underline">
+      <Section className=" bg-slate-900  flex " index="2">
+        <div className="lm-size text-blue-200 relative flex-wrap py-8">
+          <h1 className=" text-4xl -sm:text-2xl text-center m-4 mb-12 underline">
             What I worked on{" "}
           </h1>
 
           <div className="grid sm:grid-cols-2 grid-cols-1 gap-x-12">
             <div className="relative rounded-md overflow-hidden">
-              <Img className=" " fluid={data.file.childImageSharp.fluid} />
+              <Img className=" " fluid={data.kdshop.childImageSharp.fluid} />
               <div className="absolute w-full bg-red top-0 left-0 bg-slate-900"></div>
             </div>
             <div className="flex">
@@ -98,7 +105,7 @@ const Page = ({ data }) => {
                 <ul className="sm:flex flex-start justify-end gap-2   my-2 flex-wrap">
                   {["Next.js", "Mongod db", "Serverless Functions"].map(
                     item => (
-                      <div key="item">
+                      <div key={item}>
                         <li className=" rounded-md px-4 py-0 bg-black inline-block my-1">
                           {item}{" "}
                         </li>
@@ -123,17 +130,18 @@ const Page = ({ data }) => {
       </Section>
 
       <Section className="bg-white flex justify-center align-center " index="3">
-        <div className="lm-size py-12 max-w-[100ch] px-">
+        <div className="lm-size py-12 w-[60ch] max-w-full ">
           <h1 className=" text-4xl -sm:text-2xl text-center m-4">Contact Me</h1>
           <ContactForm />
-          <p className="flex justify-center align-center h-4 relative mt-8">
-            <span className=" shrink-0 bg-black w-full m-auto h-px block"></span>
-            <span className="absolute top-1/2 left-1/2 bg-white px-4 -translate-x-1/2 -translate-y-1/2">or</span>
-          </p>
+          <SeparationH>or</SeparationH>
+          <div className="flex justify-center gap-4">
+            <Facebook fill="blue" className=" w-11 h-auto"/>
+            <Linkedin fill="red" className=" w-11 h-auto" />
+          </div>
         </div>
       </Section>
-      <footer className="bg-slate-400 text-white">
-        <p className="lm-size flex justify-center ">
+      <footer className="bg-green-600 text-white">
+        <p className="lm-size flex justify-center py-2 ">
           Copyright 2021, created by Daniel kodoh
         </p>
       </footer>
@@ -168,7 +176,15 @@ export default IndexPage
 
 export const query = graphql`
   query Project1 {
-    file(relativePath: { eq: "preview1.png" }) {
+    kdshop: file(relativePath: { eq: "preview1.png" }) {
+      id
+      childImageSharp {
+        fluid {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    me: file(relativePath: { eq: "me.jpeg" }) {
       id
       childImageSharp {
         fluid {
