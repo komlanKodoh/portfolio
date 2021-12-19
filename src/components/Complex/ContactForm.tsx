@@ -1,13 +1,16 @@
 import React, { useState } from "react"
+import Button from "../Basic/Button"
 import NormalInput from "../Inputs/NormalInput"
 import TextArea from "../Inputs/TextArea"
 
 const ContactForm = () => {
   const [inputValue, setInputValue] = useState<{ [key: string]: any }>({})
+
+
   return (
-    <div className="flex flex-col gap-4">
+    <form className="flex flex-col gap-4" action="https://formsubmit.co/kodohdaniel@gmail.com" method="POST" >
       <NormalInput
-        name={"Name"}
+        name={"name"}
         label={"Name"}
         placeholder={"Your Name"}
         id={"form_contact_field"}
@@ -16,8 +19,9 @@ const ContactForm = () => {
         className={"w-full border-2 border-slate-900 p-1"}
       />
       <NormalInput
-        name={"contact"}
+        name={"email"}
         label={"Contact"}
+        type="email"
         placeholder={"Email or phone Number"}
         id={"form_contact_field"}
         required={true}
@@ -33,7 +37,8 @@ const ContactForm = () => {
         state={[inputValue, setInputValue]}
         className={"w-full border-2 border-slate-900 min-h-[250px] p-1"}
       />
-    </div>
+      <Button className={" bg-blue-900 border-none text-white py-2 "} type="submit">Submit Form</Button>
+    </form>
   )
 }
 

@@ -5,10 +5,12 @@ import { AnimatePresence, motion } from "framer-motion"
 interface Props {
   delay?: number
   visible: boolean
+  preserve?: boolean
   className?: string
   onClick?: () => void
   children: React.ReactNode
-  type: "from_big" | "from_bottom"
+  type: "from_big" | "from_bottom"|"from_left"|"simple"
+  transition?: any
 }
 
 const variants = {
@@ -16,8 +18,15 @@ const variants = {
     scale: 1.2,
     opacity: 0,
   },
+  from_left:{
+    x:-10,
+    opacity: 0
+  },
+  simple:{
+    opacity: 0
+  },
   from_bottom: {
-    y: "100",
+    y: 10,
     opacity: 0,
   },
   visible: {
@@ -34,7 +43,24 @@ const FadeIn: React.FC<Props> = ({
   visible,
   children,
   className,
+  preserve,
+  transition,
 }) => {
+  if (preserve)
+    return (
+      <motion.span
+        key="modalkl"
+        initial={type}
+        onClick={onClick}
+        animate={visible && "visible" || type}
+        variants={variants}
+        className={className + " block"}
+        transition={transition || { type: "linear", delay }}
+      >
+        {children}
+      </motion.span>
+    )
+
   return (
     <AnimatePresence>
       {visible && (
@@ -46,7 +72,7 @@ const FadeIn: React.FC<Props> = ({
           animate={"visible"}
           variants={variants}
           className={className}
-          transition={{ type: "linear" , delay}}
+          transition={{ type: "linear", delay }}
         >
           {children}
         </motion.div>

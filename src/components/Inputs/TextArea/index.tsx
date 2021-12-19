@@ -31,9 +31,10 @@ const Input: React.FC<InputProps> = props => {
   return (
     <div>
       <label htmlFor={id}>
-        {label} :{props.required && <span className=" text-red-600">*</span>}{" "}
+        {label} {props.required && <span className=" text-red-600">*</span>}{" "}
       </label>
       <textarea
+        name={name}
         id={id}
         {...rest}
         value={inputValue[name]}

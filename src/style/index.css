@@ -6,6 +6,7 @@
 @tailwind utilities;
 
 #gatsby-focus-wrapper{
+    scroll-behavior: smooth;
     overflow-y: auto;
     overflow-x: hidden;
     position:fixed;
@@ -22,9 +23,9 @@
 .lm-size{
     max-width: 1024px;
     margin: auto;
+    padding-left: 1em ;
+    padding-right: 1em ;
 }
 
 .lm-size > div{
-    padding-left: 1em ;
-    padding-right: 1em ;
 }

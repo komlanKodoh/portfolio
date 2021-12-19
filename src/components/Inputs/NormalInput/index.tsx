@@ -32,6 +32,7 @@ const Input: React.FC<InputProps> = props => {
     <div>
       <label htmlFor={id}>{label}  {props.required && <span className=" text-red-600">*</span>}</label>
       <input
+      name={name}
         id={id}
         {...rest}
         value={inputValue[name]}
