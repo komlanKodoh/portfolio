@@ -10,13 +10,13 @@ interface Props {
   data: { [key: string]: object }
 }
 
-const THEMES = ["dark", "white", "blue"]
+const THEMES = ["default", "dark", "white", "blue"]
 
 export const NavBar: React.FC<Props> = ({ Links, data }) => {
-  const { sections } = useNavContext()
+  const { sections, currentSection, setCurrentSection } = useNavContext()
   const [open, setOpen] = React.useState(false)
 
-  const [theme, setTheme] = useState("default")
+  // const [theme, setTheme] = useState("default")
 
   const [visible, setVisible] = useState(true)
 
@@ -37,15 +37,17 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
     let height_threshold = 0
     // console.log( sections.current )
 
-    if (scrollTop === 0) return setTheme("default")
+    if (scrollTop === 0) return setCurrentSection(0)
 
     for (const heights of sections.current) {
-      height_threshold += heights
+      const height = heights?.height || 0
+      height_threshold += height
       if (height_threshold > scrollTop) break
       index++
     }
     // console.log(index, THEMES[index])
-    setTheme(THEMES[index])
+    // setTheme(THEMES[index])
+    setCurrentSection(index)
   }
 
   const onScroll = e => {
@@ -72,7 +74,11 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
 
   return (
     <>
-      <nav className={`sticky top-0 z-40 ${styles.ctn} ${styles[theme]}`}>
+      <nav
+        className={`sticky top-0 z-40 ${styles.ctn} ${
+          styles[THEMES[currentSection]]
+        }`}
+      >
         <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-full h-0 `}>
           <div
             className={`p-2  ${styles.nav} `}
@@ -81,7 +87,10 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
               // transform: visible && "translateY(0%)" || "translateY(-150%)"
             }}
           >
-            <div className={`p-1 h-8 lm-size rounded flex`} id="nav_header">
+            <div
+              className={`p-1 h-8 max-w-screen-lg m-auto rounded flex`}
+              id="nav_header"
+            >
               <Burger
                 classNameBar={styles.burger_bar}
                 className={"sm:hidden mr-auto"}
@@ -91,14 +100,16 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
 
               <div className="">
                 <p>
-                  Daniel Kodoh
+                  <a href="#Home">Daniel Kodoh</a>
                 </p>
               </div>
 
               <ul className="hidden m-auto mr-16 gap-16 sm:flex text-sm justify-between">
                 {Links.map(link => (
                   <li key={link} className=" block">
-                    {link}
+                    <a href={`#${link}`} className={"w-full h-full block"}>
+                      {link}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -112,7 +123,7 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
           className={`md:hidden fixed flex flex-col  top-0 left-0 w-full h-screen bg-opacity-98 z-10 ${styles.overlay}`}
           // onClick={() => setOpen(prev => !prev)}
         >
-          <div className="m-2 p-1 h-10 absolute">
+          <div className="m-2 py-1 h-10 absolute">
             <Burger
               classNameBar={styles.burger_bar}
               className={"sm:hidden"}
@@ -121,14 +132,18 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
             />
           </div>
           <ul className="m-auto  text-center text-2xl pb-32">
-            {Links.map((link_name, index) => (
+            {Links.map((link, index) => (
               <FadeIn
                 visible={open}
-                key={link_name}
+                key={link}
                 type="from_bottom"
                 delay={index / 10}
               >
-                <li className={" py-4"}>{link_name}</li>
+                <li className={" py-4"}>
+                  <a href={`#${link}`} className={"w-full h-full block"}>
+                    {link}
+                  </a>
+                </li>
               </FadeIn>
             ))}
           </ul>
