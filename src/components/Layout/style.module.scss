@@ -26,12 +26,14 @@
 
 .overlay{
   background-color: var(--bg-color);
+  transition: transform 0.2s linear, background-color 0.2s linear,
+  color 0.2s linear;
 }
 
 .dark {
   --color: white;
   --bg-color: hsl(0, 0%, 5%);
-  --bar-bg-color: hsl(0, 0%, 7%);
+  --bar-bg-color: #121212;
   --burger-bg-color: rgb(206, 195, 195);
 }
 

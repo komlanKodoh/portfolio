@@ -37,7 +37,7 @@ const ContactForm = () => {
         state={[inputValue, setInputValue]}
         className={"w-full border-2 border-slate-900 min-h-[250px] p-1"}
       />
-      <Button className={" bg-blue-900 border-none text-white py-2 "} type="submit">Submit Form</Button>
+      <Button className={" bg-blue-800 border-none text-white py-2 "} type="submit">Submit Form</Button>
     </form>
   )
 }

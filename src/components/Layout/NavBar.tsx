@@ -100,7 +100,7 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
 
               <div className="">
                 <p>
-                  <a href="#Home">Daniel Kodoh</a>
+                  <a href="#Home">KODOH</a>
                 </p>
               </div>
 
@@ -140,7 +140,11 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
                 delay={index / 10}
               >
                 <li className={" py-4"}>
-                  <a href={`#${link}`} className={"w-full h-full block"}>
+                  <a
+                    href={`#${link}`}
+                    className={"w-full h-full block"}
+                    onClick={() => setOpen(prev => !prev)}
+                  >
                     {link}
                   </a>
                 </li>
