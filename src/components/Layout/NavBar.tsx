@@ -100,7 +100,7 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
 
               <div className="flex align-center gap-6">
                 <PageIcon className="inline-block h-full w-auto -sm:hidden " />
-                <a href="#Home">KODOH</a>
+                <a href="/#Home">KODOH</a>
                 <PageIcon className="inline-block h-full w-auto sm:hidden " />
               </div>
 

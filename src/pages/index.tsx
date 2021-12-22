@@ -206,9 +206,9 @@ const Page = ({ data }) => {
                   Preview
                 </LinkButton>
                 <LinkButton
-                  target="blank"
+                  target="_blank"
                   href="https://github.com/Behemoth11/commerce"
-                  theme="_one"
+                  theme="one"
                 >
                   View Code
                 </LinkButton>

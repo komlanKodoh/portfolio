@@ -68,7 +68,7 @@ const FadeIn: React.FC<Props> = ({
     <AnimatePresence>
       {visible && (
         <motion.div
-          id={id}
+      
           key={id}
           exit={type}
           initial={type}
