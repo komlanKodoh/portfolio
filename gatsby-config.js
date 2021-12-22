@@ -1,3 +1,5 @@
+require("dotenv").config()
+
 module.exports = {
   siteMetadata: {
     title: `Daniel Kodoh Portfolio`,
@@ -29,11 +31,15 @@ module.exports = {
         name: "Komlan Kodoh",
         short_name: "Kodoh",
         description: "Portfolio of full stack developer Daniel Kodoh",
-        icon: "src/images/page_icon.png"
+        icon: "src/images/page_icon.png",
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-source-contentful`,
+      options: {
+        spaceId: process.env.CONTENTFULL_SPACEID,
+        accessToken: process.env.CONTENTFULL_ACCESS_TOKEN,
+      },
+    },
   ],
-}
+};
