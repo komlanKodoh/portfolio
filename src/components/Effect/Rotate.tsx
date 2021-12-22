@@ -17,19 +17,6 @@ export const Rotate: React.FC<Props> = ({ children, width, className, rotation, 
   let y = (width/2) * Math.sin(init.theta+ rotation.theta) * Math.sin(init.phi + rotation.phi)
   let z = 100 * Math.cos(init.phi + rotation.phi)
 
-
-  // console.log(x, y , z)
-
-    // let x = (width/2 )* Math.cos(theta) * Math.sin(phi)
-  // let y = (width/2) * Math.sin(theta) * Math.sin(phi)
-  // let z = (width/2) * Math.cos(phi)
-
-  // console.log(init, children)
-  // console.log(x, y )
-
-  // console.log(rotation.phi, rotation.theta)
-
-  // console.log(`hsla(10, 10%, 10%, ${z/ (width/2) + 1}})`)
   return (
     <div
       className={`absolute rounded-full p-2  left-1/2 top-1/2  ${className}`}
