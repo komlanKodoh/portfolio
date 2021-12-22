@@ -22,12 +22,12 @@ export const NavContext = React.createContext<{ [key: string]: any }>({})
 const Layout = ({ children }) => {
   const sections = React.useRef([])
 
-  const [currentSection, setCurrentSection] = React.useState(0);
+  const [currentSectionIndex, setCurrentSectionIndex] = React.useState(0);
 
   return (
-    <NavContext.Provider value={{ sections, currentSection, setCurrentSection }}>
+    <NavContext.Provider value={{ sections, currentSectionIndex, setCurrentSectionIndex }}>
       <NavBar Links={Links} data={Link_data} />
-      <main className="">{children}</main>
+      <main className=" leading-loose">{children}</main>
       <footer className="bg-green-600 text-white">
         <p className="lm-size flex justify-center py-2 ">
           Copyright 2021, created by Daniel kodoh

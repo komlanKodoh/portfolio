@@ -1,6 +1,6 @@
 import { graphql } from "gatsby"
 import React, { useEffect, useRef, useState } from "react"
-import Button from "../components/Basic/Button"
+import Button, { LinkButton } from "../components/Basic/Button"
 import Img from "gatsby-image"
 import TurningWord from "../components/Effect/preset/TurningWord"
 import { Rotate } from "../components/Effect/Rotate"
@@ -39,6 +39,7 @@ const Page = ({ data }) => {
     <>
       <Section
         className=" bg-slate-900  bg-cover relative h-screen -sm:h-auto max-h-[900px]"
+        theme="dark"
         index="1"
         id="Home"
         // observer={observer}
@@ -47,6 +48,7 @@ const Page = ({ data }) => {
           <div className="my-auto sm:w-[60ch] sm:max-w-[60%] sm:flex-shrink-0 -sm:mt-24">
             <p className="m-0 p-0">
               <FadeIn
+                id="introduction"
                 visible={int_index >= 0}
                 type={"from_bottom"}
                 preserve={true}
@@ -58,6 +60,7 @@ const Page = ({ data }) => {
                 </span>
               </FadeIn>
               <FadeIn
+                id="profession"
                 visible={int_index >= 0}
                 type={"from_bottom"}
                 preserve={true}
@@ -70,25 +73,28 @@ const Page = ({ data }) => {
             </p>
 
             <FadeIn
+              id="landing_text"
               visible={int_index >= 0}
               type={"from_left"}
               preserve={true}
               transition={{ duration: 0.5, delay: 0.4 * 2 }}
             >
-              <p className="m-0 p-0 text-slate-600">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-                tempus ac nisi sit amet molestie. Nunc non accumsan velit.
-                Mauris mattis auctor lorem sed tincidunt. Vivamus egestas
-                dapibus scelerisque. Nam cursus elit quis erat venenatis
-                volutpat
+              <p className="m-0 py-2 text-slate-500">
+                I design and build{" "}
+                <strong className="text-slate-400">beautiful</strong> and{" "}
+                <strong className="text-slate-400">accessible</strong> user
+                interfaces. My work focuses on{" "}
+                <strong className="text-slate-400">security</strong> and{" "}
+                <strong className="text-slate-400">performance</strong> by
+                leveraging the latest practices and tools of software
+                development.
               </p>
-              <Button className="mt-3">
-                <a href="#Contact" className="w-full h-full block">
-                  Get In Touch
-                </a>
-              </Button>
+              <LinkButton href="#Contact" className="w-fit h-full block mt-3">
+                Get In Touch
+              </LinkButton>
             </FadeIn>
             <FadeIn
+              id="human_svg_sm"
               visible={int_index >= 0}
               type={"simple"}
               preserve={true}
@@ -98,6 +104,7 @@ const Page = ({ data }) => {
             </FadeIn>
           </div>
           <FadeIn
+            id="human_svg_big"
             visible={int_index >= 0}
             type={"simple"}
             preserve={true}
@@ -108,54 +115,58 @@ const Page = ({ data }) => {
         </div>
       </Section>
       <Section
-        // observer={observer}
-        id="About"
         className="flex bg-white text-gray-900 relative flex-wrap"
+        id="About"
+        theme="white"
         index="2"
       >
         <div className="lm-size w-full grid sm:grid-cols-2  py-10 text-justify">
           <h1 className=" text-2xl text-center sm:hidden">About me</h1>
-            <div className="flex w-full h-full py-8">
-              <Img
-                className="w-1/2 m-auto rounded-xl border-4 shadow-2xl "
-                fluid={data.me.childImageSharp.fluid}
-              />
-            </div>
+          <div className="flex w-full h-full py-8">
+            <Img
+              className="w-1/2 m-auto rounded-xl border-4 shadow-2xl "
+              fluid={data.me.childImageSharp.fluid}
+            />
+          </div>
 
-            <div className="">
-              <h1 className=" text-4xl -sm:hidden text-center m-4">About me</h1>
-              <p>
-                I am Daniel, a computer science major. When not studying to
-                maintain my 4.0 gpa, I like learning about new technology and
-                build interactive user experiences. <br />
-                <br />
-                While I explore all kind of technologies my set off skills is
-                highly tailored toward the web. My knowledge of front-end
-                technologies and understanding of backend languages helps me
-                create fast and reliable web experiences. The technologies I use
-                includes but are not restrained to :
-              </p>
+          <div className="">
+            <h1 className=" text-4xl -sm:hidden text-center m-4">About me</h1>
+            <p className=" leading-loose">
+              I am Daniel, a computer science major. When not studying to
+              maintain my 4.0 gpa, I like learning about new technology and
+              build interactive user experiences. <br />
+              <br />
+              While I explore all kind of technologies my set off skills is
+              highly tailored toward the web. My knowledge of front-end
+              technologies and understanding of backend languages helps me
+              create fast and reliable web experiences. The technologies I use
+              includes but are not restrained to :
+            </p>
 
-              <ul className="grid grid-cols-3 mt-1 list-inside list-disc py-4 sm:pl-0 gap-4">
-                {[
-                  "HTML",
-                  "CSS",
-                  "Node js",
-                  "My sql",
-                  "Mongo db",
-                  "React",
-                  "Next.js",
-                ].map((item, index) => (
-                  <li className="inline-block whitespace-nowrap" key={item}>
-                    # - {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          {/* <TurningWord className="relative flex-1 top-0 z-10 min-h-[400px] w-2/4"  classNameWord=" text-blue-900 transition-transform"/>  */}
+            <ul className="grid grid-cols-3 mt-1 list-inside list-disc py-4 sm:pl-0 gap-4">
+              {[
+                "HTML",
+                "CSS",
+                "Node js",
+                "My sql",
+                "Mongo db",
+                "React",
+                "Next.js",
+              ].map((item, index) => (
+                <li className="inline-block whitespace-nowrap" key={item}>
+                  # - {item}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </Section>
-      <Section className=" bg-slate-900  flex " index="3" id="Work">
+      <Section
+        className=" bg-slate-900  flex "
+        index="3"
+        id="Work"
+        theme="blue"
+      >
         <div className="lm-size text-blue-200 relative flex-wrap py-14">
           <h1 className=" text-4xl -sm:text-2xl text-center mb-12 underline">
             What I worked on
@@ -167,29 +178,40 @@ const Page = ({ data }) => {
               <div className="absolute w-full bg-red top-0 left-0 bg-slate-900"></div>
             </div>
             <div className="flex">
-              <div className="my-auto ">
-                <h2 className=" text-2xl sm:text-right  my-4">E-commerce </h2>
+              <div className="my-auto sm:text-right ">
+                <h2 className=" text-2xl my-4">KdShop - Commerce</h2>
                 <ul className="sm:flex flex-start justify-end gap-2   my-2 flex-wrap">
-                  {["Next.js", "Mongod db", "Serverless Functions"].map(
+                  {["Next.js", "sass", "Mongod db", "Serverless Functions"].map(
                     item => (
                       <div key={item}>
                         <li className=" rounded-md px-4 py-0 bg-black inline-block my-1">
-                          {item}{" "}
+                          {item}
                         </li>
                       </div>
                     )
                   )}
                 </ul>
-                <p className="text-justify text-sm sm:text-base">
-                  Suspendisse nisi massa, pulvinar id semper eget, consequat in
-                  odio. Phasellus vitae dolor imperdiet, finibus lacus a,
-                  efficitur mauris. Etiam bibendum, purus sodales pulvinar
-                  cursus, turpis tellus auctor nunc, quis bibendum ligula elit
-                  et tellus. Duis nisi risus, euismod eu velit a, dictum posuere
-                  nulla. Donec maximus eros a elit tempus, sit amet fringilla
-                  ipsum vestibulum. Sed dolor libero, suscipit sit amet sodales
-                  non, convallis congue lacus. Mauris neque est
+                <p className="text-justify text-sm leading-7">
+                  KdShop is a platform that connect small businesses with
+                  customers. It also include an integration with facebook
+                  GraphQL API to help promote and automate advertising tasks;
                 </p>
+                <br />
+                <LinkButton
+                  href="https://commerce-behemoth11.vercel.app"
+                  className={"mr-2 shadow-2xl border-red-500"}
+                  target="_blank"
+                  theme="one"
+                >
+                  Preview
+                </LinkButton>
+                <LinkButton
+                  target="blank"
+                  href="https://github.com/Behemoth11/commerce"
+                  theme="_one"
+                >
+                  View Code
+                </LinkButton>
               </div>
             </div>
           </div>
@@ -197,9 +219,9 @@ const Page = ({ data }) => {
       </Section>
 
       <Section
-        // observer={observer}
+        theme="black"
         className="bg-white flex justify-center align-center "
-        index="3"
+        index="4"
         id="Contact"
       >
         <div className="lm-size py-12 px-2 w-[60ch] max-w-full ">
@@ -223,17 +245,15 @@ const Page = ({ data }) => {
   )
 }
 
-const Section = ({ className, index, children, ...rest }) => {
+const Section = ({ className, index, children, theme, ...rest }) => {
   const sectionRef = React.useRef<HTMLDivElement>()
   const { sections } = useNavContext()
 
-  // useEffect(() => {
-  //   observer?.observe(sectionRef.current)
-  // }, [observer])
-
   useEffect(() => {
-    // console.log(sectionDiv)
-    sections.current[index] = { height: sectionRef.current?.offsetHeight }
+    sections.current[index] = {
+      height: sectionRef.current?.offsetHeight,
+      theme,
+    }
   }, [sectionRef.current])
   return (
     <div
@@ -245,14 +265,6 @@ const Section = ({ className, index, children, ...rest }) => {
     </div>
   )
 }
-
-// const IndexPage = props => {
-//   return (
-//     <Layout>
-//       <Page {...props} />
-//     </Layout>
-//   )
-// }
 
 export default Page
 
