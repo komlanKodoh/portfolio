@@ -6,7 +6,6 @@ const Linkedin: React.FC<Props> = props => {
     <svg
       width="512px"
       height="512px"
-      fill="#000000"
       viewBox="0 0 64 64"
       {...props}
     >

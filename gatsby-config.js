@@ -1,9 +1,9 @@
 module.exports = {
   siteMetadata: {
     title: `Daniel Kodoh Portfolio`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    description: `Portfolio and showcase of Daniel Accomplishment as a full stack developer`,
     author: `Daniel Kodoh`,
-    siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
+    siteUrl: `https://komlankodoh.com/`,
   },
   plugins: [
     `gatsby-transformer-sharp`,
@@ -19,20 +19,20 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
-    // {
-    //   resolve: `gatsby-plugin-manifest`,
-    //   options: {
-    //     name: `gatsby-starter-default`,
-    //     short_name: `starter`,
-    //     start_url: `/`,
-    //     background_color: `#663399`,
-    //     // This will impact how browsers show your PWA/website
-    //     // https://css-tricks.com/meta-theme-color-and-trickery/
-    //     // theme_color: `#663399`,
-    //     display: `minimal-ui`,
-    //     icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
-    //   },
-    // },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        theme_color: "hsl(0, 0%, 5%)",
+        background_color: "#fff",
+        display: "standalone",
+        scope: "/",
+        start_url: "/",
+        name: "Komlan Kodoh",
+        short_name: "Kodoh",
+        description: "Portfolio of full stack developer Daniel Kodoh",
+        icon: "src/images/page_icon.png"
+      },
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

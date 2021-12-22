@@ -14,6 +14,8 @@ import Facebook from "../components/svg/Facebook"
 import Linkedin from "../components/svg/Linkedin"
 import FadeIn from "../components/Effect/FadeIn"
 import { useIntersectionObserver } from "../lib/hooks"
+import Gmail from "../components/svg/Gmail"
+import Phone from "../components/svg/Phone"
 
 const Page = ({ data }) => {
   // console.log(data)
@@ -42,7 +44,7 @@ const Page = ({ data }) => {
         // observer={observer}
       >
         <div className="lm-size h-full flex text-white relative z-20">
-          <div className="my-auto w-[60ch] sm:flex-shrink-0 -sm:mt-24">
+          <div className="my-auto sm:w-[60ch] sm:max-w-[60%] sm:flex-shrink-0 -sm:mt-24">
             <p className="m-0 p-0">
               <FadeIn
                 visible={int_index >= 0}
@@ -81,7 +83,9 @@ const Page = ({ data }) => {
                 volutpat
               </p>
               <Button className="mt-3">
-                <a href="#Contact" className="w-full h-full block">Get In Touch</a>
+                <a href="#Contact" className="w-full h-full block">
+                  Get In Touch
+                </a>
               </Button>
             </FadeIn>
             <FadeIn
@@ -110,26 +114,14 @@ const Page = ({ data }) => {
         index="2"
       >
         <div className="lm-size w-full grid sm:grid-cols-2  py-10 text-justify">
-          <h1 className=" text-2xl text-center m-4 sm:hidden">About me</h1>
-          <FadeIn
-            visible={int_index >= 2}
-            type={"from_bottom"}
-            transition={{ duration: 0.7 }}
-            preserve={true}
-          >
-            <div className="flex w-full h-full py-5">
+          <h1 className=" text-2xl text-center sm:hidden">About me</h1>
+            <div className="flex w-full h-full py-8">
               <Img
                 className="w-1/2 m-auto rounded-xl border-4 shadow-2xl "
                 fluid={data.me.childImageSharp.fluid}
               />
             </div>
-          </FadeIn>
-          <FadeIn
-            visible={int_index >= 2}
-            type={"from_bottom"}
-            transition={{ duration: 0.7 }}
-            preserve={true}
-          >
+
             <div className="">
               <h1 className=" text-4xl -sm:hidden text-center m-4">About me</h1>
               <p>
@@ -160,19 +152,18 @@ const Page = ({ data }) => {
                 ))}
               </ul>
             </div>
-          </FadeIn>
           {/* <TurningWord className="relative flex-1 top-0 z-10 min-h-[400px] w-2/4"  classNameWord=" text-blue-900 transition-transform"/>  */}
         </div>
       </Section>
       <Section className=" bg-slate-900  flex " index="3" id="Work">
         <div className="lm-size text-blue-200 relative flex-wrap py-14">
           <h1 className=" text-4xl -sm:text-2xl text-center mb-12 underline">
-            What I worked on{" "}
+            What I worked on
           </h1>
 
-          <div className="grid sm:grid-cols-2 grid-cols-1 gap-x-12">
-            <div className="relative rounded-md overflow-hidden">
-              <Img className=" " fluid={data.kdshop.childImageSharp.fluid} />
+          <div className="grid sm:grid-cols-2 grid-cols-1 gap-x-12 place-items-center">
+            <div className="relative rounded-md overflow-hidden w-full">
+              <Img className="" fluid={data.kdshop.childImageSharp.fluid} />
               <div className="absolute w-full bg-red top-0 left-0 bg-slate-900"></div>
             </div>
             <div className="flex">
@@ -216,8 +207,15 @@ const Page = ({ data }) => {
           <ContactForm />
           <SeparationH>or</SeparationH>
           <div className="flex justify-center gap-4">
-            <Facebook fill="blue" className=" w-11 h-auto" />
-            <Linkedin fill="red" className=" w-11 h-auto" />
+            <a href={"mailto:komlankodoh@gmail.com"}>
+              <Gmail fill="white" className="w-11 h-auto" />
+            </a>
+            <a href="tel:5312256403">
+              <Phone fill="#42c452" className="w-11 h-auto" />
+            </a>
+            <a href="https://www.linkedin.com/in/komlankodoh">
+              <Linkedin fill="#0a66c2" className="w-11 h-auto" />
+            </a>
           </div>
         </div>
       </Section>
