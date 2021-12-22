@@ -4,16 +4,16 @@ import * as styles from "./style.module.scss"
 import { clamp } from "../../lib/utils"
 import FadeIn from "../Effect/FadeIn"
 import Burger from "../Icons/Burger"
+import PageIcon from "../svg/PageIcon"
 
 interface Props {
   Links: string[]
   data: { [key: string]: object }
 }
 
-const THEMES = ["default", "dark", "white", "blue"]
-
 export const NavBar: React.FC<Props> = ({ Links, data }) => {
-  const { sections, currentSection, setCurrentSection } = useNavContext()
+  const { sections, currentSectionIndex, setCurrentSectionIndex } =
+    useNavContext()
   const [open, setOpen] = React.useState(false)
 
   // const [theme, setTheme] = useState("default")
@@ -37,17 +37,15 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
     let height_threshold = 0
     // console.log( sections.current )
 
-    if (scrollTop === 0) return setCurrentSection(0)
+    if (scrollTop === 0) return setCurrentSectionIndex(0)
 
-    for (const heights of sections.current) {
-      const height = heights?.height || 0
+    for (const section of sections.current) {
+      const height = section?.height || 0
       height_threshold += height
       if (height_threshold > scrollTop) break
       index++
     }
-    // console.log(index, THEMES[index])
-    // setTheme(THEMES[index])
-    setCurrentSection(index)
+    setCurrentSectionIndex(index)
   }
 
   const onScroll = e => {
@@ -72,11 +70,13 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
     ;() => root.removeEventListener("scroll", onScroll)
   }, [])
 
+  const currentSection = sections.current[currentSectionIndex] || {}
+
   return (
     <>
       <nav
         className={`sticky top-0 z-40 ${styles.ctn} ${
-          styles[THEMES[currentSection]]
+          styles[currentSection.theme]
         }`}
       >
         <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-full h-0 `}>
@@ -98,10 +98,10 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
                 onClick={() => setOpen(prev => !prev)}
               />
 
-              <div className="">
-                <p>
-                  <a href="#Home">KODOH</a>
-                </p>
+              <div className="flex align-center gap-6">
+                <PageIcon className="inline-block h-full w-auto -sm:hidden " />
+                <a href="#Home">KODOH</a>
+                <PageIcon className="inline-block h-full w-auto sm:hidden " />
               </div>
 
               <ul className="hidden m-auto mr-16 gap-16 sm:flex text-sm justify-between">
@@ -118,6 +118,7 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
         </div>
 
         <FadeIn
+          id="overlay"
           visible={open}
           type={"from_big"}
           className={`md:hidden fixed flex flex-col  top-0 left-0 w-full h-screen bg-opacity-98 z-10 ${styles.overlay}`}
@@ -136,6 +137,7 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
               <FadeIn
                 visible={open}
                 key={link}
+                id={link}
                 type="from_bottom"
                 delay={index / 10}
               >

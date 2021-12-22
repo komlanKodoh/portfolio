@@ -3,14 +3,15 @@ import PropTypes from "prop-types"
 import { AnimatePresence, motion } from "framer-motion"
 
 interface Props {
+  id: string
   delay?: number
   visible: boolean
+  transition?: any
   preserve?: boolean
   className?: string
   onClick?: () => void
   children: React.ReactNode
-  type: "from_big" | "from_bottom"|"from_left"|"simple"
-  transition?: any
+  type: "from_big" | "from_bottom" | "from_left" | "simple"
 }
 
 const variants = {
@@ -18,12 +19,12 @@ const variants = {
     scale: 1.2,
     opacity: 0,
   },
-  from_left:{
-    x:-10,
-    opacity: 0
+  from_left: {
+    x: -10,
+    opacity: 0,
   },
-  simple:{
-    opacity: 0
+  simple: {
+    opacity: 0,
   },
   from_bottom: {
     y: 10,
@@ -37,6 +38,7 @@ const variants = {
   },
 }
 const FadeIn: React.FC<Props> = ({
+  id,
   type,
   delay,
   onClick,
@@ -49,10 +51,11 @@ const FadeIn: React.FC<Props> = ({
   if (preserve)
     return (
       <motion.span
-        key="modalkl"
+        id={id}
+        key={id}
         initial={type}
         onClick={onClick}
-        animate={visible && "visible" || type}
+        animate={(visible && "visible") || type}
         variants={variants}
         className={className + " block"}
         transition={transition || { type: "linear", delay }}
@@ -65,7 +68,8 @@ const FadeIn: React.FC<Props> = ({
     <AnimatePresence>
       {visible && (
         <motion.div
-          key="modalkl"
+          id={id}
+          key={id}
           exit={type}
           initial={type}
           onClick={onClick}
