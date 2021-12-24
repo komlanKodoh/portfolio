@@ -53,7 +53,7 @@
   "license": "0BSD",
   "scripts": {
     "build": "tailwindcss -i ./src/style/index.css -o ./src/style/tailwind.css --minify && gatsby build",
-    "deploy:preview": "git add . && git commit -m \"continuous integration strategy\" && git push -u origin preview",
+    "deploy:preview": "git add . && git commit -m \"preview of the modifications\" && git push -u origin preview",
     "deploy:prod": "git add . && git commit -m \"continuous integration strategy\" && git push -u origin main",
     "watch_tail": "tailwindcss -i ./src/style/index.css -o ./src/style/tailwind.css --watch",
     "dev": "gatsby develop -H 0.0.0.0",
