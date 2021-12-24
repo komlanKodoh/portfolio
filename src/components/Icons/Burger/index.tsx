@@ -1,35 +1,45 @@
-import React, { useEffect, useState } from "react"
-import PropTypes from "prop-types"
-import * as styles from "./style.module.scss"
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import * as styles from "./style.module.scss";
 
-interface Props {
-  state: boolean,
-  onClick: () => void,
-  className: string,
-  classNameBar: string,
+interface Props
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  > {
+  state: boolean;
+  onClick: () => void;
+  className: string;
+  classNameBar: string;
 }
 
-const progress = ["open", "mid", "close"]
+const progress = ["open", "mid", "close"];
 const map = {
-    true: "open",
-    false: "close"
-}
+  true: "open",
+  false: "close",
+};
 
-const Burger: React.FC<Props> = ({ state , onClick , className, classNameBar}) => {
-  const [myState, setMyState] = useState("close")
+const Burger: React.FC<Props> = ({
+  state,
+  onClick,
+  className,
+  classNameBar,
+  ...props
+}) => {
+  const [myState, setMyState] = useState("close");
 
-//   const onClick = () => {
-//     setMyState("mid")
-//   }
+  //   const onClick = () => {
+  //     setMyState("mid")
+  //   }
 
   useEffect(() => {
-
-      setMyState(prev => prev ==="mid"?  map[`${state}`] : "mid")
-  }, [state])
+    setMyState((prev) => (prev === "mid" ? map[`${state}`] : "mid"));
+  }, [state]);
 
   // const b_style = "w-8 h-1 bg-white"
   return (
     <div
+      {...props}
       onClick={onClick}
       className={` w-fit p-1 flex-col flex justify-around relative h-full z-20 ${className}`}
     >
@@ -37,7 +47,7 @@ const Burger: React.FC<Props> = ({ state , onClick , className, classNameBar}) =
       <div
         className={`${styles.bar} ${styles[myState]} relative `}
         onTransitionEnd={() => {
-          setMyState(state ? "open" : "close")
+          setMyState(state ? "open" : "close");
         }}
       >
         <div className={classNameBar}></div>
@@ -46,8 +56,8 @@ const Burger: React.FC<Props> = ({ state , onClick , className, classNameBar}) =
       </div>
       {/* <div className={b_style}></div> */}
     </div>
-  )
-}
+  );
+};
 
 // const Bar: React.FC<{ className: string }> = ({ className }) => {
 //   return (
@@ -57,4 +67,4 @@ const Burger: React.FC<Props> = ({ state , onClick , className, classNameBar}) =
 //   )
 // }
 
-export default Burger
+export default Burger;
