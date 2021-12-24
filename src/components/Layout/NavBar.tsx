@@ -1,76 +1,76 @@
-import React, { useEffect, useState } from "react"
-import { useNavContext } from "."
-import * as styles from "./style.module.scss"
-import { clamp } from "../../lib/utils"
-import FadeIn from "../Effect/FadeIn"
-import Burger from "../Icons/Burger"
-import PageIcon from "../svg/PageIcon"
+import React, { useEffect, useState } from "react";
+import { useNavContext } from ".";
+import * as styles from "./style.module.scss";
+import { clamp } from "../../lib/utils";
+import FadeIn from "../Effect/FadeIn";
+import Burger from "../Icons/Burger";
+import PageIcon from "../svg/PageIcon";
 
 interface Props {
-  Links: string[]
-  data: { [key: string]: object }
+  Links: string[];
+  data: { [key: string]: object };
 }
 
 export const NavBar: React.FC<Props> = ({ Links, data }) => {
   const { sections, currentSectionIndex, setCurrentSectionIndex } =
-    useNavContext()
-  const [open, setOpen] = React.useState(false)
+    useNavContext();
+  const [open, setOpen] = React.useState(false);
 
   // const [theme, setTheme] = useState("default")
 
-  const [visible, setVisible] = useState(true)
+  const [visible, setVisible] = useState(true);
 
-  const [shadow, setShadow] = useState(0)
-  const old_scroll = React.useRef(0)
+  const [shadow, setShadow] = useState(0);
+  const old_scroll = React.useRef(0);
 
   const getScrollSpeed = (current, previousScroll) => {
-    if (current < 100) return setVisible(true)
+    if (current < 100) return setVisible(true);
     if (current - previousScroll < -10) {
-      setVisible(true)
+      setVisible(true);
     } else if (current - previousScroll > 10) {
-      setVisible(false)
+      setVisible(false);
     }
-  }
+  };
 
-  const updateTheme = scrollTop => {
-    let index = 0
-    let height_threshold = 0
+  const updateTheme = (scrollTop) => {
+    let index = 0;
+    let height_threshold = 0;
     // console.log( sections.current )
 
-    if (scrollTop === 0) return setCurrentSectionIndex(0)
+    if (scrollTop === 0) return setCurrentSectionIndex(0);
 
     for (const section of sections.current) {
-      const height = section?.height || 0
-      height_threshold += height
-      if (height_threshold > scrollTop) break
-      index++
+      const height = section?.height || 0;
+      height_threshold += height;
+      if (height_threshold > scrollTop) break;
+      index++;
     }
-    setCurrentSectionIndex(index)
-  }
+    setCurrentSectionIndex(index);
+  };
 
-  const onScroll = e => {
-    const scrollTop = e.target.scrollTop
-    const height = e.target.clientHeight
+  const onScroll = (e) => {
+    const scrollTop = e.target.scrollTop;
+    const height = e.target.clientHeight;
 
-    const threshold = 1000
+    const threshold = 1000;
 
-    const opacity = clamp(scrollTop / threshold, 0, 0.25)
+    const opacity = clamp(scrollTop / threshold, 0, 0.25);
 
-    setShadow(opacity)
-    getScrollSpeed(scrollTop, old_scroll.current)
-    updateTheme(scrollTop)
+    setShadow(opacity);
+    getScrollSpeed(scrollTop, old_scroll.current);
+    updateTheme(scrollTop);
 
-    old_scroll.current = scrollTop
-  }
+    old_scroll.current = scrollTop;
+  };
 
   useEffect(() => {
-    const root = document.getElementById("gatsby-focus-wrapper")
+    const root = document.getElementById("gatsby-focus-wrapper");
 
-    root.addEventListener("scroll", onScroll)
-    ;() => root.removeEventListener("scroll", onScroll)
-  }, [])
+    root.addEventListener("scroll", onScroll);
+    () => root.removeEventListener("scroll", onScroll);
+  }, []);
 
-  const currentSection = sections.current[currentSectionIndex] || {}
+  const currentSection = sections.current[currentSectionIndex] || {};
 
   return (
     <>
@@ -92,10 +92,11 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
               id="nav_header"
             >
               <Burger
+                state={open}
+                data-cy={"burger"}
                 classNameBar={styles.burger_bar}
                 className={"sm:hidden mr-auto"}
-                state={open}
-                onClick={() => setOpen(prev => !prev)}
+                onClick={() => setOpen((prev) => !prev)}
               />
 
               <div className="flex align-center gap-6">
@@ -105,7 +106,7 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
               </div>
 
               <ul className="hidden m-auto mr-16 gap-16 sm:flex text-sm justify-between">
-                {Links.map(link => (
+                {Links.map((link) => (
                   <li key={link} className=" block">
                     <a href={`#${link}`} className={"w-full h-full block"}>
                       {link}
@@ -121,6 +122,8 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
           id="overlay"
           visible={open}
           type={"from_big"}
+          data-cy="overlay"
+          preserve={true}
           className={`md:hidden fixed flex flex-col  top-0 left-0 w-full h-screen bg-opacity-98 z-10 ${styles.overlay}`}
           // onClick={() => setOpen(prev => !prev)}
         >
@@ -129,7 +132,7 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
               classNameBar={styles.burger_bar}
               className={"sm:hidden"}
               state={open}
-              onClick={() => setOpen(prev => !prev)}
+              onClick={() => setOpen((prev) => !prev)}
             />
           </div>
           <ul className="m-auto  text-center text-2xl pb-32">
@@ -145,7 +148,7 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
                   <a
                     href={`#${link}`}
                     className={"w-full h-full block"}
-                    onClick={() => setOpen(prev => !prev)}
+                    onClick={() => setOpen((prev) => !prev)}
                   >
                     {link}
                   </a>
@@ -156,5 +159,5 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
         </FadeIn>
       </nav>
     </>
-  )
-}
+  );
+};

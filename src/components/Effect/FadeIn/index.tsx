@@ -1,17 +1,17 @@
-import React from "react"
-import PropTypes from "prop-types"
-import { AnimatePresence, motion } from "framer-motion"
+import React from "react";
+import PropTypes from "prop-types";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface Props {
-  id: string
-  delay?: number
-  visible: boolean
-  transition?: any
-  preserve?: boolean
-  className?: string
-  onClick?: () => void
-  children: React.ReactNode
-  type: "from_big" | "from_bottom" | "from_left" | "simple"
+  id: string;
+  delay?: number;
+  visible: boolean;
+  transition?: any;
+  preserve?: boolean;
+  className?: string;
+  onClick?: () => void;
+  children: React.ReactNode;
+  type: "from_big" | "from_bottom" | "from_left" | "simple";
 }
 
 const variants = {
@@ -36,7 +36,7 @@ const variants = {
     scale: 1,
     opacity: 1,
   },
-}
+};
 const FadeIn: React.FC<Props> = ({
   id,
   type,
@@ -51,7 +51,7 @@ const FadeIn: React.FC<Props> = ({
   if (preserve)
     return (
       <motion.span
-        id={id}
+        data-cy={id}
         key={id}
         initial={type}
         onClick={onClick}
@@ -62,15 +62,15 @@ const FadeIn: React.FC<Props> = ({
       >
         {children}
       </motion.span>
-    )
+    );
 
   return (
     <AnimatePresence>
       {visible && (
         <motion.div
-      
           key={id}
           exit={type}
+          data-cy={id}
           initial={type}
           onClick={onClick}
           animate={"visible"}
@@ -82,7 +82,7 @@ const FadeIn: React.FC<Props> = ({
         </motion.div>
       )}
     </AnimatePresence>
-  )
-}
+  );
+};
 
-export default FadeIn
+export default FadeIn;

@@ -13,7 +13,7 @@ const ContactForm = () => {
         name={"name"}
         label={"Name"}
         placeholder={"Your Name"}
-        id={"form_contact_field"}
+        data-cy={"form_contact_field"}
         required={true}
         state={[inputValue, setInputValue]}
         className={"w-full border-2 border-slate-900 p-1"}
@@ -23,7 +23,7 @@ const ContactForm = () => {
         label={"Contact"}
         type="email"
         placeholder={"Email or phone Number"}
-        id={"form_contact_field"}
+        data-cy={"form_contact_field"}
         required={true}
         state={[inputValue, setInputValue]}
         className={"w-full border-2 border-slate-900 p-1"}
@@ -32,7 +32,7 @@ const ContactForm = () => {
         name={"message"}
         label={"Message"}
         placeholder={"Write your message"}
-        id={"form_message_field"}
+        data-cy={"form message_field"}
         required={true}
         state={[inputValue, setInputValue]}
         className={"w-full border-2 border-slate-900 min-h-[250px] p-1"}
