@@ -75,7 +75,9 @@ const Layout = ({ children }) => {
         />
       </Helmet>
       <NavBar Links={Links} data={Link_data} />
-      <main className=" leading-loose">{children}</main>
+      <main className=" leading-loose" data-cy="main">
+        {children}
+      </main>
       <footer className="bg-green-600 text-white">
         <p className="lm-size flex justify-center py-2 ">
           Copyright 2021, created by Daniel kodoh

@@ -73,7 +73,7 @@ const Page = ({ data }) => {
                 leveraging the latest practices and tools of software
                 development.
               </p>
-              <LinkButton href="#Contact" className="w-fit h-full block mt-3">
+              <LinkButton href="#Contact" className="w-fit h-full block mt-3" data-cy={"call_to_action"}>
                 Get In Touch
               </LinkButton>
             </FadeIn>

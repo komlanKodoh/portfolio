@@ -123,14 +123,13 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
           visible={open}
           type={"from_big"}
           data-cy="overlay"
-          preserve={true}
           className={`md:hidden fixed flex flex-col  top-0 left-0 w-full h-screen bg-opacity-98 z-10 ${styles.overlay}`}
-          // onClick={() => setOpen(prev => !prev)}
         >
           <div className="m-2 py-1 h-10 absolute">
             <Burger
               classNameBar={styles.burger_bar}
               className={"sm:hidden"}
+              data-cy={"overlay_burger"}
               state={open}
               onClick={() => setOpen((prev) => !prev)}
             />

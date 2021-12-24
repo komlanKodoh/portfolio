@@ -11,24 +11,23 @@
 // please read our getting started guide:
 // https://on.cypress.io/introduction-to-cypress
 
-describe('example to-do app', () => {
+describe("example to-do app", () => {
   beforeEach(() => {
-    cy.visit('/')
-  })
+    cy.visit("/");
+  });
 
-  it('displays two todo items by default', () => {
+  it("displays two todo items by default", () => {
     cy.viewport(550, 770);
-    cy.get("[data-cy=overlay]").should("not.be.visible");
+
+    cy.get("[data-cy=call_to_action]").should("be.visible");
 
     cy.get("[data-cy=burger]").click();
+    cy.get("[data-cy=call_to_action]").should("not.be.visible");
+    cy.get("[data-cy=overlay]").should("be.visible");
 
-    // cy.get("[data-cy=overlay]").should("be.visible");
-
-    // cy.get('.todo-list li').should('have.length', 2)
-    // const result = true,
-    // result.should("be")
-  })
+    cy.get("[data-cy=overlay_burger]").click();
+    cy.get("[data-cy=call_to_action]").should("be.visible");
 
 
-
-})
+  });
+});
