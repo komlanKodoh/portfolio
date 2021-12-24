@@ -31,7 +31,7 @@ module.exports = {
         name: "Komlan Kodoh",
         short_name: "Kodoh",
         description: "Portfolio of full stack developer Daniel Kodoh",
-        icon: "src/images/page_icon.png",
+        icon: "static/page_icon.png",
       },
     },
     {
