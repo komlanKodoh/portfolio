@@ -73,6 +73,11 @@ const Layout = ({ children }) => {
           name="twitter:image"
           content="https://komlankodoh.com/page_icon.png"
         />
+
+        <meta name="geo.region" content="US-NE" />
+        <meta name="geo.placename" content="Omaha" />
+        <meta name="geo.position" content="39.78373;-100.445882" />
+        <meta name="ICBM" content="39.78373, -100.445882" />
       </Helmet>
       <NavBar Links={Links} data={Link_data} />
       <main className=" leading-loose" data-cy="main">
