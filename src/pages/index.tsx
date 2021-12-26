@@ -208,7 +208,7 @@ const Section = ({ className, index, children, theme, ...rest }) => {
   return (
     <div
       ref={sectionRef}
-      className={`${className} w-full scroll-m-16`}
+      className={`${className} w-full`}
       {...rest}
     >
       {children}

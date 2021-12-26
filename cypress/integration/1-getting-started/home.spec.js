@@ -11,12 +11,13 @@
 // please read our getting started guide:
 // https://on.cypress.io/introduction-to-cypress
 
-describe("example to-do app", () => {
+describe("Portfolio landing page", () => {
+
   beforeEach(() => {
     cy.visit("/");
   });
 
-  it("displays two todo items by default", () => {
+  it("should toggle the navigation menu", () => {
     cy.viewport(550, 770);
 
     cy.get("[data-cy=call_to_action]").should("be.visible");

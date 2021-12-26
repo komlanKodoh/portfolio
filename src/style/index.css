@@ -6,9 +6,10 @@
 @tailwind utilities;
 
 #gatsby-focus-wrapper{
+    scroll-padding-top: 2rem ;
     scroll-behavior: smooth;
-    overflow-y: auto;
     overflow-x: hidden;
+    overflow-y: auto;
     position:fixed;
     top: 0;
     left: 0;
