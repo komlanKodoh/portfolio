@@ -36,7 +36,7 @@ const Page = ({ data }) => {
                 visible={int_index >= 0}
                 type={"from_bottom"}
                 preserve={true}
-                transition={{ duration: 0.5 }}
+                transition={{ ease: "easeOut" ,duration: 1 }}
               >
                 <span className=" text-zinc-200">Hello, I am </span>
                 <span className=" text-zinc-200 underline underline-offset-4">
@@ -48,7 +48,7 @@ const Page = ({ data }) => {
                 visible={int_index >= 0}
                 type={"from_bottom"}
                 preserve={true}
-                transition={{ duration: 0.5, delay: 0.4 }}
+                transition={{ ease: "easeOut", duration: 1.0}}
               >
                 <span className=" text-4xl block py-2">
                   A Full Stack Web developer
@@ -61,7 +61,7 @@ const Page = ({ data }) => {
               visible={int_index >= 0}
               type={"from_left"}
               preserve={true}
-              transition={{ duration: 0.9, delay: 0.4 * 2 }}
+              transition={{ ease: "easeOut", duration: 1}}
             >
               <p className="m-0 py-2 text-slate-500">
                 I design and build{" "}
@@ -82,7 +82,7 @@ const Page = ({ data }) => {
               visible={int_index >= 0}
               type={"simple"}
               preserve={true}
-              transition={{ duration: 3, delay: 0.4 * 3 }}
+              transition={{ duration: 3, delay: 0.5}}
             >
               <Human className="sm:hidden w-1/2 h-auto float-right my-8" />
             </FadeIn>
@@ -92,7 +92,7 @@ const Page = ({ data }) => {
             visible={int_index >= 0}
             type={"simple"}
             preserve={true}
-            transition={{ duration: 3, delay: 0.4 * 3 }}
+            transition={{ duration:2, delay: 1 }}
           >
             <Human className="hidden sm:block my-auto w-full float-right" />
           </FadeIn>
