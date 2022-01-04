@@ -20,14 +20,14 @@ const variants = {
     opacity: 0,
   },
   from_left: {
-    x: -10,
+    x: -20,
     opacity: 0,
   },
   simple: {
     opacity: 0,
   },
   from_bottom: {
-    y: 10,
+    y: 20,
     opacity: 0,
   },
   visible: {
