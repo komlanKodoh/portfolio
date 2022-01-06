@@ -1,22 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { useNavContext } from ".";
 import * as styles from "./style.module.scss";
 import { clamp } from "../../lib/utils";
 import FadeIn from "../Effect/FadeIn";
 import Burger from "../Icons/Burger";
 import PageIcon from "../svg/PageIcon";
+import { connect } from "react-redux";
+import { focusSection, sectionData } from "../../Redux/slices/section";
+import { useSyncRef } from "../../lib/hooks";
 
-interface Props {
-  Links: string[];
-  data: { [key: string]: object };
+interface StateProps {
+  active: number;
+  sectionsData: sectionData[];
 }
 
-export const NavBar: React.FC<Props> = ({ Links, data }) => {
-  const { sections, currentSectionIndex, setCurrentSectionIndex } =
-    useNavContext();
+interface DispatchProps {
+  focusSection: (activeSection: number) => void;
+}
+
+interface ComponentProps {
+  Links: string[];
+}
+
+type Props = StateProps & DispatchProps & ComponentProps;
+
+const NavBar = ({ Links, active, sectionsData , focusSection }: Props) => {
+
+  const sectionsDataRef = useSyncRef(sectionsData);
+
   const [open, setOpen] = React.useState(false);
 
-  // const [theme, setTheme] = useState("default")
 
   const [visible, setVisible] = useState(true);
 
@@ -35,19 +47,20 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
   const updateTheme = (scrollTop) => {
     let index = 0;
     let height_threshold = 0;
-    // console.log( sections.current )
 
-    if (scrollTop === 0) return setCurrentSectionIndex(0);
+    if (scrollTop === 0) return focusSection(0);
 
-    for (const section of sections.current) {
+    for (const section of sectionsDataRef.current) {
       const height = section?.height || 0;
       height_threshold += height;
       if (height_threshold > scrollTop) break;
       index++;
     }
-    setCurrentSectionIndex(index);
+
+    focusSection(index);
   };
 
+  // const state = useSelector(state => state.sections)
   const onScroll = (e) => {
     const scrollTop = e.target.scrollTop;
     const height = e.target.clientHeight;
@@ -70,7 +83,7 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
     () => root.removeEventListener("scroll", onScroll);
   }, []);
 
-  const currentSection = sections.current[currentSectionIndex] || {};
+  const currentSection = sectionsData[active] || {} as sectionData;
 
   return (
     <>
@@ -160,3 +173,23 @@ export const NavBar: React.FC<Props> = ({ Links, data }) => {
     </>
   );
 };
+
+const mapStateToProps = (state, ownProps: ComponentProps) => {
+  return {
+    sectionsData: state.sections.sectionsData,
+    active: state.sections.active,
+  };
+};
+const mapDispatchToProps = (dispatch, ownProps: ComponentProps) => {
+  return {
+    focusSection: (activeSection: number) =>{{
+      dispatch(focusSection(activeSection))
+    }
+    }
+  };
+};
+
+export default connect<StateProps, DispatchProps, ComponentProps>(
+  mapStateToProps,
+  mapDispatchToProps
+)(NavBar);

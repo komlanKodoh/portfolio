@@ -1,4 +1,4 @@
-require("dotenv").config()
+require("dotenv").config();
 
 module.exports = {
   siteMetadata: {
@@ -32,6 +32,25 @@ module.exports = {
         short_name: "Kodoh",
         description: "Portfolio of full stack developer Daniel Kodoh",
         icon: "static/page_icon.png",
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        trackingIds: [
+          "G-6PKK4EW180"
+        ],
+        gtagConfig: {
+          optimize_id: "OPT_CONTAINER_ID",
+          anonymize_ip: true,
+          cookie_expires: 0,
+        },
+        pluginConfig: {
+          // Puts tracking script in the head instead of the body
+          head: false,
+          // Setting this parameter is also optional
+          respectDNT: true,
+        },
       },
     },
     {
