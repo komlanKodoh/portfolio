@@ -12,8 +12,9 @@ import { useStaticQuery, graphql } from "gatsby";
 import "../../style/tailwind.css";
 import Burger from "../Icons/Burger";
 import FadeIn from "../Effect/FadeIn";
-import { NavBar } from "./NavBar";
+import NavBar from "./NavBar";
 import { any } from "prop-types";
+import ReduxProvider from "../../Redux/ReduxProvider";
 
 export const Link_data = {};
 export const Links = ["About", "Contact", "Work"];
@@ -26,9 +27,7 @@ const Layout = ({ children }) => {
   const [currentSectionIndex, setCurrentSectionIndex] = React.useState(0);
 
   return (
-    <NavContext.Provider
-      value={{ sections, currentSectionIndex, setCurrentSectionIndex }}
-    >
+    <>
       <Helmet
         htmlAttributes={{
           lang: "en",
@@ -79,7 +78,7 @@ const Layout = ({ children }) => {
         <meta name="geo.position" content="39.78373;-100.445882" />
         <meta name="ICBM" content="39.78373, -100.445882" />
       </Helmet>
-      <NavBar Links={Links} data={Link_data} />
+      <NavBar Links={Links} />
       <main className=" leading-loose" data-cy="main">
         {children}
       </main>
@@ -88,11 +87,8 @@ const Layout = ({ children }) => {
           Copyright 2021, created by Daniel kodoh
         </p>
       </footer>
-    </NavContext.Provider>
+    </>
   );
 };
 
-export const useNavContext = () => {
-  return React.useContext(NavContext);
-};
 export default Layout;

@@ -2,8 +2,6 @@ import { graphql } from "gatsby";
 import React, { useEffect, useState } from "react";
 import { LinkButton } from "../components/Basic/Button";
 import Img from "gatsby-image";
-
-import { useNavContext } from "../components/Layout";
 import Human from "../components/svg/Human";
 import ContactForm from "../components/BuildingBlocks/ContactForm";
 import SeparationH from "../components/Basic/SeparationH";
@@ -12,6 +10,7 @@ import FadeIn from "../components/Effect/FadeIn";
 import Gmail from "../components/svg/Gmail";
 import Phone from "../components/svg/Phone";
 import ShowProject from "../components/BuildingBlocks/ShowProject";
+import PageSection from "../components/BuildingBlocks/pageSection";
 
 const Page = ({ data }) => {
   const [int_index, setInt_index] = useState(10);
@@ -20,10 +19,10 @@ const Page = ({ data }) => {
 
   return (
     <>
-      <Section
+      <PageSection
         className=" bg-slate-900  bg-cover relative h-screen -sm:h-auto max-h-[900px]"
         theme="dark"
-        index="1"
+        index={1}
         id="Home"
         data-cy={"landing_home"}
         // observer={observer}
@@ -97,12 +96,12 @@ const Page = ({ data }) => {
             <Human className="hidden sm:block my-auto w-full float-right" />
           </FadeIn>
         </div>
-      </Section>
-      <Section
+      </PageSection>
+      <PageSection
         className="flex bg-white text-gray-900 relative flex-wrap"
         id="About"
         theme="white"
-        index="2"
+        index={2}
         data-cy="landing_about"
       >
         <div className="lm-size w-full grid sm:grid-cols-2  py-10 text-justify">
@@ -117,8 +116,7 @@ const Page = ({ data }) => {
           <div className="">
             <h1 className=" text-4xl -sm:hidden text-center m-4">About me</h1>
             <p className=" leading-loose">
-              I am Daniel, a computer science major. When not studying to
-              maintain my 4.0 gpa, I like learning about new technology and
+              I am Daniel, a computer science major. I like learning about new technology and
               build interactive user experiences. <br />
               <br />
               While I explore all kind of technologies my set off skills is
@@ -145,10 +143,10 @@ const Page = ({ data }) => {
             </ul>
           </div>
         </div>
-      </Section>
-      <Section
-        className="bg-slate-900  flex"
-        index="3"
+      </PageSection>
+      <PageSection
+        className="bg-gradient-to-b  from-slate-900  to-black flex"
+        index={3}
         id="Work"
         theme="blue"
         data-cy={"landing_projects"}
@@ -165,12 +163,12 @@ const Page = ({ data }) => {
             />
           ))}
         </div>
-      </Section>
+      </PageSection>
 
-      <Section
+      <PageSection
         theme="black"
         className="bg-white flex justify-center align-center "
-        index="4"
+        index={4}
         id="Contact"
         data-cy="landing_contact"
       >
@@ -190,29 +188,8 @@ const Page = ({ data }) => {
             </a>
           </div>
         </div>
-      </Section>
+      </PageSection>
     </>
-  );
-};
-
-const Section = ({ className, index, children, theme, ...rest }) => {
-  const sectionRef = React.useRef<HTMLDivElement>();
-  const { sections } = useNavContext();
-
-  useEffect(() => {
-    sections.current[index] = {
-      height: sectionRef.current?.offsetHeight,
-      theme,
-    };
-  }, [sectionRef.current]);
-  return (
-    <div
-      ref={sectionRef}
-      className={`${className} w-full`}
-      {...rest}
-    >
-      {children}
-    </div>
   );
 };
 

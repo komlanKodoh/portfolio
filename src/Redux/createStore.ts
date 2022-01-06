@@ -1,16 +1,10 @@
-import { configureStore } from import { configureStore } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
+import sectionsReducer from './slices/section'
 
-const reducer = (state, action) => {
-  if (action.type === `INCREMENT`) {
-    return Object.assign({}, state, {
-      count: state.count + 1,
-    })
-  }
-  return state
-}
+const createStore = () => configureStore({
+  reducer: {
+    sections: sectionsReducer,
+  },
+})
 
-const initialState = { count: 0 }
-
-const _createStore = () => configureStore(reducer, initialState)
-
-export default _createStore
+export default createStore;

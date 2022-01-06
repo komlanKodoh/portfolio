@@ -14,3 +14,13 @@ export const useIntersectionObserver: (
 
   return observer
 }
+
+export function useSyncRef<T>(state:T){
+  const ref = useRef<T>();
+  
+  useEffect(() => {
+    ref.current = state;
+  }, [state])
+
+  return ref as React.MutableRefObject<T>;
+}
