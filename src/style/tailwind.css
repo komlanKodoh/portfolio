@@ -550,9 +550,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: 2rem;
 }
 
-.my-24 {
-  margin-top: 6rem;
-  margin-bottom: 6rem;
+.my-12 {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 .my-4 {
@@ -568,11 +568,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .my-1 {
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
-}
-
-.my-12 {
-  margin-top: 3rem;
-  margin-bottom: 3rem;
 }
 
 .mt-3 {
@@ -597,10 +592,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .mr-16 {
   margin-right: 4rem;
-}
-
-.mt-24 {
-  margin-top: 6rem;
 }
 
 .block {
@@ -897,8 +888,72 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(15 23 42 / 0));
 }
 
+.from-black {
+  --tw-gradient-from: #000;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(0 0 0 / 0));
+}
+
+.from-purple-900 {
+  --tw-gradient-from: #581c87;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(88 28 135 / 0));
+}
+
+.from-stone-900 {
+  --tw-gradient-from: #1c1917;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(28 25 23 / 0));
+}
+
+.from-stone-300 {
+  --tw-gradient-from: #d6d3d1;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(214 211 209 / 0));
+}
+
+.from-stone-800 {
+  --tw-gradient-from: #292524;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(41 37 36 / 0));
+}
+
+.from-slate-800 {
+  --tw-gradient-from: #1e293b;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(30 41 59 / 0));
+}
+
+.from-neutral-900 {
+  --tw-gradient-from: #171717;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(23 23 23 / 0));
+}
+
+.from-blue-900 {
+  --tw-gradient-from: #1e3a8a;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(30 58 138 / 0));
+}
+
 .to-black {
   --tw-gradient-to: #000;
+}
+
+.to-slate-900 {
+  --tw-gradient-to: #0f172a;
+}
+
+.to-purple-900 {
+  --tw-gradient-to: #581c87;
+}
+
+.to-gray-900 {
+  --tw-gradient-to: #111827;
+}
+
+.to-stone-900 {
+  --tw-gradient-to: #1c1917;
+}
+
+.to-stone-700 {
+  --tw-gradient-to: #44403c;
+}
+
+.to-neutral-900 {
+  --tw-gradient-to: #171717;
 }
 
 .bg-cover {
@@ -1151,14 +1206,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 @media (max-width: 639px) {
   .-sm\:col-start-1 {
     grid-column-start: 1;
-  }
-
-  .-sm\:col-start-2 {
-    grid-column-start: 2;
-  }
-
-  .-sm\:row-start-1 {
-    grid-row-start: 1;
   }
 
   .-sm\:row-start-2 {

@@ -145,7 +145,7 @@ const Page = ({ data }) => {
         </div>
       </PageSection>
       <PageSection
-        className="bg-gradient-to-b  from-slate-900  to-black flex"
+        className="bg-gradient-to-b  from-blue-900 to-slate-900 flex"
         index={3}
         id="Work"
         theme="blue"
