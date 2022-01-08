@@ -145,7 +145,7 @@ const Page = ({ data }) => {
         </div>
       </PageSection>
       <PageSection
-        className="bg-gradient-to-b  from-blue-900 to-slate-900 flex"
+        className="bg-gradient-to-b  from-black via-slate-900 to-black flex"
         index={3}
         id="Work"
         theme="blue"
@@ -209,7 +209,7 @@ export const query = graphql`
           id
           previewImage {
             title
-            gatsbyImageData(layout: FULL_WIDTH)
+            gatsbyImageData(layout: FULL_WIDTH, placeholder: BLURRED, quality: 50)
           }
         }
       }

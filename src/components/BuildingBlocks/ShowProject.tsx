@@ -6,7 +6,7 @@ const ShowProject = ({ project, right }) => {
 
   return (
     <div className="grid sm:grid-cols-2 grid-cols-1 gap-x-12 place-items-center my-12">
-      <div className="relative rounded-md overflow-hidden w-full">
+      <div className="relative rounded-md overflow-hidden w-full shadow-xl shadow-black">
         <GatsbyImage
           className=""
           image={project.previewImage?.gatsbyImageData}
