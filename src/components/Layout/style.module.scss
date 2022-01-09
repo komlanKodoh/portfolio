@@ -1,7 +1,7 @@
 .ctn{
   --color: white;
-  --bg-color: rgb(12, 12 ,12);
-  --bar-bg-color: rgb(12, 12, 12);
+  --bg-color: hsl(0, 0%, 5%);
+  --bar-bg-color: hsl(0, 0%, 5%);
   --burger-bg-color: rgb(206, 195, 195);
   color: var(--color);
 }
@@ -31,7 +31,7 @@
 .dark {
   --color: white;
   --bg-color: hsl(0, 0%, 5%);
-  --bar-bg-color: #121212;
+  --bar-bg-color: hsl(0, 0%, 10%);
   --burger-bg-color: rgb(206, 195, 195);
 }
 

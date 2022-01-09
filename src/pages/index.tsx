@@ -20,7 +20,7 @@ const Page = ({ data }) => {
   return (
     <>
       <PageSection
-        className=" bg-slate-900  bg-cover relative h-screen -sm:h-auto max-h-[900px]"
+        className=" bg-cover relative  -sm:h-auto max-h-[900px]"
         theme="dark"
         index={1}
         id="Home"
@@ -98,7 +98,7 @@ const Page = ({ data }) => {
         </div>
       </PageSection>
       <PageSection
-        className="flex bg-white text-gray-900 relative flex-wrap"
+        className="flex text-gray-900 relative flex-wrap"
         id="About"
         theme="white"
         index={2}
@@ -167,7 +167,7 @@ const Page = ({ data }) => {
 
       <PageSection
         theme="black"
-        className="bg-white flex justify-center align-center "
+        className="flex justify-center align-center "
         index={4}
         id="Contact"
         data-cy="landing_contact"
