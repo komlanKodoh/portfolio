@@ -82,7 +82,7 @@ const Layout = ({ children }) => {
       <main className=" leading-loose" data-cy="main">
         {children}
       </main>
-      <footer className="bg-green-600 text-white">
+      <footer className="bg-cover text-white">
         <p className="lm-size flex justify-center py-2 ">
           Copyright 2021, created by Daniel kodoh
         </p>
