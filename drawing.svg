@@ -29,8 +29,8 @@
      units="px"
      width="512px"
      inkscape:zoom="0.73754846"
-     inkscape:cx="194.56349"
-     inkscape:cy="300.31925"
+     inkscape:cx="179.64921"
+     inkscape:cy="259.64396"
      inkscape:window-width="1366"
      inkscape:window-height="660"
      inkscape:window-x="0"
@@ -58,33 +58,26 @@
        id="text7248"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect7250);fill:#000000;fill-opacity:1;stroke:none" />
     <rect
-       style="fill:#ffffff;stroke:#fef900;stroke-width:5.58262"
+       style="fill:#1f1c24;stroke:none;stroke-width:5.58262"
        id="rect848"
        width="124.25312"
        height="125.78127"
        x="4.3167577"
-       y="4.0987344" />
-    <rect
-       style="fill:none;stroke:#fef900;stroke-width:5.95312;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect27301"
-       width="86.388"
-       height="86.388"
-       x="51.470432"
-       y="-45.83572"
-       transform="rotate(46.782409)"
-       inkscape:export-filename="/home/daniel/Desktop/portfolio/src/images/page_icon.png"
+       y="4.0987344"
+       ry="18.948969"
+       inkscape:export-filename="/home/daniel/Desktop/portfolio/static/page_icon.png"
        inkscape:export-xdpi="200.063"
        inkscape:export-ydpi="200.063" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:107.973px;line-height:1.25;font-family:Dyuthi;-inkscape-font-specification:'Dyuthi, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#121212;fill-opacity:1;stroke:none;stroke-width:2.69934"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:107.973px;line-height:1.25;font-family:Dyuthi;-inkscape-font-specification:'Dyuthi, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.69934"
        x="34.958073"
        y="98.154167"
        id="text34311"
        transform="scale(1.0060489,0.99398748)"><tspan
          sodipodi:role="line"
          id="tspan34309"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:107.973px;font-family:Dyuthi;-inkscape-font-specification:'Dyuthi, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:2.69934;fill:#121212;fill-opacity:1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:107.973px;font-family:Dyuthi;-inkscape-font-specification:'Dyuthi, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:2.69934;fill:#ffffff;fill-opacity:1"
          x="34.958073"
          y="98.154167">K</tspan></text>
   </g>
