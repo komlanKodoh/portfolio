@@ -4,6 +4,7 @@
   "description": "A simple starter to get up and developing quickly with Gatsby",
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "types": "index.d.ts",
   "engines": {
     "node": "14.x",
     "npm": "8.x"
@@ -39,7 +40,6 @@
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
     "sass": "^1.45.0",
-    "styled-components": "^5.3.3",
     "tailwindcss": "^3.0.1"
   },
   "devDependencies": {

@@ -1,24 +1,24 @@
-import React from "react"
+import React from "react";
 
 interface Props
   extends React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  theme?: string
-  effect?: string
-  className?: string
-  children: React.ReactNode
+  theme?: keyof typeof PRESET_THEME;
+  effect?: string;
+  className?: string;
+  children: React.ReactNode;
 }
 
 const PRESET_THEME = {
   default: "inline-block py-2 px-8 border-2 bg-slate-800 border-blue-900",
   one: "px-4 py-1 border-2 bg-black text-white shadow",
-}
+};
 
 const PRESET_ANIMATION = {
   default: "",
-}
+};
 
 const Button: React.FC<Props> = ({
   className,
@@ -27,26 +27,26 @@ const Button: React.FC<Props> = ({
   effect,
   ...props
 }) => {
-  const classProp = `inline-block ${
-    PRESET_THEME[theme] ?? PRESET_THEME.default
-  } ${PRESET_ANIMATION[theme] ?? PRESET_ANIMATION.default} ${className}`
+  const classProp = `inline-block ${PRESET_THEME[theme ?? "default"]} ${
+    PRESET_ANIMATION[theme ?? "default"]
+  } ${className}`;
 
   return (
     <button className={classProp} {...props}>
       {children}
     </button>
-  )
-}
+  );
+};
 
 interface PropsLink
   extends React.DetailedHTMLProps<
     React.AnchorHTMLAttributes<HTMLAnchorElement>,
     HTMLAnchorElement
   > {
-  theme?: string
-  effect?: string
-  className?: string
-  children: React.ReactNode
+  theme?: string;
+  effect?: string;
+  className?: string;
+  children: React.ReactNode;
 }
 
 export const LinkButton: React.FC<PropsLink> = ({
@@ -56,15 +56,15 @@ export const LinkButton: React.FC<PropsLink> = ({
   effect,
   ...props
 }) => {
-  const classProp = `inline-block ${
-    PRESET_THEME[theme] ?? PRESET_THEME.default
-  } ${PRESET_ANIMATION[theme] ?? PRESET_ANIMATION.default} ${className}`
+  const classProp = `inline-block ${PRESET_THEME[theme ?? "default"]} ${
+    PRESET_ANIMATION[theme ?? "default"]
+  } ${className}`;
 
   return (
     <a {...props} className={classProp}>
       {children}
     </a>
-  )
-}
+  );
+};
 
-export default Button
+export default Button;

@@ -27,11 +27,14 @@ const PageSection = ({
   loadMyInfo,
   ...rest
 }: Props) => {
-  const sectionRef = React.useRef<HTMLDivElement>();
+  const sectionRef = React.useRef<HTMLDivElement>(null) as {
+    current: HTMLDivElement;
+  };
 
   useEffect(() => {
-    loadMyInfo({ height: sectionRef.current?.offsetHeight , theme});
+    loadMyInfo({ height: sectionRef.current.offsetHeight, theme });
   }, [sectionRef.current]);
+
   return (
     <div ref={sectionRef} className={`${className} w-full`} {...rest}>
       {children}
@@ -41,6 +44,7 @@ const PageSection = ({
 
 const mapStateToProps = () => {};
 const mapDispatchToProps = (dispatch, ownProps: ComponentProps) => {
+
   return {
     loadMyInfo: (sectionData) =>
       dispatch(
