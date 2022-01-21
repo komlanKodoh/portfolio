@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react"
 
 export const useIntersectionObserver: (
-  cb,
-  config,
+  cb: IntersectionObserverCallback,
+  config: IntersectionObserverInit,
   getRoot?: () => HTMLElement
 ) => IntersectionObserver = (cb, config, getRoot) => {
   const [observer, setObserver] = useState<IntersectionObserver>()
@@ -12,7 +12,7 @@ export const useIntersectionObserver: (
     setObserver(new IntersectionObserver(cb, config))
   }, [])
 
-  return observer
+  return observer as IntersectionObserver;
 }
 
 export function useSyncRef<T>(state:T){
@@ -24,3 +24,4 @@ export function useSyncRef<T>(state:T){
 
   return ref as React.MutableRefObject<T>;
 }
+

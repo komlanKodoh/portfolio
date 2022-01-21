@@ -4,8 +4,8 @@ interface Props {
   width: number
   className: string
   children: React.ReactNode
-  rotation?: { theta: number; phi: number }
-  init?: { theta: number; phi: number }
+  rotation: { theta: number; phi: number }
+  init: { theta: number; phi: number }
 }
 
 

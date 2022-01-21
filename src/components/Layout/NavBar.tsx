@@ -4,7 +4,7 @@ import { clamp } from "../../lib/utils";
 import FadeIn from "../Effect/FadeIn";
 import Burger from "../Icons/Burger";
 import PageIcon from "../svg/PageIcon";
-import { connect } from "react-redux";
+import { connect, MapStateToPropsFactory } from "react-redux";
 import { focusSection, sectionData } from "../../Redux/slices/section";
 import { useSyncRef } from "../../lib/hooks";
 
@@ -28,6 +28,7 @@ const NavBar = ({ Links, active, sectionsData , focusSection }: Props) => {
   const sectionsDataRef = useSyncRef(sectionsData);
 
   const [open, setOpen] = React.useState(false);
+  const activeRef = useSyncRef(active);
 
 
   const [visible, setVisible] = useState(true);
@@ -44,6 +45,8 @@ const NavBar = ({ Links, active, sectionsData , focusSection }: Props) => {
     }
   };
 
+
+
   const updateTheme = (scrollTop) => {
     let index = 0;
     let height_threshold = 0;
@@ -56,6 +59,8 @@ const NavBar = ({ Links, active, sectionsData , focusSection }: Props) => {
       if (height_threshold > scrollTop) break;
       index++;
     }
+    
+    if (activeRef.current === index) return;
 
     focusSection(index);
   };
@@ -63,7 +68,6 @@ const NavBar = ({ Links, active, sectionsData , focusSection }: Props) => {
   // const state = useSelector(state => state.sections)
   const onScroll = (e) => {
     const scrollTop = e.target.scrollTop;
-    const height = e.target.clientHeight;
 
     const threshold = 1000;
 
@@ -77,7 +81,7 @@ const NavBar = ({ Links, active, sectionsData , focusSection }: Props) => {
   };
 
   useEffect(() => {
-    const root = document.getElementById("gatsby-focus-wrapper");
+    const root = document.getElementById("gatsby-focus-wrapper") as HTMLElement;
 
     root.addEventListener("scroll", onScroll);
     () => root.removeEventListener("scroll", onScroll);
@@ -178,8 +182,9 @@ const mapStateToProps = (state, ownProps: ComponentProps) => {
   return {
     sectionsData: state.sections.sectionsData,
     active: state.sections.active,
-  };
+   };
 };
+
 const mapDispatchToProps = (dispatch, ownProps: ComponentProps) => {
   return {
     focusSection: (activeSection: number) =>{{
