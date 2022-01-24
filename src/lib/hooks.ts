@@ -25,3 +25,11 @@ export function useSyncRef<T>(state:T){
   return ref as React.MutableRefObject<T>;
 }
 
+export const useFirstTimeLoading = () => {
+  const load = useRef(true);
+  useEffect(() => {
+    load.current = false;
+  }, []);
+
+  return load.current as boolean;
+};

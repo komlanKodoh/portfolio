@@ -23,13 +23,11 @@ interface ComponentProps {
 
 type Props = StateProps & DispatchProps & ComponentProps;
 
-const NavBar = ({ Links, active, sectionsData , focusSection }: Props) => {
-
+const NavBar = ({ Links, active, sectionsData, focusSection }: Props) => {
   const sectionsDataRef = useSyncRef(sectionsData);
 
   const [open, setOpen] = React.useState(false);
   const activeRef = useSyncRef(active);
-
 
   const [visible, setVisible] = useState(true);
 
@@ -45,8 +43,6 @@ const NavBar = ({ Links, active, sectionsData , focusSection }: Props) => {
     }
   };
 
-
-
   const updateTheme = (scrollTop) => {
     let index = 0;
     let height_threshold = 0;
@@ -59,13 +55,12 @@ const NavBar = ({ Links, active, sectionsData , focusSection }: Props) => {
       if (height_threshold > scrollTop) break;
       index++;
     }
-    
+
     if (activeRef.current === index) return;
 
     focusSection(index);
   };
 
-  // const state = useSelector(state => state.sections)
   const onScroll = (e) => {
     const scrollTop = e.target.scrollTop;
 
@@ -87,93 +82,79 @@ const NavBar = ({ Links, active, sectionsData , focusSection }: Props) => {
     () => root.removeEventListener("scroll", onScroll);
   }, []);
 
-  const currentSection = sectionsData[active] || {} as sectionData;
+  const currentSection = sectionsData[active] || ({} as sectionData);
 
   return (
     <>
       <nav
-        className={`sticky top-0 z-40 ${styles.ctn} ${
+        className={`sticky top-0 w-full h-0 z-40 ${styles.ctn} ${
           styles[currentSection.theme]
         }`}
+        style={{
+          boxShadow: `0 25px 50px -12px rgba(0,0,0, ${shadow})`,
+          // transform: visible && "translateY(0%)" || "translateY(-150%)"
+        }}
       >
-        <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-full h-0 `}>
+        <div className={`p-2  ${styles.nav}`}>
           <div
-            className={`p-2  ${styles.nav} `}
-            style={{
-              boxShadow: `0 25px 50px -12px rgba(0,0,0, ${shadow})`,
-              // transform: visible && "translateY(0%)" || "translateY(-150%)"
-            }}
+            className={`p-1 h-8 max-w-screen-lg m-auto rounded flex`}
+            id="nav_header"
           >
-            <div
-              className={`p-1 h-8 max-w-screen-lg m-auto rounded flex`}
-              id="nav_header"
-            >
-              <Burger
-                state={open}
-                data-cy={"burger"}
-                classNameBar={styles.burger_bar}
-                className={"sm:hidden mr-auto"}
-                onClick={() => setOpen((prev) => !prev)}
-              />
-
-              <div className="flex align-center gap-6">
-                <PageIcon className="inline-block h-full w-auto -sm:hidden " />
-                <a href="/#Home">KODOH</a>
-                <PageIcon className="inline-block h-full w-auto sm:hidden " />
-              </div>
-
-              <ul className="hidden m-auto mr-16 gap-16 sm:flex text-sm justify-between">
-                {Links.map((link) => (
-                  <li key={link} className=" block">
-                    <a href={`#${link}`} className={"w-full h-full block"}>
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <FadeIn
-          id="overlay"
-          visible={open}
-          type={"from_big"}
-          data-cy="overlay"
-          className={`md:hidden fixed flex flex-col  top-0 left-0 w-full h-screen bg-opacity-98 z-10 ${styles.overlay}`}
-        >
-          <div className="m-2 py-1 h-10 absolute">
             <Burger
-              classNameBar={styles.burger_bar}
-              className={"sm:hidden"}
-              data-cy={"overlay_burger"}
               state={open}
+              data-cy={"burger"}
+              classNameBar={styles.burger_bar}
+              className={"sm:hidden mr-auto"}
               onClick={() => setOpen((prev) => !prev)}
             />
-          </div>
-          <ul className="m-auto  text-center text-2xl pb-32">
-            {Links.map((link, index) => (
-              <FadeIn
-                visible={open}
-                key={link}
-                id={link}
-                type="from_bottom"
-                delay={index / 10}
-              >
-                <li className={" py-4"}>
-                  <a
-                    href={`#${link}`}
-                    className={"w-full h-full block"}
-                    onClick={() => setOpen((prev) => !prev)}
+
+            <FadeIn
+              id="overlay"
+              visible={open}
+              type={"from_big"}
+              data-cy="overlay"
+              className={`md:hidden fixed flex flex-col  top-0 left-0 w-full h-screen bg-opacity-98 z-10 ${styles.overlay}`}
+            >
+              <ul className="m-auto  text-center text-2xl pb-32">
+                {Links.map((link, index) => (
+                  <FadeIn
+                    visible={open}
+                    key={link}
+                    id={link}
+                    type="from_bottom"
+                    delay={index / 10}
                   >
+                    <li className={" py-4"}>
+                      <a
+                        href={`#${link}`}
+                        className={"w-full h-full block"}
+                        onClick={() => setOpen((prev) => !prev)}
+                      >
+                        {link}
+                      </a>
+                    </li>
+                  </FadeIn>
+                ))}
+              </ul>
+            </FadeIn>
+
+            <div className="flex align-center gap-6">
+              <PageIcon className="inline-block h-full w-auto -sm:hidden " />
+              <a href="/#Home">KODOH</a>
+              <PageIcon className="inline-block h-full w-auto sm:hidden " />
+            </div>
+
+            <ul className="hidden m-auto mr-16 gap-16 sm:flex text-sm justify-between">
+              {Links.map((link) => (
+                <li key={link} className=" block">
+                  <a href={`#${link}`} className={"w-full h-full block"}>
                     {link}
                   </a>
                 </li>
-              </FadeIn>
-            ))}
-          </ul>
-        </FadeIn>
-        
+              ))}
+            </ul>
+          </div>
+        </div>
       </nav>
     </>
   );
@@ -183,15 +164,16 @@ const mapStateToProps = (state, ownProps: ComponentProps) => {
   return {
     sectionsData: state.sections.sectionsData,
     active: state.sections.active,
-   };
+  };
 };
 
 const mapDispatchToProps = (dispatch, ownProps: ComponentProps) => {
   return {
-    focusSection: (activeSection: number) =>{{
-      dispatch(focusSection(activeSection))
-    }
-    }
+    focusSection: (activeSection: number) => {
+      {
+        dispatch(focusSection(activeSection));
+      }
+    },
   };
 };
 
