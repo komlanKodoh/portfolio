@@ -17,7 +17,7 @@ import { any } from "prop-types";
 import ReduxProvider from "../../Redux/ReduxProvider";
 
 export const Link_data = {};
-export const Links = ["About", "Contact", "Work"];
+export const Links = ["About", "Work", "Contact"];
 
 export const NavContext = React.createContext<{ [key: string]: any }>({});
 
