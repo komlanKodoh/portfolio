@@ -11,6 +11,8 @@ import Gmail from "../components/svg/Gmail";
 import Phone from "../components/svg/Phone";
 import ShowProject from "../components/BuildingBlocks/ShowProject";
 import PageSection from "../components/BuildingBlocks/pageSection";
+import DottyBg from "../components/Basic/DottyBg";
+import StandingHuman from "../components/svg/Human/Standing";
 
 const Page = ({ data }) => {
   const [int_index, setInt_index] = useState(10);
@@ -74,18 +76,19 @@ const Page = ({ data }) => {
               </p>
               <LinkButton
                 href="#Contact"
-                className="w-fit h-full block mt-3"
+                className="w-fit h-full block mt-3 border-red-600 bg-black"
                 data-cy={"call_to_action"}
               >
                 Get In Touch
               </LinkButton>
             </FadeIn>
+
             <FadeIn
               id="human_svg_sm"
               visible={int_index >= 0}
               type={"simple"}
               preserve={true}
-              transition={{ duration: 3, delay: 0.5 }}
+              transition={{ duration: 3, delay: 0 }}
             >
               <Human className="sm:hidden w-1/2 h-auto float-right my-8" />
             </FadeIn>
@@ -95,10 +98,27 @@ const Page = ({ data }) => {
             visible={int_index >= 0}
             type={"simple"}
             preserve={true}
-            transition={{ duration: 2, delay: 1 }}
+            transition={{ duration: 2, delay: 0 }}
           >
             <Human className="hidden sm:block my-auto w-full float-right" />
           </FadeIn>
+          <DottyBg
+            bgSize="1em"
+            color="white"
+            className=" w-52 h-28 absolute bottom-0  -left-4  z-10 -sm:hidden -translate-x-full "
+          />
+
+          <DottyBg
+            bgSize="1em"
+            color="black"
+            className=" w-52 absolute -bottom-0  -left-4  z-10 -sm:hidden -translate-x-full h-20 translate-y-20"
+          /> 
+
+          <DottyBg
+            bgSize="1em"
+            color="white"
+            className=" w-52 h-52 absolute top-9 -z-10 right-0 -sm:hidden translate-x-1/2"
+          />
         </div>
       </PageSection>
       <PageSection
@@ -108,13 +128,10 @@ const Page = ({ data }) => {
         index={2}
         data-cy="landing_about"
       >
-        <div className="lm-size w-full grid sm:grid-cols-2  py-10 text-justify">
-          <h1 className=" text-2xl text-center sm:hidden">About me</h1>
-          <div className="flex w-full h-full py-8">
-            <Img
-              className="w-1/2 m-auto rounded-xl border-4 shadow-2xl "
-              fluid={data.me.childImageSharp.fluid}
-            />
+        <div className="lm-size w-full grid md:grid-cols-2  py-10 text-justify">
+          <h1 className=" text-2xl text-center sm:hidden "> - About me </h1>
+          <div className="w-full h-full py-8 flex">
+            <StandingHuman className="w-full h-auto md:-translate-x-12" />
           </div>
 
           <div className="">
@@ -130,13 +147,20 @@ const Page = ({ data }) => {
             </p>
 
             <ul className="grid grid-cols-3 mt-1 list-inside list-disc py-4 sm:pl-0 gap-4">
-              {["My sql", "Java", "CSS", "HTML", "React", "Vue", "NoSql", "Typescript"].map(
-                (item, index) => (
-                  <li className="inline-block whitespace-nowrap" key={item}>
-                    # - {item}
-                  </li>
-                )
-              )}
+              {[
+                "My sql",
+                "Java",
+                "CSS",
+                "HTML",
+                "React",
+                "Vue",
+                "NoSql",
+                "Typescript",
+              ].map((item, index) => (
+                <li className="inline-block whitespace-nowrap" key={item}>
+                  # - {item}
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -220,6 +244,15 @@ export const query = graphql`
     }
 
     me: file(relativePath: { eq: "me.jpeg" }) {
+      id
+      childImageSharp {
+        fluid {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+
+    cs: file(relativePath: { eq: "cs.png" }) {
       id
       childImageSharp {
         fluid {

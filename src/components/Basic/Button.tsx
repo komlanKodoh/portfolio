@@ -12,7 +12,7 @@ interface Props
 }
 
 const PRESET_THEME = {
-  default: "inline-block py-2 px-8 border-2 bg-slate-800 border-blue-900",
+  default: "inline-block py-2 px-8 border-2",
   one: "px-4 py-1 border-2 bg-black text-white shadow",
 };
 
@@ -43,7 +43,7 @@ interface PropsLink
     React.AnchorHTMLAttributes<HTMLAnchorElement>,
     HTMLAnchorElement
   > {
-  theme?: string;
+  theme?: keyof typeof PRESET_THEME;
   effect?: string;
   className?: string;
   children: React.ReactNode;
