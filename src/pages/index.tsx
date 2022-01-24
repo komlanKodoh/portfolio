@@ -64,19 +64,19 @@ const Page = ({ data }) => {
               preserve={true}
               transition={{ ease: "easeOut", duration: 1 }}
             >
-              <p className="m-0 py-2 text-slate-500">
+              <p className="m-0 py-2 text-gray-500">
                 I design and build{" "}
-                <strong className="text-slate-400">beautiful</strong> and{" "}
-                <strong className="text-slate-400">accessible</strong> user
+                <strong className="text-gray-400">beautiful</strong> and{" "}
+                <strong className="text-gray-400">accessible</strong> user
                 interfaces. My work focuses on{" "}
-                <strong className="text-slate-400">security</strong> and{" "}
-                <strong className="text-slate-400">performance</strong> by
+                <strong className="text-gray-400">security</strong> and{" "}
+                <strong className="text-gray-400">performance</strong> by
                 leveraging the latest practices and tools of software
                 development.
               </p>
               <LinkButton
                 href="#Contact"
-                className="w-fit h-full block mt-3 border-red-600 bg-black"
+                className="w-fit h-full block mt-3 border-red-600 bg-neutral-900"
                 data-cy={"call_to_action"}
               >
                 Get In Touch
@@ -112,7 +112,7 @@ const Page = ({ data }) => {
             bgSize="1em"
             color="black"
             className=" w-52 absolute -bottom-0  -left-4  z-10 -sm:hidden -translate-x-full h-20 translate-y-20"
-          /> 
+          />
 
           <DottyBg
             bgSize="1em"
@@ -138,12 +138,13 @@ const Page = ({ data }) => {
             <h1 className=" text-4xl -sm:hidden text-center m-4">About me</h1>
             <p className=" leading-loose">
               I am Daniel, a computer science major. I like learning about new
-              technology and build interactive user experiences. <br />
+              technology and building interactive user experiences.
               <br />
-              While I explore all kind of technologies my set off skills makes
-              me very qualified for web related development. My knowledge of
-              front and back-end technologies helps me create fast and reliable
-              web experiences. Some of the technologies I use to build are :
+              <br /> While I explore all kinds of technologies, my set of skills
+              makes me very qualified for web-related development. My knowledge
+              of front-end and back-end technologies helps me create fast and
+              reliable web experiences. Some of the technologies I use to build
+              are :
             </p>
 
             <ul className="grid grid-cols-3 mt-1 list-inside list-disc py-4 sm:pl-0 gap-4">
@@ -175,6 +176,7 @@ const Page = ({ data }) => {
         <div className="lm-size text-blue-200 relative flex-wrap py-14">
           <h1 className=" text-4xl -sm:text-2xl text-center mb-12 underline">
             What I worked on
+
           </h1>
           {data.projects.edges.map((project, index) => (
             <ShowProject
@@ -243,22 +245,6 @@ export const query = graphql`
       }
     }
 
-    me: file(relativePath: { eq: "me.jpeg" }) {
-      id
-      childImageSharp {
-        fluid {
-          ...GatsbyImageSharpFluid
-        }
-      }
-    }
-
-    cs: file(relativePath: { eq: "cs.png" }) {
-      id
-      childImageSharp {
-        fluid {
-          ...GatsbyImageSharpFluid
-        }
-      }
-    }
+    
   }
 `;

@@ -3,6 +3,9 @@ module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      boxShadow: {
+        glow: "0px 0px 20px black",
+      },
       colors: {
         cover: "rgb(0 0 0 / 95%)",
       },
@@ -50,4 +53,4 @@ module.exports = {
     },
   },
   plugins: ["gatsby-plugin-postcss"],
-}
+};

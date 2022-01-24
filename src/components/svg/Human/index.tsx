@@ -2,7 +2,7 @@ import React from "react"
 import * as styles from "./style.module.scss"
 
 
-const SKIN_COLOR = "#A0616A";
+const SKIN_COLOR = "#5a3d3d";
 const Human = ({ className }) => {
   return (
     <svg
@@ -26,7 +26,7 @@ const Human = ({ className }) => {
         <g id="Vector 1" filter="url(#filter1_d_3_5)">
           <path
             d="M150.693 516.362C39.1323 477.607 102.617 465.086 116.793 460.913L499 452C517.285 454.584 560.664 461.979 566.118 463.298C575.979 465.683 610.5 470 612.345 482.377C614.189 494.754 607.442 499.956 581.5 509.5C548.857 521.509 488.424 529.329 474 528L450.5 526L457.5 518.5L453.941 514.573L424.356 506.822L242.53 484.166C215.205 484.563 154.145 509.684 150.693 516.362Z"
-            fill="red"
+            fill="#5f6e84"
           />
         </g>
         <g id="Vector" filter="url(#filter2_d_3_5)">
