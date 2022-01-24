@@ -21,18 +21,23 @@
     transform: translateY(200%);
   }
 
+  & > div:nth-child(3) {
+    opacity: 1;
+  }
+
+
   &.mid {
-      transform: rotate(-10deg);
-      & > div:nth-child(1) {
-          transform: translateY(0%);
-        }
-        
-        & > div:nth-child(2) {
-            transform: translateY(0%);
-        }
+    transform: rotate(-10deg);
+    & > div:nth-child(1) {
+      transform: translateY(0%);
     }
-    
-    &.open{
+
+    & > div:nth-child(2) {
+      transform: translateY(0%);
+    }
+  }
+
+  &.open {
     //   opacity: 0;
     transform: rotate(180deg);
     & > div:nth-child(1) {
@@ -42,9 +47,5 @@
     & > div:nth-child(2) {
       transform: translateY(0%) rotate(45deg);
     }
-
-    & > div:nth-child(3) {
-        opacity: 0;
-      }
   }
 }
