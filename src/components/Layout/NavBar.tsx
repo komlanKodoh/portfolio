@@ -173,6 +173,7 @@ const NavBar = ({ Links, active, sectionsData , focusSection }: Props) => {
             ))}
           </ul>
         </FadeIn>
+        
       </nav>
     </>
   );
