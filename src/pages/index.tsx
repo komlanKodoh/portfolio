@@ -22,14 +22,14 @@ const Page = ({ data }) => {
   return (
     <>
       <PageSection
-        className=" bg-cover relative  -sm:h-auto max-h-[900px]"
+        className=" bg-cover relative  -sm:h-auto max-h-[900px] overflow-hidden"
         theme="dark"
         index={1}
         id="Home"
         data-cy={"landing_home"}
         // observer={observer}
       >
-        <div className="lm-size h-full flex text-white relative z-20">
+        <div className="lm-size h-full flex text-white relative z-20" >
           <div className="my-auto sm:w-[60ch] sm:max-w-[60%] sm:flex-shrink-0 -sm:mt-24">
             <p className="m-0 p-0">
               <FadeIn
