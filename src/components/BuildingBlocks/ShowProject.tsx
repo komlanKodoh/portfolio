@@ -8,7 +8,7 @@ const ShowProject = ({ project, right }) => {
       <div className="relative rounded-md overflow-hidden  w-full shadow-xl shadow-black">
 
         <GatsbyImage
-          className="bg-black"
+          className=" bg-blue-500"
           image={project.previewImage?.gatsbyImageData}
           alt={project.previewImage?.title}
         />
