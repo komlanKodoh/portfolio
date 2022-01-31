@@ -140,7 +140,7 @@ const NavBar = ({ Links, active, sectionsData, focusSection }: Props) => {
 
             <div className="flex align-center gap-6">
               <PageIcon className="inline-block h-full w-auto -sm:hidden " />
-              <a href="/#Home">KODOH</a>
+              <a href="/#Home" className="-sm:ml-auto">KODOH</a>
               <PageIcon className="inline-block h-full w-auto sm:hidden " />
             </div>
 
