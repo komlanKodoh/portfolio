@@ -128,9 +128,9 @@ const NavBar = ({ Links, active, sectionsData, focusSection }: Props) => {
             </FadeIn>
 
             <div className="flex align-center gap-6">
-              <PageIconAnimated className=" -sm:hidden" />
+              <PageIcon className=" -sm:hidden" />
               <a href="/#Home" className="-sm:ml-auto">KODOH</a>
-              <PageIconAnimated className="sm:hidden " />
+              <PageIcon className="sm:hidden " />
             </div>
 
             <ul className="hidden m-auto mr-16 gap-16 sm:flex text-sm justify-between">
