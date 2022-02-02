@@ -34,9 +34,7 @@ const animationStates = [
   "centerShow",
   "bgFull",
   "wordFull",
-  "bgFull",
-  "centerShow",
-  "center",
+  "hide",
   "offset",
   "rest",
 ] as const;
@@ -61,17 +59,22 @@ const bgVariants: Variants = {
 
     return {
       x: ctn.x,
+      y: ctn.y,
       opacity: 1,
+      backgroundColor:"#1f1c24"
     };
   },
   offset: (window, ctn) => {
     if (!window || !ctn) return {};
     const subSize = Math.max(window.innerWidth, window.innerHeight) * 1.5;
 
+    let offsetFactor = -2 ;
+
+    if (ctn.x >  window.innerWidth /2 ) offsetFactor = 2;
     return {
       opacity: 0,
-      x: ctn.x - ctn.x * 2,
-      y: ctn.y,
+      x: ctn.x ,
+      y: -ctn.y ,
       scale: 1,
     };
   },
@@ -101,15 +104,32 @@ const bgVariants: Variants = {
       opacity: 1,
     };
   },
+  hide: (window, ctn) => {
+    if (!window || !ctn) return {};
+
+    const subSize = Math.max(window.innerWidth, window.innerHeight) * 1.5;
+
+    return {
+      transition: { duration: 2 },
+      scale: subSize / ctn.height * 2,
+      backgroundColor: "#0d0d0d",
+      opacity: 0,
+    };
+  },
 };
 
 const kVariants: Variants = {
   wordFull: () => {
     return {
-      scale: 30,
+      scale: 10,
       w: "7em",
     };
   },
+  hide : () =>{
+    return{
+      scale: 20
+    }
+  }
 };
 
 const parseDimension = (client?: DOMRect) => {
@@ -132,12 +152,13 @@ const PageIconAnimated: React.FC<Props> = ({
   className,
   ...props
 }) => {
-  const ctnRef = React.useRef<HTMLDivElement>(null);
-  const [animationState, updateAnimationState] =
-    useSequentialState(animationStates);
-
   const [state, setState] = React.useState<-1 | 1>(-1);
   const stateRef = useSyncRef(state);
+
+  const ctnRef = React.useRef<HTMLDivElement>(null);
+  const [animationState, updateAnimationState] =
+    useSequentialState(state === 1 ? animationStates: [...animationStates].reverse());
+
 
   const ctnBound = parseDimension(ctnRef?.current?.getBoundingClientRect());
 
@@ -185,7 +206,7 @@ const PageIconAnimated: React.FC<Props> = ({
 
       <motion.div
         animate={bgController}
-        className={`${className} fixed  `}
+        className={`${className} fixed z-50 `}
         style={{
           backgroundColor: "#1F1C24",
           top: 0,
@@ -201,7 +222,7 @@ const PageIconAnimated: React.FC<Props> = ({
 
       <motion.div
         animate={kController}
-        className="fixed"
+        className="fixed z-50"
         style={{
           top: 0,
           left: 0,
@@ -220,7 +241,7 @@ const PageIconAnimated: React.FC<Props> = ({
           fill="none"
         >
           <path d={`${kRestPath}`} fill="white">
-            <animate
+            {/* <animate
               dur="5s"
               repeatCount="indefinite"
               attributeName="d"
@@ -228,7 +249,7 @@ const PageIconAnimated: React.FC<Props> = ({
               fill="freeze"
               calcMode="spline"
               keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"
-            ></animate>
+            ></animate> */}
           </path>
         </svg>
       </motion.div>
