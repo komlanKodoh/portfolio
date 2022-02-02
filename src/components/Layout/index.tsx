@@ -23,6 +23,7 @@ export const NavContext = React.createContext<{ [key: string]: any }>({});
 
 const Layout = ({ children }) => {
   const sections = React.useRef([]);
+  
 
   const [currentSectionIndex, setCurrentSectionIndex] = React.useState(0);
 
