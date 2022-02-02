@@ -7,6 +7,7 @@ import PageIcon from "../svg/PageIcon";
 import { connect, MapStateToPropsFactory } from "react-redux";
 import { focusSection, sectionData } from "../../Redux/slices/section";
 import { useSyncRef } from "../../lib/hooks";
+import PageIconAnimated from "../svg/PageIconAnimated";
 
 interface StateProps {
   active: number;
@@ -29,19 +30,9 @@ const NavBar = ({ Links, active, sectionsData, focusSection }: Props) => {
   const [open, setOpen] = React.useState(false);
   const activeRef = useSyncRef(active);
 
-  const [visible, setVisible] = useState(true);
-
   const [shadow, setShadow] = useState(0);
   const old_scroll = React.useRef(0);
 
-  const getScrollSpeed = (current, previousScroll) => {
-    if (current < 100) return setVisible(true);
-    if (current - previousScroll < -10) {
-      setVisible(true);
-    } else if (current - previousScroll > 10) {
-      setVisible(false);
-    }
-  };
 
   const updateTheme = (scrollTop) => {
     let index = 0;
@@ -69,7 +60,6 @@ const NavBar = ({ Links, active, sectionsData, focusSection }: Props) => {
     const opacity = clamp(scrollTop / threshold, 0, 0.25);
 
     setShadow(opacity);
-    getScrollSpeed(scrollTop, old_scroll.current);
     updateTheme(scrollTop);
 
     old_scroll.current = scrollTop;
@@ -92,7 +82,6 @@ const NavBar = ({ Links, active, sectionsData, focusSection }: Props) => {
         }`}
         style={{
           boxShadow: `0 25px 50px -12px rgba(0,0,0, ${shadow})`,
-          // transform: visible && "translateY(0%)" || "translateY(-150%)"
         }}
       >
         <div className={`p-2  ${styles.nav}`}>
@@ -139,9 +128,9 @@ const NavBar = ({ Links, active, sectionsData, focusSection }: Props) => {
             </FadeIn>
 
             <div className="flex align-center gap-6">
-              <PageIcon className="inline-block h-full w-auto -sm:hidden " />
+              <PageIconAnimated className=" -sm:hidden" />
               <a href="/#Home" className="-sm:ml-auto">KODOH</a>
-              <PageIcon className="inline-block h-full w-auto sm:hidden " />
+              <PageIconAnimated className="sm:hidden " />
             </div>
 
             <ul className="hidden m-auto mr-16 gap-16 sm:flex text-sm justify-between">
@@ -153,6 +142,7 @@ const NavBar = ({ Links, active, sectionsData, focusSection }: Props) => {
                 </li>
               ))}
             </ul>
+
           </div>
         </div>
       </nav>
