@@ -1,30 +1,25 @@
 import React, { useEffect, useState } from "react";
 import * as styles from "./style.module.scss";
 import { clamp } from "../../lib/utils";
-import FadeIn from "../Effect/FadeIn";
+import FadeIn from "../Effect/Fade";
 import Burger from "../Icons/Burger";
 import PageIcon from "../svg/PageIcon";
-import { connect, MapStateToPropsFactory } from "react-redux";
+import { connect, MapStateToPropsFactory, useSelector } from "react-redux";
 import { focusSection, sectionData } from "../../Redux/slices/section";
-import { useSyncRef } from "../../lib/hooks";
+import { useAppSelector, useSyncRef } from "../../lib/hooks";
 import PageIconAnimated from "../svg/PageIconAnimated";
-
-interface StateProps {
-  active: number;
-  sectionsData: sectionData[];
-}
-
-interface DispatchProps {
-  focusSection: (activeSection: number) => void;
-}
+import CrossSectionLink from "../Basic/CrossSectionLink";
 
 interface ComponentProps {
   Links: string[];
+  href: string;
 }
 
-type Props = StateProps & DispatchProps & ComponentProps;
+type Props = ComponentProps;
 
-const NavBar = ({ Links, active, sectionsData, focusSection }: Props) => {
+const NavBar = ({ Links, href }: Props) => {
+  const sectionsData = useAppSelector((state) => state.sections.sectionsData);
+  const active = useAppSelector((state) => state.sections.active);
   const sectionsDataRef = useSyncRef(sectionsData);
 
   const [open, setOpen] = React.useState(false);
@@ -32,7 +27,6 @@ const NavBar = ({ Links, active, sectionsData, focusSection }: Props) => {
 
   const [shadow, setShadow] = useState(0);
   const old_scroll = React.useRef(0);
-
 
   const updateTheme = (scrollTop) => {
     let index = 0;
@@ -74,6 +68,9 @@ const NavBar = ({ Links, active, sectionsData, focusSection }: Props) => {
 
   const currentSection = sectionsData[active] || ({} as sectionData);
 
+  const isBlog = React.useMemo(() => {
+    return /.\/blog/.test(href);
+  }, [href]);
   return (
     <>
       <nav
@@ -124,25 +121,49 @@ const NavBar = ({ Links, active, sectionsData, focusSection }: Props) => {
                     </li>
                   </FadeIn>
                 ))}
+
+                <FadeIn
+                  id="blog"
+                  visible={open}
+                  type="from_bottom"
+                  delay={4 / 10}
+                >
+                  <li
+                    className="  text-red-500"
+                    onClick={() => setOpen((prev) => !prev)}
+                  >
+                    <CrossSectionLink to={`/blog`} className={" h-full block"}>
+                      {"Blog"}
+                    </CrossSectionLink>
+                  </li>
+                </FadeIn>
               </ul>
             </FadeIn>
 
             <div className="flex align-center gap-6">
               <PageIconAnimated className=" -sm:hidden" />
-              <a href="/#Home" className="-sm:ml-auto">KODOH</a>
+              <CrossSectionLink to="/#Home" className="-sm:ml-auto">
+                KODOH
+              </CrossSectionLink>
               <PageIconAnimated className="sm:hidden " />
             </div>
 
-            <ul className="hidden m-auto mr-16 gap-16 sm:flex text-sm justify-between">
-              {Links.map((link) => (
-                <li key={link} className=" block">
-                  <a href={`#${link}`} className={"w-full h-full block"}>
-                    {link}
-                  </a>
-                </li>
+            <ul className="hidden m-auto mr-16 gap-8 sm:flex text-sm justify-between">
+              {Links.map((link, index) => (
+                <FadeIn key={link} id={link + "big"} visible={!isBlog} type={"from_top"} transition={{delay: index / 10}} >
+                  <li key={link} className=" block px-4">
+                    <a href={`#${link}`} className={"w-full h-full block"}>
+                      {link}
+                    </a>
+                  </li>
+                </FadeIn>
               ))}
+              <li className="  text-red-500">
+                <CrossSectionLink to={`/blog`} className={" h-full block"}>
+                  {"Blog"}
+                </CrossSectionLink>
+              </li>
             </ul>
-
           </div>
         </div>
       </nav>
@@ -160,14 +181,9 @@ const mapStateToProps = (state, ownProps: ComponentProps) => {
 const mapDispatchToProps = (dispatch, ownProps: ComponentProps) => {
   return {
     focusSection: (activeSection: number) => {
-      {
-        dispatch(focusSection(activeSection));
-      }
+      dispatch(focusSection(activeSection));
     },
   };
 };
 
-export default connect<StateProps, DispatchProps, ComponentProps>(
-  mapStateToProps,
-  mapDispatchToProps
-)(NavBar);
+export default NavBar;

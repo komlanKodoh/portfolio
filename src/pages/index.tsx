@@ -6,7 +6,7 @@ import Human from "../components/svg/Human";
 import ContactForm from "../components/BuildingBlocks/ContactForm";
 import SeparationH from "../components/Basic/SeparationH";
 import Linkedin from "../components/svg/Linkedin";
-import FadeIn from "../components/Effect/FadeIn";
+import FadeIn from "../components/Effect/Fade";
 import Gmail from "../components/svg/Gmail";
 import Phone from "../components/svg/Phone";
 import ShowProject from "../components/BuildingBlocks/ShowProject";
@@ -218,6 +218,8 @@ const Page = ({ data }) => {
     </>
   );
 };
+
+Page.getValues = "newstring"
 
 export default Page;
 

@@ -48,17 +48,34 @@ export const useFirstTimeLoading = () => {
   return load.current as boolean;
 };
 
-export function useSequentialState<T>(states: readonly T[] ) {
+export function useSequentialState<T>(states: readonly T[]) {
   const [stateIndex, setState] = useState(0);
 
   const updateState = (direction: 1 | -1) => {
+    let changed = false;
     setState((prevState) => {
-      return clamp(stateIndex + direction, 0, states.length - 1);
+      const newState = clamp(stateIndex + direction, 0, states.length - 1);
+      if (newState !== prevState) changed = true;
+      return prevState;
     });
+
+    return changed;
   };
 
-
-  return [states[stateIndex] , updateState] as const;
+  return [states[stateIndex], updateState] as const;
 }
 
 const that = async () => "b";
+
+export const useForcedRender = () => {
+  const [_, setState] = useState({});
+
+  return () => setState({});
+};
+
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../Redux/createStore";
+
+// Use throughout your app instead of plain `useDispatch` and `useSelector`
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

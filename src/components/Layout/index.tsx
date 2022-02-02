@@ -11,21 +11,44 @@ import * as React from "react";
 import { useStaticQuery, graphql } from "gatsby";
 import "../../style/tailwind.css";
 import Burger from "../Icons/Burger";
-import FadeIn from "../Effect/FadeIn";
+import FadeIn from "../Effect/Fade";
 import NavBar from "./NavBar";
 import { any } from "prop-types";
 import ReduxProvider from "../../Redux/ReduxProvider";
+import { animationControls } from "framer-motion";
+import { useAppDispatch, useAppSelector, useFirstTimeLoading } from "../../lib/hooks";
+import { startTransition } from "../../Redux/slices/pageTransition";
 
 export const Link_data = {};
 export const Links = ["About", "Work", "Contact"];
 
 export const NavContext = React.createContext<{ [key: string]: any }>({});
 
-const Layout = ({ children }) => {
+const Layout = ({ children , ...props}) => {
   const sections = React.useRef([]);
-  
+  const page = useAppSelector(state => state.pageTransition)
+  const dispatch = useAppDispatch();
+  const firstTimeLoading = useFirstTimeLoading()
+  const [currentPage, setCurrentPage] = React.useState(children);
 
-  const [currentSectionIndex, setCurrentSectionIndex] = React.useState(0);
+  React.useEffect(() => {
+  
+    if (firstTimeLoading || page.isInTransition ) return;
+    
+    
+    if (children.getAnimation) {
+      // const animation = children.getAnimation();
+      // dispatch(startTransition(animation))
+    }else {
+      // console.log("The children cahngae g", children.key, page.isInTransition)
+      dispatch(startTransition())
+    }
+
+    if (children.key === currentPage.key) return;
+    setCurrentPage(children)
+    
+  }, [children.key, page.isInTransition]);
+
 
   return (
     <>
@@ -79,9 +102,9 @@ const Layout = ({ children }) => {
         <meta name="geo.position" content="39.78373;-100.445882" />
         <meta name="ICBM" content="39.78373, -100.445882" />
       </Helmet>
-      <NavBar Links={Links} />
+      <NavBar Links={Links} href={props.location.href} />
       <main className=" leading-loose" data-cy="main">
-        {children}
+        {currentPage}
       </main>
       <footer className="bg-cover text-white">
         <p className="lm-size flex justify-center py-2 ">
