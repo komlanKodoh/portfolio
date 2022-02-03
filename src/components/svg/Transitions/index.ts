@@ -1,8 +1,8 @@
-import Basic from "./Basic";
+import BasicTransition from "./Basic";
 
 
 const pageTransitions = {
-    Basic
+    Basic: BasicTransition
 }
 
 export default pageTransitions;

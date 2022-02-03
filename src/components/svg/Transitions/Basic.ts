@@ -1,109 +1,116 @@
+import { AnimationStyles, Shape } from "./../useAnimationController";
 import { TargetWithKeyframes } from "framer-motion/types/types";
 
-type AnimationProps = TargetWithKeyframes & { method?: "start" | "set" };
+type BasicCustom = {
+  window: Window;
+  ctn: DOMRect;
+  default?: TargetWithKeyframes;
+};
 
-type AnimationPropsBgAndLogo = { logo: AnimationProps; bg: AnimationProps };
 
-type Variants =
-  | ((window: Window, ctn: DOMRect) => AnimationPropsBgAndLogo)
-  | AnimationPropsBgAndLogo;
 
-const initial: Variants = (window, ctn) => {
-  const common = {
-    x: ctn.x,
-    y: ctn.y,
+type BasicStyles = AnimationStyles<BasicCustom>;
+
+const initial: BasicStyles = (custom) => {
+  return {
+    x: custom.ctn.x,
+    y: custom.ctn.y,
     opacity: 1,
     scale: 1,
     rotate: 0,
     backgroundColor: "#1F1C24",
   };
-
-  return { logo: common, bg: common };
 };
 
-const offset: Variants = (window, ctn) => {
-  const common = {
-    opacity: 0,
-    x: ctn.x,
-    y: -ctn.y,
-    scale: 1,
-    backgroundColor: "#1F1C24",
-  };
-  return { logo: common, bg: common };
-};
+const offset: BasicStyles = (custom) => ({
+  opacity: 0,
+  x: custom.ctn.x,
+  y: -custom.ctn.y,
+  scale: 1,
+  backgroundColor: "#1F1C24",
+});
 
-const screenCenter: Variants = (window, ctn) => {
-  const common = {
-    x: window.innerWidth / 2 - ctn.width / 2,
-    y: window.innerHeight / 2 - ctn.height / 2,
-    backgroundColor: "#1F1C24",
-    opacity: 0,
-    method: "set",
-  } as const;
+const screenCenter: BasicStyles = (custom) => ({
+  x: custom.window.innerWidth / 2 - custom.ctn.width / 2,
+  y: custom.window.innerHeight / 2 - custom.ctn.height / 2,
+  backgroundColor: "#1F1C24",
+  opacity: 0,
+  method: "set",
+});
 
-  return { logo: common, bg: common };
-};
+const centerShow: BasicStyles = (custom) => ({
+  x: custom.window.innerWidth / 2 - custom.ctn.width / 2,
+  y: custom.window.innerHeight / 2 - custom.ctn.height / 2,
+  backgroundColor: "#1F1C24",
+  scale: 5,
+  method: "start",
+  transition: { duration: 0.21 },
+});
 
-const centerShow: Variants = (window, ctn) => {
-  const common = {
-    x: window.innerWidth / 2 - ctn.width / 2,
-    y: window.innerHeight / 2 - ctn.height / 2,
-    backgroundColor: "#1F1C24",
-    scale: 5,
-    method: "start",
-    transition: {duration : 0.21}
-    // method: "set",
-  } as const;
+const centerSmall: BasicStyles = (custom) => ({
+  x: custom.window.innerWidth / 2 - custom.ctn.width / 2,
+  y: custom.window.innerHeight / 2 - custom.ctn.height / 2,
+  backgroundColor: "#1F1C24",
+  rotate: "-50deg",
+  scale: 2,
+  transition: {},
+});
 
-  return { logo: common, bg: common };
-};
+const bgFull_default: BasicStyles = (custom) => {
+  const subSize =
+    Math.max(custom.window.innerWidth, custom.window.innerHeight) * 1.5;
 
-const centerSmall: Variants = (window, ctn) => {
-  const common = {
-    x: window.innerWidth / 2 - ctn.width / 2,
-    y: window.innerHeight / 2 - ctn.height / 2,
-    backgroundColor: "#1F1C24",
-    rotate: "-50deg",
-    scale: 2,
-    transition: {},
-  };
-
-  return { logo: {...common, rotate:"-70deg"}, bg: common };
-};
-
-const bgFull: Variants = (window, ctn) => {
-  const subSize = Math.max(window.innerWidth, window.innerHeight) * 1.5;
-
-  const common = {
-    x: window.innerWidth / 2 - ctn.width / 2,
-    y: window.innerHeight / 2 - ctn.height / 2,
+  return {
+    x: custom.window.innerWidth / 2 - custom.ctn.width / 2,
+    y: custom.window.innerHeight / 2 - custom.ctn.height / 2,
     transition: { duration: 2 },
-    scale: subSize / ctn.height,
+    scale: subSize / custom.ctn.height,
     backgroundColor: "#0d0d0d",
     opacity: 1,
   };
-
-  return { logo: {...common, scale: 6}, bg: common };
 };
 
-const hide: Variants = (window, ctn) => {
-  const subSize = Math.max(window.innerWidth, window.innerHeight) * 1.5;
-  const common = bgFull(window, ctn);
-  common.logo.opacity = 0;
-  common.bg.opacity = 0;
-
-  return { logo: common.logo, bg: common.bg };
+const bgFull_logo: BasicStyles = (custom) => {
+  const styles = { ...custom.default };
+  styles.scale = 5;
+  return styles;
 };
 
-export default [
-  initial,
-  offset,
-  screenCenter,
-  centerShow,
-  centerSmall,
-  bgFull,
-  "swap",
-  hide,
-  offset,
-  initial
-] as const;
+const bgFull = {
+  default: bgFull_default,
+  logo: bgFull_logo,
+};
+
+const hide: BasicStyles = (custom) => {
+  const common = bgFull_default(custom);
+  common.opacity = 0;
+
+  return common;
+};
+
+function asDefault<T>(obj: T) {
+  return { default: obj };
+}
+
+type Transition = {
+  keyframes: Shape<BasicStyles, ["logo", "bg"]>[];
+  directives: { [key: number]: "start" | "set" };
+};
+
+const BasicTransition = {
+  keyframes: [
+    asDefault(initial),
+    asDefault(offset),
+    asDefault(screenCenter),
+    asDefault(centerShow),
+    asDefault(centerSmall),
+    bgFull,
+    asDefault("swap"),
+    asDefault(hide),
+    asDefault(offset),
+    asDefault(initial),
+  ],
+  directives: {2: "set"}
+};
+
+export default BasicTransition;
