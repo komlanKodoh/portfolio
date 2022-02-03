@@ -4,9 +4,7 @@ import { useDispatch } from "react-redux";
 import { useAppDispatch } from "../../lib/hooks";
 import {
   scheduleTransition,
-  startTransition,
 } from "../../Redux/slices/pageTransition";
-import { createControllerOnContainer, createControllerScreenCenter } from "../svg/presetAnimationFrame";
 
 const rest = {
   
@@ -21,17 +19,7 @@ function CrossSectionLink<Props>(props) {
       {...props}
       onClick={() =>
         dispatch(
-          scheduleTransition([
-            1,
-            [rest, offset, center],
-
-            // "offset",
-            // "center",
-            // "centerShow",
-            // "centerSmall",
-            // "bgFull",
-            // "wordFull",
-          ])
+          scheduleTransition("basic")
         )
       }
     >

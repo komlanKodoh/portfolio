@@ -1,14 +1,15 @@
-
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface PageState {
   isInTransition: boolean;
+  transitionState: "rest" | "started" | "swapping" | "ending";
   transitionName: string | null;
 }
 
 const initialState = {
   isInTransition: false,
-  transitionName: null
+  transitionState: "rest",
+  transitionName: null,
 } as PageState;
 
 const sectionSlice = createSlice({
@@ -18,8 +19,14 @@ const sectionSlice = createSlice({
     startTransition(state) {
       state.isInTransition = true;
     },
+    setTransitionState(
+      state,
+      transitionState: PayloadAction<"rest" |"started" | "swapping" | "ending" >
+    ) {
+      state.transitionState = transitionState.payload;
+    },
     scheduleTransition(state, animations: PayloadAction<string>) {
-      state.transitionName = animations.payload ;
+      state.transitionName = animations.payload;
     },
     endTransitionState(state) {
       state.transitionName = null;
@@ -28,6 +35,6 @@ const sectionSlice = createSlice({
   },
 });
 
-export const { endTransitionState, startTransition, scheduleTransition } =
+export const { endTransitionState, startTransition, scheduleTransition, setTransitionState } =
   sectionSlice.actions;
 export default sectionSlice.reducer;

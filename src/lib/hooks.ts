@@ -56,9 +56,10 @@ export function useSequentialState<T>(states: readonly T[]) {
     setState((prevState) => {
       const newState = clamp(stateIndex + direction, 0, states.length - 1);
       if (newState !== prevState) changed = true;
-      return prevState;
+      return newState;
     });
 
+    if (!changed) setState(0);
     return changed;
   };
 

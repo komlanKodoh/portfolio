@@ -16,38 +16,46 @@ import NavBar from "./NavBar";
 import { any } from "prop-types";
 import ReduxProvider from "../../Redux/ReduxProvider";
 import { animationControls } from "framer-motion";
-import { useAppDispatch, useAppSelector, useFirstTimeLoading } from "../../lib/hooks";
-import { startTransition } from "../../Redux/slices/pageTransition";
+import {
+  useAppDispatch,
+  useAppSelector,
+  useFirstTimeLoading,
+} from "../../lib/hooks";
+import { setTransitionState, startTransition } from "../../Redux/slices/pageTransition";
 
 export const Link_data = {};
 export const Links = ["About", "Work", "Contact"];
 
 export const NavContext = React.createContext<{ [key: string]: any }>({});
 
-const Layout = ({ children , ...props}) => {
+const Layout = ({ children, ...props }) => {
   const sections = React.useRef([]);
-  const page = useAppSelector(state => state.pageTransition)
+  const page = useAppSelector((state) => state.pageTransition);
   const dispatch = useAppDispatch();
-  const firstTimeLoading = useFirstTimeLoading()
+  const firstTimeLoading = useFirstTimeLoading();
   const [currentPage, setCurrentPage] = React.useState(children);
 
   React.useEffect(() => {
-  
-    if (firstTimeLoading || page.isInTransition ) return;
-    
-    
-    if (children.getAnimation) {
-      // const animation = children.getAnimation();
-      // dispatch(startTransition(animation))
-    }else {
-      // console.log("The children cahngae g", children.key, page.isInTransition)
-      dispatch(startTransition())
-    }
+    // if (firstTimeLoading || page.isInTransition) return;
+    // let childrenIsSet = false;
+
+    // if (stepRef.current === 1) {
+    //   setCurrentPage(children);
+    //   dispatch(startTransition());
+    //   stepRef.current = 0;
+    // }
 
     if (children.key === currentPage.key) return;
-    setCurrentPage(children)
-    
-  }, [children.key, page.isInTransition]);
+
+    if (page.transitionState === "rest") {
+      dispatch(setTransitionState("started"));
+    } 
+
+    else if(page.transitionState === "swapping"){
+      setCurrentPage(children);
+    }
+
+  }, [children.key, page.transitionState]);
 
 
   return (
