@@ -14,11 +14,7 @@ import {
   useForcedRender,
   useSequentialState,
 } from "../../lib/hooks";
-import {
-  endTransitionState,
-  setTransitionState,
-  startTransition,
-} from "../../Redux/slices/pageTransition";
+
 import PageIcon from "./PageIcon";
 import { parseDimension } from "../../lib/utils";
 import { useAnimationController } from "./useAnimationController";
@@ -47,10 +43,6 @@ const PageIconAnimated: React.FC<Props> = ({
 
   const ctnRef = React.useRef<HTMLDivElement>(null);
 
-  const [animationController, updateAnimationState] = useSequentialState(
-    pageTransitions.Basic
-  );
-
   const [index, setIndex] = React.useState(0);
 
   const render = useForcedRender();
@@ -62,73 +54,22 @@ const PageIconAnimated: React.FC<Props> = ({
 
   // const that = page
 
-  const f = useAnimationController({
+  const [controllers, transitionManager] = useAnimationController({
     controllers: { default: bg, logo: logo } as const,
-    custom: {
+    keyframeDependencies: {
       default: {
         window: window,
         ctn: ctnRef.current?.getBoundingClientRect() || ({} as DOMRect),
       },
+      logo: {
+        window: window,
+        ctn: ctnRef.current?.getBoundingClientRect() || ({} as DOMRect),
+      }
     },
     keyframes: pageTransitions.Basic.keyframes,
     emitter: (arg: string) => console.log(arg),
   });
 
-  React.useEffect(() => {
-    const animate = async () => {
-      const container = ctnRef.current?.getBoundingClientRect() as DOMRect;
-
-      const reset = {
-        top: 0,
-        left: 0,
-        height: container.height,
-        width: container.width,
-
-        x: container.x,
-        y: container.y,
-        rotate: 0,
-        opacity: 1,
-        backgroundColor: "#1F1C24",
-        method: "start",
-      } as const;
-
-      const animationController = pageTransitions.Basic[index];
-      if (!animationController) {
-        setIndex(0);
-        return dispatch(setTransitionState("rest"));
-      }
-
-      if (animationController === "swap") {
-        // updateAnimationState(1);
-        setIndex(index + 1);
-
-        return dispatch(setTransitionState("swapping"));
-      }
-
-      let { bg: bgStyle, logo: logoStyle } = animationController(
-        window,
-        container
-      );
-
-      bgStyle = Object.assign({}, reset, bgStyle);
-      logoStyle = Object.assign({}, reset, logoStyle);
-      logoStyle.background = "";
-
-      await Promise.all([
-        bgController[bgStyle.method || "start"](bgStyle),
-        kController[logoStyle.method || "start"](logoStyle),
-      ]);
-
-      // const hasBeenUpdated = updateAnimationState(1);
-      setIndex(index + 1);
-
-      // if (!hasBeenUpdated) dispatch(setTransitionState("rest"));
-    };
-
-    if (page.transitionState !== "rest") {
-      animate();
-    }
-  }, [page.transitionState, index]);
 
   React.useEffect(() => {
     render();
@@ -142,12 +83,12 @@ const PageIconAnimated: React.FC<Props> = ({
     <div
       className={`${className} h-full`}
       ref={ctnRef}
-      // onClick={() => dispatch(startTransition())}
+      onClick={() => transitionManager.animate("forward")}
     >
       <PageIcon className={`${className} h-full opacity-0`} />
 
       <motion.div
-        animate={kController}
+        animate={controllers.logo}
         className={` fixed `}
         style={{
           zIndex: 2,
@@ -172,7 +113,7 @@ const PageIconAnimated: React.FC<Props> = ({
       </motion.div>
 
       <motion.div
-        animate={bgController}
+        animate={controllers.default}
         className={`${className} fixed z-0`}
         style={{
           backgroundColor: "#1F1C24",
@@ -191,3 +132,30 @@ const PageIconAnimated: React.FC<Props> = ({
 };
 
 export default PageIconAnimated;
+
+
+
+const obj1 = {
+  name: "daniel",
+  mood: "normal"
+}
+
+
+type MapProperty<TObj> = {
+  [K in keyof TObj]?: number;
+} & { default: number };
+
+type LetterCount = MapProperty<typeof obj1>;
+
+const name = "name" as keyof typeof obj1;
+
+const index: LetterCount  = {
+  name: 6,
+  mood: 6,
+  default: 0
+}
+
+index[name] = 5;
+
+
+type test = keyof any extends keyof any ? "yes": "no"

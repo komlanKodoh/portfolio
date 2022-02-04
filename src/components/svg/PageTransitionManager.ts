@@ -1,45 +1,67 @@
+import { animationControls } from "framer-motion";
+import { TargetWithKeyframes } from "framer-motion/types/types";
+
+import { AnimationControls } from "framer-motion/types/animation/types";
+import { useAppDispatch } from "../../lib/hooks";
+import { BasicStyles } from "./Transitions/Basic";
 import {
   AnimationStyles,
   AssignTypesToKeys,
-  Shape,
-} from "./useAnimationController";
-import { AnimationControls } from "framer-motion/types/animation/types";
-import { useAppDispatch } from "../../lib/hooks";
+  TransitionManagerConfig,
+} from "./transition";
 
-type ObjectOfKeys<T> = { [key: string]: T };
-
-export type TransitionManagerConfig<
-  TAnimationTargets extends Shape<AnimationControls, any[]>,
-  TCustom
-> = {
-  emitter: (arg: string) => void;
-  controllers: TAnimationTargets;
-  custom: AssignTypesToKeys<Omit<TCustom, "default">, TAnimationTargets>;
-  keyframes: AssignTypesToKeys<AnimationStyles<TCustom>, TAnimationTargets>[];
-};
+type AnimationProcessedStyles<AnimationControllers> = {
+  [K in keyof AnimationControllers]?: TargetWithKeyframes;
+} & { default: TargetWithKeyframes };
 
 export default class PageTransitionManager<
-  T extends Shape<AnimationControls, any[]>,
-  D extends Omit<object, "default">
+  AnimationControllers extends { [key: string]: AnimationControls },
+  KeyframeDependencies extends {
+    [K in keyof AnimationControllers]: Exclude<
+      Keyframe[K],
+      string | TargetWithKeyframes | undefined
+    > extends (custom: infer KeyframeDependencies) => any
+      ? KeyframeDependencies
+      : null;
+  },
+  Keyframe extends AssignTypesToKeys<AnimationStyles<any>, AnimationControllers>
 > {
-  custom: TransitionManagerConfig<T, D>["custom"];
-  emitter: TransitionManagerConfig<T, D>["emitter"];
-  keyframes: TransitionManagerConfig<T, D>["keyframes"];
-  controllers: TransitionManagerConfig<T, D>["controllers"];
+  emitter: (message: string) => void;
+  keyframes: Keyframe[];
+  controllers: AnimationControllers;
+  keyframeDependencies: KeyframeDependencies;
 
+  animationIndex: number = 0;
   direction: "forward" | "backward" | "still" = "still";
+  activeControllers: AssignTypesToKeys<AnimationControls, AnimationControllers>;
 
-  constructor(config: TransitionManagerConfig<T, D>) {
-    this.custom = config.custom;
+  constructor(
+    config: TransitionManagerConfig<
+      AnimationControllers,
+      KeyframeDependencies,
+      Keyframe
+    >
+  ) {
     this.emitter = config.emitter;
     this.keyframes = config.keyframes;
     this.controllers = config.controllers;
+    this.activeControllers = config.controllers;
+    this.keyframeDependencies = config.keyframeDependencies;
+
+    console.log("Creattion of a new instance of the controller")
   }
   setDirection(direction: "forward" | "backward") {
     this.direction = direction;
   }
 
-  private async animate(direction?: typeof this.direction) {
+  syncActiveControllers(){
+    this.activeControllers = {...this.activeControllers};
+  }
+
+  async animate(direction?: typeof this.direction) {
+    this.syncActiveControllers();
+    // console.log("I start the animation proccess")
+    // console.log("animating", this.animationIndex, this.controllers)
     const reset = {
       top: 0,
       left: 0,
@@ -54,20 +76,82 @@ export default class PageTransitionManager<
       method: "start",
     } as const;
 
-    const currentKeyframes = this.keyframes[0];
-    const currentCustom = this.custom.default;
+    const currentKeyframes = this.keyframes[this.animationIndex];
+    if(!currentKeyframes) this.animationIndex = 0;
 
-    const defaultStyles = PageTransitionManager.getStyles(
-      this.keyframes[0].default,
-      this.custom.default
-    );
+    let animationStyles: AnimationProcessedStyles<AnimationControllers> = {
+      default: {},
+    };
+
+    if (currentKeyframes.default) {
+      const temp = this.getStyles(
+        currentKeyframes.default,
+        this.keyframeDependencies.default
+      );
+      if (temp) animationStyles.default = temp;
+    }
+
+    for (const animationTarget of Object.keys(this.controllers)) {
+      if (!currentKeyframes[animationTarget]) continue;
+
+      let targetStyles = currentKeyframes[animationTarget];
+      if (!targetStyles) continue;
+
+      let targetDependencies = this.keyframeDependencies[animationTarget];
+
+      let styles = this.getStyles(
+        targetStyles,
+        targetDependencies,
+        animationStyles.default
+      );
+      if (!styles) continue;
+
+      if(this.animationIndex === 5) return;
+
+      //@ts-ignore
+      animationStyles[animationTarget] = styles as TargetWithKeyframes;
+    }
+
+    const animationsPromises: Promise<void>[] = [];
+    for (const controllerName in this.controllers) {
+      // console.log(this.animationIndex, controllerName)
+      const animationController = this.controllers[controllerName];
+      const styles = animationStyles[controllerName];
+
+      if (!styles) {
+        // console.log("changing the active controller", controllerName)
+        //@ts-ignore
+        this.activeControllers[controllerName] = 2
+        console.log(this.activeControllers)
+        // this.controllers[controllerName].set(animationStyles.default);
+        continue;
+      };
+
+      animationsPromises.push(animationController.start(styles));
+    }
+
+    // console.log("I started doing the animation")
+    await Promise.all(animationsPromises);
+
+    // console.log("done animating")
+    this.animationIndex ++ ;
+    // this.animate();
+
   }
 
-  public getStyles(
-    styles: AnimationStyles<D>,
-    custom: TransitionManagerConfig<T, D>["custom"][string]
+  public getStyles<T>(
+    animationStyles: AnimationStyles<T>,
+    keyframeDependency: T,
+    defaultStyles?: TargetWithKeyframes
   ) {
-    if (typeof styles === "function") return styles(custom);
-    else return styles;
+    if (typeof animationStyles === "function") {
+      return animationStyles({ ...keyframeDependency, default: defaultStyles });
+    } else if (typeof animationStyles === "string")
+      return this.emitter(animationStyles);
+    else return;
   }
 }
+
+type AnimationDependencies<T extends AnimationStyles<any>> = Parameters<
+  Exclude<T, string | TargetWithKeyframes>
+>;

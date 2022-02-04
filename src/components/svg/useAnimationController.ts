@@ -1,26 +1,13 @@
 import { AnimationControls } from "framer-motion";
 import { TargetWithKeyframes } from "framer-motion/types/types";
-import PageTransitionManager, {
+import React from "react";
+import { useFirstTimeLoading } from "../../lib/hooks";
+import PageTransitionManager from "./PageTransitionManager";
+import {
+  AnimationStyles,
+  AssignTypesToKeys,
   TransitionManagerConfig,
-} from "./PageTransitionManager";
-
-export type AnimationStyles<TCustom> =
-  | string
-  | TargetWithKeyframes
-  | ((custom: TCustom) => TargetWithKeyframes);
-
-// Create a type from given keys + default , and specific types
-export type Shape<T, TKeys extends (string | number | symbol)[]> = {
-  [P in TKeys[number]]?: T;
-} & {
-  default?: T;
-};
-
-export type AssignTypesToKeys<T, Obj> = {
-  [P in keyof Obj]?: T;
-} & {
-  default?: T;
-};
+} from "./transition";
 
 /**
  *
@@ -30,20 +17,52 @@ export type AssignTypesToKeys<T, Obj> = {
  * @returns
  */
 export function useAnimationController<
-  TAnimationTargets extends Shape<AnimationControls, any[]>,
-  TCustom
+  AnimationControllers extends { [key: string]: AnimationControls },
+  KeyframeDependencies extends {
+    [K in keyof AnimationControllers]: Exclude<
+      Keyframe[K],
+      string | TargetWithKeyframes | undefined
+    > extends (custom: infer KeyframeDependencies) => any
+      ? KeyframeDependencies
+      : null;
+  },
+  Keyframe extends AssignTypesToKeys<
+    AnimationStyles<any>,
+    AnimationControllers
+  >
 >({
-  custom,
   emitter,
   keyframes,
   controllers,
-}: TransitionManagerConfig<TAnimationTargets, TCustom>) {
-  const pageTransitionManager = new PageTransitionManager({
-    custom,
+  keyframeDependencies,
+}: TransitionManagerConfig<
+  AnimationControllers,
+  KeyframeDependencies,
+  Keyframe
+>) {
+  const pageTransitionManager = React.useMemo(() => new PageTransitionManager({
     emitter,
     keyframes,
     controllers,
-  });
+    keyframeDependencies,
+  }), [])
 
-  return pageTransitionManager;
+  const ftl = useFirstTimeLoading();
+
+  const activeControllers = pageTransitionManager.activeControllers;
+
+  React.useEffect(() => {
+    if (ftl) return;
+    
+    console.log("Creation of the new interval")
+    const interval = setInterval(() => {
+      console.log(pageTransitionManager.activeControllers, "th")
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [])
+  
+  return [activeControllers, pageTransitionManager] as const;
 }
+
+
