@@ -1,15 +1,20 @@
-import { AnimationStyles, Shape } from "./../useAnimationController";
+
 import { TargetWithKeyframes } from "framer-motion/types/types";
+import { AnimationStyles, Shape } from "../transition";
 
 type BasicCustom = {
   window: Window;
   ctn: DOMRect;
   default?: TargetWithKeyframes;
 };
+type TestCustom = {
+  window: Window;
+  ctn: DOMRect;
+  default?: TargetWithKeyframes;
+};
 
-
-
-type BasicStyles = AnimationStyles<BasicCustom>;
+export type BasicStyles = AnimationStyles<BasicCustom>;
+export type TestStyles = AnimationStyles<TestCustom>;
 
 const initial: BasicStyles = (custom) => {
   return {
@@ -22,6 +27,11 @@ const initial: BasicStyles = (custom) => {
   };
 };
 
+function getStyles<D>(animationStyles: AnimationStyles<D>, custom: D) {
+  if (typeof animationStyles === "function") return animationStyles(custom);
+  else return animationStyles;
+}
+
 const offset: BasicStyles = (custom) => ({
   opacity: 0,
   x: custom.ctn.x,
@@ -30,7 +40,7 @@ const offset: BasicStyles = (custom) => ({
   backgroundColor: "#1F1C24",
 });
 
-const screenCenter: BasicStyles = (custom) => ({
+const screenCenter: BasicStyles  = (custom) => ({
   x: custom.window.innerWidth / 2 - custom.ctn.width / 2,
   y: custom.window.innerHeight / 2 - custom.ctn.height / 2,
   backgroundColor: "#1F1C24",
@@ -89,19 +99,19 @@ const hide: BasicStyles = (custom) => {
 };
 
 function asDefault<T>(obj: T) {
-  return { default: obj };
+  return { default: obj } as {default: BasicStyles, logo?:TestStyles };
 }
 
 type Transition = {
-  keyframes: Shape<BasicStyles, ["logo", "bg"]>[];
+  keyframes: {logo: TestStyles, default: BasicStyles }[];
   directives: { [key: number]: "start" | "set" };
 };
 
 const BasicTransition = {
   keyframes: [
-    asDefault(initial),
-    asDefault(offset),
-    asDefault(screenCenter),
+    // asDefault(initial),
+    // asDefault(offset),
+    // asDefault(screenCenter),
     asDefault(centerShow),
     asDefault(centerSmall),
     bgFull,
@@ -110,7 +120,7 @@ const BasicTransition = {
     asDefault(offset),
     asDefault(initial),
   ],
-  directives: {2: "set"}
-};
+  directives: { 2: "set" },
+} as Transition;
 
 export default BasicTransition;
