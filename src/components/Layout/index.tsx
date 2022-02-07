@@ -21,7 +21,7 @@ import {
   useAppSelector,
   useFirstTimeLoading,
 } from "../../lib/hooks";
-import { setTransitionState, startTransition } from "../../Redux/slices/pageTransition";
+import { useRoutingStateContext } from "../../../TransitionManager/usePageTransitionManager";
 
 export const Link_data = {};
 export const Links = ["About", "Work", "Contact"];
@@ -29,34 +29,8 @@ export const Links = ["About", "Work", "Contact"];
 export const NavContext = React.createContext<{ [key: string]: any }>({});
 
 const Layout = ({ children, ...props }) => {
-  const sections = React.useRef([]);
-  const page = useAppSelector((state) => state.pageTransition);
-  const dispatch = useAppDispatch();
-  const firstTimeLoading = useFirstTimeLoading();
-  const [currentPage, setCurrentPage] = React.useState(children);
 
-  React.useEffect(() => {
-    // if (firstTimeLoading || page.isInTransition) return;
-    // let childrenIsSet = false;
-
-    // if (stepRef.current === 1) {
-    //   setCurrentPage(children);
-    //   dispatch(startTransition());
-    //   stepRef.current = 0;
-    // }
-
-    if (children.key === currentPage.key) return;
-
-    if (page.transitionState === "rest") {
-      dispatch(setTransitionState("started"));
-    } 
-
-    else if(page.transitionState === "swapping"){
-      setCurrentPage(children);
-    }
-
-  }, [children.key, page.transitionState]);
-
+  const {activePage} = useRoutingStateContext();
 
   return (
     <>
@@ -112,7 +86,7 @@ const Layout = ({ children, ...props }) => {
       </Helmet>
       <NavBar Links={Links} href={props.location.href} />
       <main className=" leading-loose" data-cy="main">
-        {currentPage}
+        {activePage}
       </main>
       <footer className="bg-cover text-white">
         <p className="lm-size flex justify-center py-2 ">
