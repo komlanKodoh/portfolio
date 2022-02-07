@@ -1,4 +1,4 @@
-import BasicTransition from "./Basic";
+import BasicTransition from "./_Basic";
 
 
 const pageTransitions = {
