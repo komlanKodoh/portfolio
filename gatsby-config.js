@@ -60,5 +60,7 @@ module.exports = {
         accessToken: process.env.CONTENTFULL_ACCESS_TOKEN,
       },
     },
+
+    
   ],
 };

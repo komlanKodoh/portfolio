@@ -2,38 +2,36 @@ import { Processor } from "postcss";
 import { ProcessedStyle, AnimationObject, ChainedAnimation } from "./types";
 
 const logo: AnimationObject<
-  ["sync", "middle"],
-  { container: HTMLElement; backgroundLogo: ProcessedStyle }
+  ["sync"],
+  { ctnRef: React.RefObject<HTMLDivElement>; backgroundLogo: ProcessedStyle }
 > = {
   states: {
     sync: (dependencies) => {
+      if (["bgFull", "hidden"].includes(dependencies.backgroundLogo.activeState || "") ) {
+        return {
+          ...dependencies.backgroundLogo,
+          scale: 5,
+          rotate: "-35deg",
+          // backgroundColor: undefined,
+          transition: {},
+        };
+      }
       return dependencies.backgroundLogo;
-    },
-    middle: (dependencies) => {
-      return {
-        ...dependencies.backgroundLogo,
-        scale: 5,
-        rotate: "-35deg",
-        transition: {},
-      };
     },
   },
   meta: {
-    directions: { 3: "middle" },
+    directions: {},
     defaultDirections: "sync",
     directives: {},
   },
 };
 
 const background: AnimationObject<
-  ["middle", "sync"],
-  { container: HTMLElement; backgroundLogo: ProcessedStyle }
+  ["sync"],
+  { backgroundLogo: ProcessedStyle }
 > = {
   states: {
     sync: (dependencies) => {
-      return dependencies.backgroundLogo;
-    },
-    middle: (dependencies) => {
       return dependencies.backgroundLogo;
     },
   },
@@ -44,29 +42,36 @@ const background: AnimationObject<
 };
 
 const backgroundLogo: AnimationObject<
-  ["rest", "middle", "instantMiddle", "offsetTop", "bgFull"],
-  { container: HTMLElement }
+  [
+    "rest",
+    "middle",
+    "instantMiddle",
+    "offsetTop",
+    "bgFull",
+    "hidden",
+    "default"
+  ],
+  { ctnRef: React.RefObject<HTMLDivElement> }
 > = {
   states: {
     default: (dependencies) => {
-      const parent = dependencies.container.getBoundingClientRect();
+      const parent = dependencies.ctnRef.current?.getBoundingClientRect();
+      if (!parent) return {};
 
       return {
-        top: 0,
-        left: 0,
         opacity: 1,
         scale: 1,
         rotate: 0,
         y: parent.top,
         x: parent.left,
-        width: parent.width,
         borderRadius: "20%",
-        // transition: {duration: 5},
-        height: parent.height,
+        background: "#1F1C24",
       };
     },
     rest: (dependencies) => {
-      const parent = dependencies.container.getBoundingClientRect();
+      const parent = dependencies.ctnRef.current?.getBoundingClientRect();
+      if (!parent) return {};
+
       return {
         x: parent.left,
         y: parent.top,
@@ -74,49 +79,87 @@ const backgroundLogo: AnimationObject<
       };
     },
     offsetTop: {
-      y: -+100,
-      opacity: 1,
+      y: -100,
+      opacity: 0,
+      scale: 1,
     },
     instantMiddle: (dependencies) => {
-      const parent = dependencies.container.getBoundingClientRect();
+      const parent = dependencies.ctnRef.current?.getBoundingClientRect();
+      if (!parent) return {};
+
       return {
         x: window.innerWidth / 2 - parent.width / 2,
         y: window.innerHeight / 2 - parent.height / 2,
-        height: 0,
-        width: 0,
         opacity: 1,
-        scale: 5,
+        scale: 0,
       };
     },
     middle: (dependencies) => {
-      const parent = dependencies.container.getBoundingClientRect();
+      const parent = dependencies.ctnRef.current?.getBoundingClientRect();
+      if (!parent) return {};
+
       return {
         x: window.innerWidth / 2 - parent.width / 2,
         y: window.innerHeight / 2 - parent.height / 2,
         opacity: 1,
         scale: 5,
         transition: {
-          duration:0.5
-        }
+          duration: 0.5,
+        },
       };
     },
     bgFull: (dependencies) => {
-      const parent = dependencies.container.getBoundingClientRect();
+      const parent = dependencies.ctnRef.current?.getBoundingClientRect();
+      if (!parent) return {};
+
+      const scale = Math.max(
+        window.innerWidth / parent.width,
+        window.innerHeight / parent.height
+      );
+
       return {
         x: window.innerWidth / 2 - parent.width / 2,
         y: window.innerHeight / 2 - parent.height / 2,
         opacity: 1,
-        scale: 100,
+        scale: scale * 1.1,
         transition: { duration: 1 },
+        transitionEnd: {
+          notify: { message: "swap" },
+        },
+        background: "#0d0d0d",
+      };
+    },
+    hidden: (dependencies) => {
+      const parent = dependencies.ctnRef.current?.getBoundingClientRect();
+      if (!parent) return {};
+
+      const scale = Math.max(
+        window.innerWidth / parent.width,
+        window.innerHeight / parent.height
+      );
+
+      return {
+        opacity: 0,
+        x: window.innerWidth / 2 - parent.width / 2,
+        y: window.innerHeight / 2 - parent.height / 2,
+        scale: scale * 1.1,
+        transition: { duration: 1 },
+        // applyDefault: false
       };
     },
   },
   meta: {
-    directions: ["offsetTop", "instantMiddle", "middle", "bgFull"],
+    directions: [
+      "default",
+      "offsetTop",
+      "instantMiddle",
+      "middle",
+      "bgFull",
+      "hidden",
+      "offsetTop",
+      "default",
+    ],
     directives: {
-      offsetTop_middle: {
-        transition: { duration: 0 },
-      },
       offsetTop_instantMiddle: {
         transition: { duration: 0 },
       },
@@ -126,7 +169,7 @@ const backgroundLogo: AnimationObject<
 
 const animation: ChainedAnimation<
   ["background", "logo"],
-  { name: string; container: HTMLElement },
+  { ctnRef: React.RefObject<HTMLDivElement> },
   ["backgroundLogo"]
 > = {
   abstractObjects: {

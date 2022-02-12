@@ -9,19 +9,24 @@ import {
 type c = Variant;
 
 export type AnimationDependencies = {
-  [key: string]: any
+  [key: string]: any;
 };
 
 type ManagerGivenAnimationDependencies = {
-  animationIndex: number
-}
+  animationIndex: number;
+};
 
 export type AnimationControllers = {
   [key: string]: AnimationControllers;
 };
 
 export type ProcessedStyle = TargetAndTransition & {
-  behavior?: "jump" | "continuous";
+  applyDefault?: boolean;
+  activeState?: string;
+  notify?: { message: string; payload?: any };
+  transitionEnd?: TargetAndTransition & {
+    notify: { message: string; payload?: any };
+  };
 };
 
 export type StyleGetter<ExpectedDependencies> = (
@@ -36,8 +41,14 @@ export type AnimationObject<
   States extends string[] = string[],
   ExpectedDependencies extends AnimationDependencies = AnimationDependencies
 > = {
-  states: { [K in States[number]]: RawStyle<ExpectedDependencies & ManagerGivenAnimationDependencies> } & {
-    default?: RawStyle<ExpectedDependencies & ManagerGivenAnimationDependencies>;
+  states: {
+    [K in States[number]]: RawStyle<
+      ExpectedDependencies & ManagerGivenAnimationDependencies
+    >;
+  } & {
+    default?: RawStyle<
+      ExpectedDependencies & ManagerGivenAnimationDependencies
+    >;
   };
   meta: {
     directions: States[number][] | { [key: number]: States[number] };

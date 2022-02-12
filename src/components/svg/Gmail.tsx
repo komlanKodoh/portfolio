@@ -5,7 +5,7 @@ interface Props extends React.SVGProps<SVGSVGElement> {}
 const Gmail: React.FC<Props> = props => {
   return (
     <svg {...props} aria-label="Gmail" role="img" viewBox="0 0 512 512">
-      <rect width="512" height="512" rx="15%" fill="" className="" />
+      <rect width="512" height="512" rx="15%" fill="none" className="" />
       <path fill="#f2f2f2" d="M120 392V151.075h272V392" />
       <path fillOpacity=".05" d="M256 285L120 392l-4-212" />
       <path fill="#d54c3f" d="M120 392H97c-12 0-22-10-22-23V143h45z" />

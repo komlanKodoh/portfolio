@@ -1,7 +1,8 @@
+import { motion } from "framer-motion";
 import React from "react";
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { focusSection, updateSectionData } from "../../Redux/slices/section";
+import { updateSectionData } from "../../Redux/slices/section";
 import { sectionData as sectionDataType } from "../../Redux/slices/section";
 
 interface StateProps {}
@@ -31,20 +32,36 @@ const PageSection = ({
     current: HTMLDivElement;
   };
 
-  useEffect(() => {
+  const onResize = () =>
     loadMyInfo({ height: sectionRef.current.offsetHeight, theme });
+    
+  useEffect(() => {
+    onResize();
   }, [sectionRef.current]);
 
+  useEffect(() => {
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
   return (
-    <div ref={sectionRef} className={`${className} w-full`} {...rest}>
+    <motion.div
+    //@ts-ignore
+      ref={sectionRef}
+      className={`${className} w-full`}
+      {...rest}
+      initial="offscreen"
+      whileInView="onscreen"
+      viewport={{ once: true, amount: 0.5 }}
+      transition={{ staggerChildren: 0.2 }}
+    >
       {children}
-    </div>
+    </motion.div>
   );
 };
 
 const mapStateToProps = () => {};
 const mapDispatchToProps = (dispatch, ownProps: ComponentProps) => {
-
   return {
     loadMyInfo: (sectionData) =>
       dispatch(
