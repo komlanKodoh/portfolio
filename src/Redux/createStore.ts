@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import sectionsReducer from "./slices/section";
-import pageTransitionReducer from "./slices/pageTransition";
+// import pageTransitionReducer from "./slices/pageTransition";
 
 const createStore = () =>
   configureStore({
     reducer: {
       sections: sectionsReducer,
-      pageTransition: pageTransitionReducer,
+      // pageTransition: pageTransitionReducer,
     },
   });
 

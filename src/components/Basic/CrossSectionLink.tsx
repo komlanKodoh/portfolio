@@ -1,28 +1,19 @@
 import { Link } from "gatsby";
 import React from "react";
 import { useDispatch } from "react-redux";
+import { useRoutingStateContext } from "../../../TransitionManager/usePageTransition";
 import { useAppDispatch } from "../../lib/hooks";
-import {
-  scheduleTransition,
-} from "../../Redux/slices/pageTransition";
 
-const rest = {
-  
-}
+const rest = {};
 
 interface Props extends React.HTMLProps<HTMLAnchorElement> {}
 function CrossSectionLink<Props>(props) {
-  const dispatch = useAppDispatch();
+  const router = useRoutingStateContext();
+
+  React.useEffect(() => {}, []);
 
   return (
-    <Link
-      {...props}
-      onClick={() =>
-        dispatch(
-          scheduleTransition("basic")
-        )
-      }
-    >
+    <Link {...props} onClick={() => {}}>
       {props.children}
     </Link>
   );

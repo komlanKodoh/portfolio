@@ -9,3 +9,5 @@ export const wrapPageElement = ({ element }) => {
 };
 
 export const wrapRootElement = ReduxProvider;
+
+
