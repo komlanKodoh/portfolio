@@ -7,21 +7,21 @@
 }
 
 .nav {
-  transition: transform 0.27s linear, background-color 0.2s linear,
-    color 0.2s linear;
+  transition: transform 0.27s linear, background-color 0.5s linear,
+    color 0.5s linear;
 
   background-color: var(--bg-color);
   & > div {
-    transition: transform 0.2s linear, background-color 0.2s linear,
-      color 0.2s linear;
+    transition: transform 0.5s linear, background-color 0.5s linear,
+      color 0.5s linear;
     background-color: var(--bar-bg-color);
   }
 }
 
 .burger_bar {
   background-color: var(--burger-bg-color);
-  transition: transform 0.2s linear, background-color 0.2s linear,
-    color 0.2s linear;
+  transition: transform 0.5s linear, background-color 0.5s linear,
+    color 0.5s linear;
 }
 
 .overlay{
