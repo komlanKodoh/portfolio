@@ -43,7 +43,10 @@ const NavBar = ({ Links, href }: Props) => {
     if (scrollTop === 0) dispatch(focusSection(0));
 
     for (const section of sectionsDataRef.current) {
-      const height = section?.height || 0;
+      const height = section?.height;
+      
+      if (!height) break;
+
       height_threshold += height;
       if (height_threshold > scrollTop) break;
       index++;
@@ -79,7 +82,7 @@ const NavBar = ({ Links, href }: Props) => {
   const page = useRoutingStateContext();
 
   const blogIsShown = useSectionIs("/blog", page.id);
-  const blogPost  = useSectionIs("/blog/H", page.id)
+  const blogPost = useSectionIs("/blog/H", page.id);
 
   const isBlog = React.useMemo(() => {
     return /.\/blog/.test(href);
@@ -89,8 +92,10 @@ const NavBar = ({ Links, href }: Props) => {
     <>
       <nav
         className={`sticky top-0 w-full h-0 z-40 ${styles.ctn} ${
-          styles[blogPost ? "dark" : blogIsShown? "black" : currentSection.theme]
-        }`}
+          styles[currentSection.theme]
+        } ${currentSection.className}`}
+
+        style={currentSection.styles}
       >
         <div
           className={`p-2  ${styles.nav}`}
@@ -102,13 +107,38 @@ const NavBar = ({ Links, href }: Props) => {
             className={`p-1 h-8 max-w-screen-lg m-auto rounded flex`}
             id="nav_header"
           >
-            <Burger
-              state={open}
-              data-cy={"burger"}
-              classNameBar={styles.burger_bar}
-              className={"sm:hidden mr-auto"}
-              onClick={() => setOpen((prev) => !prev)}
-            />
+            <div className="relative h-full">
+              <FadeIn
+                id="burger"
+                visible={!blogIsShown}
+                type="simple"
+                className="h-full"
+              >
+                <Burger
+                  state={open}
+                  data-cy={"burger"}
+                  classNameBar={styles.burger_bar}
+                  className={"sm:hidden mr-auto"}
+                  onClick={() => setOpen((prev) => !prev)}
+                />
+              </FadeIn>
+
+              <FadeIn
+                id="burger"
+                visible={blogIsShown}
+                type="simple"
+                preserve={false}
+              >
+                <CrossSectionLink
+                  to={`/blog`}
+                  className={
+                    " text-red-500 h-full block font-bold sm:hidden  absolute"
+                  }
+                >
+                  {"BLOG"}
+                </CrossSectionLink>
+              </FadeIn>
+            </div>
 
             <FadeIn
               id="overlay"
@@ -156,12 +186,11 @@ const NavBar = ({ Links, href }: Props) => {
               </ul>
             </FadeIn>
 
-            <div className="flex align-center gap-6">
-              <PageIconAnimated className=" -sm:hidden" />
-              <CrossSectionLink to="/#Home" className="-sm:ml-auto">
+            <div className="flex align-center gap-6 -sm:ml-auto">
+              <CrossSectionLink to="/#Home" className="sm:order-2">
                 KODOH
               </CrossSectionLink>
-              {/* <PageIconAnimated className="sm:hidden " /> */}
+              <PageIconAnimated className="sm:order-1" />
             </div>
 
             <ul className="hidden m-auto mr-16 gap-8 sm:flex text-sm justify-between">
@@ -181,7 +210,10 @@ const NavBar = ({ Links, href }: Props) => {
                 </FadeIn>
               ))}
               <li className="  text-red-500">
-                <CrossSectionLink to={`/blog`} className={" h-full block font-bold"}>
+                <CrossSectionLink
+                  to={`/blog`}
+                  className={" h-full block font-bold"}
+                >
                   {"BLOG"}
                 </CrossSectionLink>
               </li>

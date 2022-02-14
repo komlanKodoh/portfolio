@@ -79,7 +79,9 @@ export const usePageTransition = (
   }, [children]);
 
   React.useEffect(() => {
+
     if (waitListRef.current.size === 0) syncActivePage();
+    
   }, [pageState.currentState, waitListRef.current.size]);
 
   const page = {

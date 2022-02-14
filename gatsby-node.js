@@ -20,7 +20,7 @@ exports.createPages = async ({ actions, graphql }) => {
   blogPosts.forEach((blogPost) => {
     createPage({
       path: `/blog/${blogPost.node.title.replace(/ /g, "-")}`,
-      component: require.resolve("./src/templates/blog.tsx"),
+      component: require.resolve("./src/dynamic/blog.tsx"),
       context: {
         id: blogPost.node.id,
       },

@@ -18,18 +18,29 @@ export default function useAnimationSequence<
   Animation extends ChainedAnimation
 >(config: AnimationConfig<Animation>) {
   const animationIndexRef = useRef(0);
-  const directionRef = useRef("forward");
+  const directionRef = useRef<Direction>("forward");
   const hasAnimatedRef = useRef(true);
   const targetRef = useRef(0);
   const isAnimatingRef = useRef(false);
 
   React.useEffect(() => {
     const resizeListener = () => {
-      animate(null);
+      setTimeout(() => {
+        animate(null);
+      }, 10);
     };
     window.addEventListener("resize", resizeListener);
     return () => window.removeEventListener("resize", resizeListener);
   });
+
+  function animate(direction: Direction, index?: number) {
+    directionRef.current = direction;
+    if (index) targetRef.current = index;
+
+    if (!isAnimatingRef.current) {
+      private_animate();
+    }
+  }
 
   /**
    * Animates animation objects in the given directions or to the specific state.
@@ -38,40 +49,38 @@ export default function useAnimationSequence<
    * @param state an optional state to animated to all animation object
    * @returns void
    */
-  async function animate(direction?: Direction, state?: string) {
+  async function private_animate(state?: string) {
     isAnimatingRef.current = true;
     hasAnimatedRef.current = false;
-    const animationIndex = animationIndexRef.current;
 
-    
+    const animationIndex = animationIndexRef.current;
+    const direction = directionRef.current;
+
     if (direction !== null) {
       animationIndexRef.current =
-      direction === "forward" ? animationIndex + 1 : animationIndex - 1;
+        direction === "forward" ? animationIndex + 1 : animationIndex - 1;
     }
-    
+
     const objects = config.animation.objects;
     const abstractObjects = config.animation.abstractObjects || {};
-    
-    let abstractStyles: { [key: string]: ProcessedStyle } =
-    getObjectMappedStyles(abstractObjects, { animationIndex }, state);
-    
-    let controllersStyles: { [key: string]: ProcessedStyle } =
-    getObjectMappedStyles(
-      objects,
-      { ...abstractStyles, animationIndex },
-      state
-      );
-      
-      await animateStyles(controllersStyles);
-      console.log(animationIndex, config, hasAnimatedRef.current)
 
-    if (hasAnimatedRef.current) animate(direction);
+    let abstractStyles: { [key: string]: ProcessedStyle } =
+      getObjectMappedStyles(abstractObjects, { animationIndex }, state);
+
+    let controllersStyles: { [key: string]: ProcessedStyle } =
+      getObjectMappedStyles(
+        objects,
+        { ...abstractStyles, animationIndex },
+        state
+      );
+
+    await animateStyles(controllersStyles);
+
+    if (hasAnimatedRef.current) private_animate();
     else {
       config.emitter("done");
-      console.log("animation complete")
       animationIndexRef.current = 0;
       isAnimatingRef.current = false;
-
     }
   }
 
@@ -213,11 +222,16 @@ export default function useAnimationSequence<
     }
   }
 
+  const setAnimationIndex = (index: number) => {
+    animationIndexRef.current = index;
+  };
+
   return [
     config.controllers,
     {
-      isAnimatingRef,
       animate,
+      isAnimatingRef,
+      setAnimationIndex,
     },
   ] as const;
 }

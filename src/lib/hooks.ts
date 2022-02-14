@@ -1,23 +1,16 @@
-import { useRoutingStateContext } from './../../TransitionManager/usePageTransition';
+import { useRoutingStateContext } from "./../../TransitionManager/usePageTransition";
 import { clamp } from "./utils";
 
 import { useState, useRef, useEffect, useMemo } from "react";
 
-export const useIntersectionObserver: (
-  cb: IntersectionObserverCallback,
-  config: IntersectionObserverInit,
-  getRoot?: () => HTMLElement
-) => IntersectionObserver = (cb, config, getRoot) => {
-  const [observer, setObserver] = useState<IntersectionObserver>();
+export function useNavStyle(sectionData: sectionData, index: number = 0, listener: any[] = []) {
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    config.root = getRoot && getRoot();
-    setObserver(new IntersectionObserver(cb, config));
-  }, []);
+    dispatch(updateSectionData({ index, sectionData: sectionData }));
+  }, listener);
 
-  return observer as IntersectionObserver;
-};
-
+}
 /**
  * Create a ref object that follows the change of value of a state object;
  *
@@ -68,7 +61,7 @@ export function useSequentialState<T>(
         unauthorizedSequence.includes(
           states[prevStateIndex] + "_" + states[desiredStateIndex]
         )
-      ){
+      ) {
         succeeded = false;
         return prevStateIndex;
       }
@@ -87,7 +80,7 @@ export function useSequentialState<T>(
     setState((prevStateIndex) => {
       // console.log(desiredState)
       if (states[prevStateIndex] === desiredState) return prevStateIndex;
-      
+
       const desiredStateIndex = backward
         ? prevStateIndex - 1
         : prevStateIndex + 1;
@@ -103,7 +96,6 @@ export function useSequentialState<T>(
         succeeded = false;
         return prevStateIndex;
       }
-
 
       return desiredStateIndex;
     });
@@ -137,17 +129,19 @@ export const useForcedRender = () => {
 };
 
 export const useSectionIs = (section: string, key: string) => {
-  
   const isSection = useMemo(() => {
     return new RegExp(`^${section}`).test(key);
-  }, [key])
-
+  }, [key]);
 
   return isSection;
-}
+};
 
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../Redux/createStore";
+import section, {
+  sectionData,
+  updateSectionData,
+} from "../Redux/slices/section";
 
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch = () => useDispatch<AppDispatch>();

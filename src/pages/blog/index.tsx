@@ -9,6 +9,7 @@ import React from "react";
 import { render } from "sass";
 import PostCard from "../../components/BuildingBlocks/Blog/PostCard";
 import PageSection from "../../components/BuildingBlocks/pageSection";
+import { useNavStyle } from "../../lib/hooks";
 
 const getImage = (image) => {
   return image.edges[0].node.childImageSharp.gatsbyImageData;
@@ -16,6 +17,14 @@ const getImage = (image) => {
 
 const BlogHome = ({ data }) => {
   const blogPosts = data.blogPosts.nodes;
+
+  useNavStyle(
+    {
+      theme: "black",
+  
+    },
+    0
+  );
 
   const images = withArtDirection(getImage(data.tallBg), [
     {
