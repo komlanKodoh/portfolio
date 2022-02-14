@@ -1,11 +1,20 @@
 import * as React from "react";
 import { Link, graphql } from "gatsby";
+import * as styles from "./markdown.module.scss";
 import { GatsbyImage } from "gatsby-plugin-image";
+import { useNavStyle } from "../lib/hooks";
 
 const UsingDSG = ({ data }) => {
   const blogPost = data.blogPosts.edges[0].node;
 
-  const content = blogPost.content.content;
+  const content = blogPost.content.childMarkdownRemark.html;
+
+  useNavStyle(
+    {
+      theme: "white",
+    },
+    0
+  );
 
   return (
     <div className=" pt-8 mt-6">
@@ -18,7 +27,10 @@ const UsingDSG = ({ data }) => {
           image={blogPost.thumbnail.gatsbyImageData}
           alt={"article background image"}
         />
-        <main>{content}</main>
+        <main
+          className={`${styles.markdownBody} mb-5`}
+          dangerouslySetInnerHTML={{ __html: content }}
+        ></main>
       </div>
     </div>
   );
@@ -34,7 +46,9 @@ export const query = graphql`
           id
           title
           content {
-            content
+            childMarkdownRemark {
+              html
+            }
           }
           createdAt
           thumbnail {

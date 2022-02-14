@@ -2,7 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { AnimatePresence, AnimationProps, motion } from "framer-motion";
 
-interface Props {
+interface Props
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  > {
   id: string;
   delay?: number;
   visible: boolean;
@@ -45,6 +49,7 @@ const FadeIn: React.FC<Props> = ({
   id,
   type,
   delay,
+  style,
   onClick,
   visible,
   children,
@@ -57,12 +62,13 @@ const FadeIn: React.FC<Props> = ({
       <motion.span
         data-cy={id}
         key={id}
+        style={style}
         initial={type}
         onClick={onClick}
         animate={(visible && "visible") || type}
         variants={variants}
         className={className + " block"}
-        transition={ { type: "linear", delay, ...transition }}
+        transition={{ type: "linear", delay, ...transition }}
       >
         {children}
       </motion.span>
@@ -74,6 +80,7 @@ const FadeIn: React.FC<Props> = ({
         <motion.div
           key={id}
           exit={type}
+          style={style}
           data-cy={id}
           initial={type}
           onClick={onClick}

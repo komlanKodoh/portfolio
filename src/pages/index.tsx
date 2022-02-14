@@ -14,6 +14,7 @@ import PageSection from "../components/BuildingBlocks/pageSection";
 import DottyBg from "../components/Basic/DottyBg";
 import StandingHuman from "../components/svg/Human/Standing";
 import { Variants, motion } from "framer-motion";
+import { useNavStyle } from "../lib/hooks";
 
 const cardVariants: Variants = {
   offscreen: {
@@ -32,6 +33,14 @@ const cardVariants: Variants = {
 const Page = ({ data }) => {
   const [int_index, setInt_index] = useState(10);
 
+  useNavStyle(
+    {
+      theme: "",
+      height: 1
+    },
+    0
+  );
+  
   return (
     <>
       <PageSection
@@ -172,7 +181,7 @@ const Page = ({ data }) => {
                 "Typescript",
               ].map((item, index) => (
                 <li className="inline-block whitespace-nowrap" key={item}>
-                  # - {item}
+                  $_{item}
                 </li>
               ))}
             </ul>

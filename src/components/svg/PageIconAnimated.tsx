@@ -35,7 +35,7 @@ const PageIconAnimated: React.FC<Props> = ({
   const background = useAnimation();
   const logo = useAnimation();
 
-  const [controllers, {animate, isAnimatingRef}] = useAnimationSequence({
+  const [controllers, {animate, isAnimatingRef, setAnimationIndex}] = useAnimationSequence({
     animation: animation,
     controllers: { logo, background },
     animationDependencies: {
@@ -49,7 +49,7 @@ const PageIconAnimated: React.FC<Props> = ({
     }
   });
 
-  // const transitionManagerRef = useSyncRef(transitionManager);
+
   const animateRef = useSyncRef(animate)
 
   const page = useRoutingStateContext();
@@ -72,9 +72,18 @@ const PageIconAnimated: React.FC<Props> = ({
 
       if (subSection.includes(newSection) && subSection.includes(currentSection)) {
         page.waitFor("logoAnimation");
-        animateRef.current("forward");
-      }
 
+        if (page.currentState === "exit"){
+          console.log("Proceeding to go backward")
+          animateRef.current("backward");
+          
+        }else {
+          
+          setAnimationIndex(0)
+          animateRef.current("forward");
+        }
+      }
+      
     })
   }, [])
 

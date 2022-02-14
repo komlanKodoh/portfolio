@@ -143,7 +143,7 @@ const backgroundLogo: AnimationObject<
         x: window.innerWidth / 2 - parent.width / 2,
         y: window.innerHeight / 2 - parent.height / 2,
         scale: scale * 1.1,
-        transition: { duration: 1 },
+        transition: {  },
         // applyDefault: false
       };
     },
