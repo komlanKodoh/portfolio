@@ -156,7 +156,6 @@ const Page = ({ data }) => {
             <StandingHuman className="w-full h-auto md:-translate-x-12" />
           </motion.div>
 
-
           <div className="max-w-prose m-auto">
             <h1 className=" text-4xl -sm:hidden text-center m-4 underline">About me</h1>
             <p className=" leading-loose ">
