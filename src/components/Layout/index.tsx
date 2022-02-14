@@ -103,7 +103,9 @@ const Layout = ({ children, ...props }) => {
           <meta name="geo.position" content="39.78373;-100.445882" />
           <meta name="ICBM" content="39.78373, -100.445882" />
         </Helmet>
-        <NavBar Links={Links} href={window.location.href} />
+
+        <NavBar Links={Links}  />
+
         <motion.div className=" leading-loose min-h-screen" data-cy="main">
           {activePage}
         </motion.div>

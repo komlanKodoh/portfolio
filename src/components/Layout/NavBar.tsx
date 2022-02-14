@@ -18,12 +18,11 @@ import { useRoutingStateContext } from "../../../TransitionManager/usePageTransi
 
 interface ComponentProps {
   Links: string[];
-  href: string;
 }
 
 type Props = ComponentProps;
 
-const NavBar = ({ Links, href }: Props) => {
+const NavBar = ({ Links }: Props) => {
   const sectionsData = useAppSelector((state) => state.sections.sectionsData);
   const sectionsDataRef = useSyncRef(sectionsData);
 
@@ -84,9 +83,6 @@ const NavBar = ({ Links, href }: Props) => {
   const blogIsShown = useSectionIs("/blog", page.id);
   const blogPost = useSectionIs("/blog/H", page.id);
 
-  const isBlog = React.useMemo(() => {
-    return /.\/blog/.test(href);
-  }, [href]);
 
   return (
     <>
@@ -201,7 +197,7 @@ const NavBar = ({ Links, href }: Props) => {
                 <FadeIn
                   key={link}
                   id={link + "big"}
-                  visible={!isBlog}
+                  visible={!blogIsShown}
                   type={"from_top"}
                   transition={{ delay: index / 10 }}
                 >
