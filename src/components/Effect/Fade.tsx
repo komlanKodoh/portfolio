@@ -1,17 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, AnimationProps, motion } from "framer-motion";
 
-interface Props {
+interface Props
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  > {
   id: string;
   delay?: number;
   visible: boolean;
-  transition?: any;
+  transition?: AnimationProps["transition"];
   preserve?: boolean;
   className?: string;
   onClick?: () => void;
   children: React.ReactNode;
-  type: "from_big" | "from_bottom" | "from_left" | "simple";
+  type: keyof typeof variants;
 }
 
 const variants = {
@@ -30,6 +34,10 @@ const variants = {
     y: 20,
     opacity: 0,
   },
+  from_top: {
+    y: -20,
+    opacity: 0,
+  },
   visible: {
     y: 0,
     x: 0,
@@ -41,6 +49,7 @@ const FadeIn: React.FC<Props> = ({
   id,
   type,
   delay,
+  style,
   onClick,
   visible,
   children,
@@ -53,12 +62,13 @@ const FadeIn: React.FC<Props> = ({
       <motion.span
         data-cy={id}
         key={id}
+        style={style}
         initial={type}
         onClick={onClick}
         animate={(visible && "visible") || type}
         variants={variants}
         className={className + " block"}
-        transition={transition || { type: "linear", delay }}
+        transition={{ type: "linear", delay, ...transition }}
       >
         {children}
       </motion.span>
@@ -70,13 +80,14 @@ const FadeIn: React.FC<Props> = ({
         <motion.div
           key={id}
           exit={type}
+          style={style}
           data-cy={id}
           initial={type}
           onClick={onClick}
           animate={"visible"}
           variants={variants}
           className={className}
-          transition={{ type: "linear", delay }}
+          transition={{ type: "linear", delay, ...transition }}
         >
           {children}
         </motion.div>

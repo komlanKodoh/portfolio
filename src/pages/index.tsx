@@ -6,19 +6,41 @@ import Human from "../components/svg/Human";
 import ContactForm from "../components/BuildingBlocks/ContactForm";
 import SeparationH from "../components/Basic/SeparationH";
 import Linkedin from "../components/svg/Linkedin";
-import FadeIn from "../components/Effect/FadeIn";
+import FadeIn from "../components/Effect/Fade";
 import Gmail from "../components/svg/Gmail";
 import Phone from "../components/svg/Phone";
 import ShowProject from "../components/BuildingBlocks/ShowProject";
 import PageSection from "../components/BuildingBlocks/pageSection";
 import DottyBg from "../components/Basic/DottyBg";
 import StandingHuman from "../components/svg/Human/Standing";
+import { Variants, motion } from "framer-motion";
+import { useNavStyle } from "../lib/hooks";
+
+const cardVariants: Variants = {
+  offscreen: {
+    y: 30,
+    scale: 0.8,
+    opacity: 0
+  },
+  onscreen: {
+    y: 0,
+    scale: 1,
+    opacity:1,
+    transition: {duration: 0.7}
+  },
+};
 
 const Page = ({ data }) => {
   const [int_index, setInt_index] = useState(10);
 
-  // console.log()
-
+  useNavStyle(
+    {
+      theme: "",
+      height: 1
+    },
+    0
+  );
+  
   return (
     <>
       <PageSection
@@ -29,12 +51,12 @@ const Page = ({ data }) => {
         data-cy={"landing_home"}
         // observer={observer}
       >
-        <div className="lm-size h-full flex text-white relative z-20" >
+        <div className="lm-size h-full flex text-white relative z-20">
           <div className="my-auto sm:w-[60ch] sm:max-w-[60%] sm:flex-shrink-0 -sm:mt-24">
             <p className="m-0 p-0">
               <FadeIn
                 id="introduction"
-                visible={int_index >= 0}
+                visible={true}
                 type={"from_bottom"}
                 preserve={true}
                 transition={{ ease: "easeOut", duration: 1 }}
@@ -46,7 +68,7 @@ const Page = ({ data }) => {
               </FadeIn>
               <FadeIn
                 id="profession"
-                visible={int_index >= 0}
+                visible={true}
                 type={"from_bottom"}
                 preserve={true}
                 transition={{ ease: "easeOut", duration: 1.0 }}
@@ -59,7 +81,7 @@ const Page = ({ data }) => {
 
             <FadeIn
               id="landing_text"
-              visible={int_index >= 0}
+              visible={true}
               type={"from_left"}
               preserve={true}
               transition={{ ease: "easeOut", duration: 1 }}
@@ -85,7 +107,7 @@ const Page = ({ data }) => {
 
             <FadeIn
               id="human_svg_sm"
-              visible={int_index >= 0}
+              visible={true}
               type={"simple"}
               preserve={true}
               transition={{ duration: 3, delay: 0 }}
@@ -95,7 +117,7 @@ const Page = ({ data }) => {
           </div>
           <FadeIn
             id="human_svg_big"
-            visible={int_index >= 0}
+            visible={true}
             type={"simple"}
             preserve={true}
             transition={{ duration: 2, delay: 0 }}
@@ -127,14 +149,15 @@ const Page = ({ data }) => {
         index={2}
         data-cy="landing_about"
       >
+
         <div className="lm-size w-full grid md:grid-cols-2  py-10 text-justify sm:text-lg">
           <h1 className=" text-2xl text-center sm:hidden underline "> About me </h1>
           <div className="w-full h-full py-8 flex">
             <StandingHuman className="w-full h-auto md:-translate-x-12" />
-          </div>
+          </motion.div>
 
           <div className="max-w-prose m-auto">
-            <h1 className=" text-4xl -sm:hidden text-center m-4">About me</h1>
+            <h1 className=" text-4xl -sm:hidden text-center m-4 underline">About me</h1>
             <p className=" leading-loose ">
               I am Daniel, a computer science major. I like learning about new
               technology and building interactive user experiences.
@@ -157,24 +180,23 @@ const Page = ({ data }) => {
                 "Typescript",
               ].map((item, index) => (
                 <li className="inline-block whitespace-nowrap" key={item}>
-                  # - {item}
+                  $_{item}
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
         </div>
       </PageSection>
       <PageSection
         className=" bg-cover flex"
         index={3}
         id="Work"
-        theme="blue"
+        theme="dark"
         data-cy={"landing_projects"}
       >
         <div className="lm-size text-blue-200 relative flex-wrap py-14">
           <h1 className=" text-4xl -sm:text-2xl text-center mb-12 underline">
             What I worked on
-
           </h1>
           {data.projects.edges.map((project, index) => (
             <ShowProject
@@ -196,7 +218,7 @@ const Page = ({ data }) => {
         <div className="lm-size pb-12 pt-8 px-2 w-[60ch] max-w-full ">
           <h1 className=" text-4xl -sm:text-2xl text-center underline">Contact Me</h1>
           <ContactForm />
-          <SeparationH>or</SeparationH>
+          <SeparationH color="black" padding="1em" >or</SeparationH>
           <div className="flex justify-center gap-4">
             <a href={"mailto:komlankodoh@gmail.com"} aria-label="gmail contact">
               <Gmail fill="white" className="w-11 h-auto" />
@@ -216,6 +238,8 @@ const Page = ({ data }) => {
     </>
   );
 };
+
+Page.getValues = "newstring";
 
 export default Page;
 
@@ -242,7 +266,5 @@ export const query = graphql`
         }
       }
     }
-
-    
   }
 `;
