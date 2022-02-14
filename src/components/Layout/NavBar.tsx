@@ -186,11 +186,14 @@ const NavBar = ({ Links, href }: Props) => {
               </ul>
             </FadeIn>
 
+
             <div className="flex align-center gap-6 -sm:ml-auto">
+              
               <CrossSectionLink to="/#Home" className="sm:order-2">
                 KODOH
               </CrossSectionLink>
               <PageIconAnimated className="sm:order-1" />
+
             </div>
 
             <ul className="hidden m-auto mr-16 gap-8 sm:flex text-sm justify-between">
