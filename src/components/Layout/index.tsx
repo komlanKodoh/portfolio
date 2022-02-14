@@ -106,10 +106,10 @@ const Layout = ({ children, ...props }) => {
 
         <NavBar Links={Links}  />
 
-        <motion.div className=" leading-loose min-h-screen" data-cy="main">
+        <motion.div className=" leading-loose min-h-screen bg-neutral-900 overflow-hidden" data-cy="main">
           {activePage}
         </motion.div>
-        <footer className="bg-black text-white">
+        <footer className="bg-neutral-800 text-white ">
           <p className="lm-size flex justify-center py-2 ">
             Copyright 2021, created by Daniel kodoh
           </p>

@@ -44,7 +44,7 @@ const Page = ({ data }) => {
   return (
     <>
       <PageSection
-        className=" bg-cover relative  -sm:h-auto max-h-[900px]"
+        className="   relative  -sm:h-auto max-h-[900px]"
         theme="dark"
         index={1}
         id="Home"
@@ -140,7 +140,7 @@ const Page = ({ data }) => {
         </div>
       </PageSection>
       <PageSection
-        className=" bg-cover flex text-white relative flex-wrap"
+        className="   flex text-white relative flex-wrap"
         id="About"
         theme="dark"
         index={2}
@@ -185,7 +185,7 @@ const Page = ({ data }) => {
         </div>
       </PageSection>
       <PageSection
-        className=" bg-cover flex"
+        className="   flex"
         index={3}
         id="Work"
         theme="dark"
@@ -207,13 +207,13 @@ const Page = ({ data }) => {
 
       <PageSection
         theme="dark"
-        className="bg-cover flex text-white justify-center align-center underline"
+        className="  flex text-white justify-center align-center "
         index={4}
         id="Contact"
         data-cy="landing_contact"
       >
         <div className="lm-size py-6 px-2 w-[60ch] max-w-full ">
-          <h1 className=" text-4xl -sm:text-2xl text-center m-4">Contact Me</h1>
+          <h1 className=" text-4xl -sm:text-2xl text-center underline m-4">Contact Me</h1>
           <ContactForm />
           <SeparationH color="black" padding="1em" >or</SeparationH>
           <div className="flex justify-center gap-4">

@@ -1,8 +1,4 @@
-import {
-  HTMLMotionProps,
-  motion,
-  useAnimation,
-} from "framer-motion";
+import { HTMLMotionProps, motion, useAnimation } from "framer-motion";
 import React from "react";
 
 import {
@@ -16,8 +12,6 @@ import { getMainSection, parseDimension } from "../../lib/utils";
 import animation from "../../../TransitionManager/Transitions/FirstAnimation";
 import { useAnimationSequence } from "../../../TransitionManager";
 import { useRoutingStateContext } from "../../../TransitionManager/usePageTransition";
-
-
 
 interface Props extends HTMLMotionProps<any> {
   textClass?: string;
@@ -35,26 +29,24 @@ const PageIconAnimated: React.FC<Props> = ({
   const background = useAnimation();
   const logo = useAnimation();
 
-  const [controllers, {animate, isAnimatingRef, setAnimationIndex}] = useAnimationSequence({
-    animation: animation,
-    controllers: { logo, background },
-    animationDependencies: {
-      ctnRef: ctnRef,
-    },
-    emitter: (message: string, payload: any) => {
-      // console.log(message)/
-      if (message === "swap"){
-        page.removeHold("logoAnimation");
-      }
-    }
-  });
+  const [controllers, { animate, isAnimatingRef, setAnimationIndex }] =
+    useAnimationSequence({
+      animation: animation,
+      controllers: { logo, background },
+      animationDependencies: {
+        ctnRef: ctnRef,
+      },
+      emitter: (message: string, payload: any) => {
+        // console.log(message)/
+        if (message === "swap") {
+          page.removeHold("logoAnimation");
+        }
+      },
+    });
 
-
-  const animateRef = useSyncRef(animate)
+  const animateRef = useSyncRef(animate);
 
   const page = useRoutingStateContext();
-
-
 
   const forceRender = useForcedRender();
 
@@ -62,30 +54,29 @@ const PageIconAnimated: React.FC<Props> = ({
     forceRender();
 
     page.addEventListener("onExit", (ctx) => {
-
       const subSection = ["", "blog"];
 
-      const currentSection =  getMainSection(ctx.pageId);
+      const currentSection = getMainSection(ctx.pageId);
       const newSection = getMainSection(ctx.nextPageId);
 
-      if (currentSection === null || newSection === null || currentSection === newSection ) return;
+      if (
+        currentSection === null ||
+        newSection === null ||
+        currentSection === newSection
+      )
+        return;
 
-      if (subSection.includes(newSection) && subSection.includes(currentSection)) {
+      if (
+        subSection.includes(newSection) &&
+        subSection.includes(currentSection)
+      ) {
         page.waitFor("logoAnimation");
 
-        if (page.currentState === "exit"){
-          console.log("Proceeding to go backward")
-          animateRef.current("backward");
-          
-        }else {
-          
-          setAnimationIndex(0)
-          animateRef.current("forward");
-        }
+        setAnimationIndex(0);
+        animateRef.current("forward");
       }
-      
-    })
-  }, [])
+    });
+  }, []);
 
   return (
     <div

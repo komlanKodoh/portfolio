@@ -33,7 +33,7 @@ const BlogHome = ({ data }) => {
     },
   ]);
   return (
-    <div className=" w-full bg-cover" >
+    <div className=" w-full  " >
 
       <div className="relative">
         <h2 className="center-absolute z-10 text-white font-bold text-center  p-5 bg-opacity-50 text-4xl -sm:text-lg w-fit font-mono">

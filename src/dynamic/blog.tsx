@@ -17,7 +17,7 @@ const UsingDSG = ({ data }) => {
   );
 
   return (
-    <div className=" pt-16  bg-cover text-white  pb-5" >
+    <div className=" pt-16    text-white  pb-5" >
       <div className=" max-w-4xl mx-auto px-2 sm:px-5">
         <h1 className="py-5 text-3xl font-serif">
           {blogPost.title}{" "}

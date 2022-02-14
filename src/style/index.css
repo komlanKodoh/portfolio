@@ -21,6 +21,10 @@
 
 } */
 
+html{
+    background: #171717;
+}
+
 .lm-size{
     max-width: 1024px;
     margin: auto;
