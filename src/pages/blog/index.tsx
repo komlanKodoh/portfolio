@@ -34,6 +34,7 @@ const BlogHome = ({ data }) => {
   ]);
   return (
     <div className=" w-full bg-cover" >
+
       <div className="relative">
         <h2 className="center-absolute z-10 text-white font-bold text-center  p-5 bg-opacity-50 text-4xl -sm:text-lg w-fit font-mono">
           {"Welcome to my blog".split("").map((char, index) => (
@@ -43,7 +44,7 @@ const BlogHome = ({ data }) => {
           ))}
         </h2>
         <GatsbyImage
-          className="bg-blue-50 max-h-[500px] "
+          className="max-h-[500px] "
           image={images}
           alt="blog background image"
         ></GatsbyImage>
