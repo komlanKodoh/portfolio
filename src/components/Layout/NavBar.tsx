@@ -1,47 +1,52 @@
 import React, { useEffect, useState } from "react";
 import * as styles from "./style.module.scss";
 import { clamp } from "../../lib/utils";
-import FadeIn from "../Effect/FadeIn";
+import FadeIn from "../Effect/Fade";
 import Burger from "../Icons/Burger";
 import PageIcon from "../svg/PageIcon";
-import { connect, MapStateToPropsFactory } from "react-redux";
+import {
+  connect,
+  MapStateToPropsFactory,
+  useDispatch,
+  useSelector,
+} from "react-redux";
 import { focusSection, sectionData } from "../../Redux/slices/section";
-import { useSyncRef } from "../../lib/hooks";
+import { useAppSelector, useSectionIs, useSyncRef } from "../../lib/hooks";
 import PageIconAnimated from "../svg/PageIconAnimated";
-
-interface StateProps {
-  active: number;
-  sectionsData: sectionData[];
-}
-
-interface DispatchProps {
-  focusSection: (activeSection: number) => void;
-}
+import CrossSectionLink from "../Basic/CrossSectionLink";
+import { useRoutingStateContext } from "../../../TransitionManager/usePageTransition";
 
 interface ComponentProps {
   Links: string[];
+  href: string;
 }
 
-type Props = StateProps & DispatchProps & ComponentProps;
+type Props = ComponentProps;
 
-const NavBar = ({ Links, active, sectionsData, focusSection }: Props) => {
+const NavBar = ({ Links, href }: Props) => {
+  const sectionsData = useAppSelector((state) => state.sections.sectionsData);
   const sectionsDataRef = useSyncRef(sectionsData);
 
-  const [open, setOpen] = React.useState(false);
+  const active = useAppSelector((state) => state.sections.active);
   const activeRef = useSyncRef(active);
 
+  const [open, setOpen] = React.useState(false);
   const [shadow, setShadow] = useState(0);
-  const old_scroll = React.useRef(0);
+  const dispatch = useDispatch();
 
+  const old_scroll = React.useRef(0);
 
   const updateTheme = (scrollTop) => {
     let index = 0;
     let height_threshold = 0;
 
-    if (scrollTop === 0) return focusSection(0);
+    if (scrollTop === 0) dispatch(focusSection(0));
 
     for (const section of sectionsDataRef.current) {
-      const height = section?.height || 0;
+      const height = section?.height;
+      
+      if (!height) break;
+
       height_threshold += height;
       if (height_threshold > scrollTop) break;
       index++;
@@ -49,7 +54,7 @@ const NavBar = ({ Links, active, sectionsData, focusSection }: Props) => {
 
     if (activeRef.current === index) return;
 
-    focusSection(index);
+    dispatch(focusSection(index));
   };
 
   const onScroll = (e) => {
@@ -74,28 +79,66 @@ const NavBar = ({ Links, active, sectionsData, focusSection }: Props) => {
 
   const currentSection = sectionsData[active] || ({} as sectionData);
 
+  const page = useRoutingStateContext();
+
+  const blogIsShown = useSectionIs("/blog", page.id);
+  const blogPost = useSectionIs("/blog/H", page.id);
+
+  const isBlog = React.useMemo(() => {
+    return /.\/blog/.test(href);
+  }, [href]);
+
   return (
     <>
       <nav
         className={`sticky top-0 w-full h-0 z-40 ${styles.ctn} ${
           styles[currentSection.theme]
-        }`}
-        style={{
-          boxShadow: `0 25px 50px -12px rgba(0,0,0, ${shadow})`,
-        }}
+        } ${currentSection.className}`}
+
+        style={currentSection.styles}
       >
-        <div className={`p-2  ${styles.nav}`}>
+        <div
+          className={`p-2  ${styles.nav}`}
+          style={{
+            boxShadow: `0 25px 50px -12px rgba(0,0,0, ${shadow})`,
+          }}
+        >
           <div
             className={`p-1 h-8 max-w-screen-lg m-auto rounded flex`}
             id="nav_header"
           >
-            <Burger
-              state={open}
-              data-cy={"burger"}
-              classNameBar={styles.burger_bar}
-              className={"sm:hidden mr-auto"}
-              onClick={() => setOpen((prev) => !prev)}
-            />
+            <div className="relative h-full">
+              <FadeIn
+                id="burger"
+                visible={!blogIsShown}
+                type="simple"
+                className="h-full"
+              >
+                <Burger
+                  state={open}
+                  data-cy={"burger"}
+                  classNameBar={styles.burger_bar}
+                  className={"sm:hidden mr-auto"}
+                  onClick={() => setOpen((prev) => !prev)}
+                />
+              </FadeIn>
+
+              <FadeIn
+                id="burger"
+                visible={blogIsShown}
+                type="simple"
+                preserve={false}
+              >
+                <CrossSectionLink
+                  to={`/blog`}
+                  className={
+                    " text-red-500 h-full block font-bold sm:hidden  absolute"
+                  }
+                >
+                  {"BLOG"}
+                </CrossSectionLink>
+              </FadeIn>
+            </div>
 
             <FadeIn
               id="overlay"
@@ -124,25 +167,57 @@ const NavBar = ({ Links, active, sectionsData, focusSection }: Props) => {
                     </li>
                   </FadeIn>
                 ))}
+
+                <FadeIn
+                  id="blog"
+                  visible={open}
+                  type="from_bottom"
+                  delay={4 / 10}
+                >
+                  <li
+                    className="  text-red-500"
+                    onClick={() => setOpen((prev) => !prev)}
+                  >
+                    <CrossSectionLink to={`/blog`} className={" h-full block"}>
+                      {"Blog"}
+                    </CrossSectionLink>
+                  </li>
+                </FadeIn>
               </ul>
             </FadeIn>
 
-            <div className="flex align-center gap-6">
-              <PageIcon className=" -sm:hidden" />
-              <a href="/#Home" className="-sm:ml-auto">KODOH</a>
-              <PageIcon className="sm:hidden " />
+            <div className="flex align-center gap-6 -sm:ml-auto">
+              <CrossSectionLink to="/#Home" className="sm:order-2">
+                KODOH
+              </CrossSectionLink>
+              <PageIconAnimated className="sm:order-1" />
             </div>
 
-            <ul className="hidden m-auto mr-16 gap-16 sm:flex text-sm justify-between">
-              {Links.map((link) => (
-                <li key={link} className=" block">
-                  <a href={`#${link}`} className={"w-full h-full block"}>
-                    {link}
-                  </a>
-                </li>
+            <ul className="hidden m-auto mr-16 gap-8 sm:flex text-sm justify-between">
+              {Links.map((link, index) => (
+                <FadeIn
+                  key={link}
+                  id={link + "big"}
+                  visible={!isBlog}
+                  type={"from_top"}
+                  transition={{ delay: index / 10 }}
+                >
+                  <li key={link} className=" block px-4">
+                    <a href={`#${link}`} className={"w-full h-full block"}>
+                      {link}
+                    </a>
+                  </li>
+                </FadeIn>
               ))}
+              <li className="  text-red-500">
+                <CrossSectionLink
+                  to={`/blog`}
+                  className={" h-full block font-bold"}
+                >
+                  {"BLOG"}
+                </CrossSectionLink>
+              </li>
             </ul>
-
           </div>
         </div>
       </nav>
@@ -150,24 +225,4 @@ const NavBar = ({ Links, active, sectionsData, focusSection }: Props) => {
   );
 };
 
-const mapStateToProps = (state, ownProps: ComponentProps) => {
-  return {
-    sectionsData: state.sections.sectionsData,
-    active: state.sections.active,
-  };
-};
-
-const mapDispatchToProps = (dispatch, ownProps: ComponentProps) => {
-  return {
-    focusSection: (activeSection: number) => {
-      {
-        dispatch(focusSection(activeSection));
-      }
-    },
-  };
-};
-
-export default connect<StateProps, DispatchProps, ComponentProps>(
-  mapStateToProps,
-  mapDispatchToProps
-)(NavBar);
+export default NavBar;

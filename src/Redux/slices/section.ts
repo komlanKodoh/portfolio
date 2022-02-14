@@ -6,8 +6,15 @@ interface SectionState {
 }
 
 export type sectionData = {
-  height: number
+  height?: number
   theme: string;
+  styles?: {
+    color: string,
+    barColor: string,
+    backgroundColor: string,
+    burgerBackgroundColor: string
+  }
+  className?: string
 }
 
 const initialState = { active: 0, sectionsData: [] } as SectionState;
