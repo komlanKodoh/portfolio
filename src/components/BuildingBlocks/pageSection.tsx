@@ -52,7 +52,7 @@ const PageSection = ({
       {...rest}
       initial="offscreen"
       whileInView="onscreen"
-      viewport={{ once: true, amount: 0.5 }}
+      viewport={{ once: true, amount: 0.3 }}
       transition={{ staggerChildren: 0.2 }}
     >
       {children}

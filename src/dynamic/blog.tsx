@@ -11,15 +11,15 @@ const UsingDSG = ({ data }) => {
 
   useNavStyle(
     {
-      theme: "white",
+      theme: "dark",
     },
     0
   );
 
   return (
-    <div className=" pt-8 mt-6">
-      <div className=" max-w-4xl mx-auto px-2 sm:px-5 ">
-        <h1 className="text-3xl font-serif my-8 text-gray-800">
+    <div className=" pt-16  bg-cover text-white  pb-5" >
+      <div className=" max-w-4xl mx-auto px-2 sm:px-5">
+        <h1 className="py-5 text-3xl font-serif">
           {blogPost.title}{" "}
         </h1>
         <GatsbyImage
@@ -28,9 +28,11 @@ const UsingDSG = ({ data }) => {
           alt={"article background image"}
         />
         <main
-          className={`${styles.markdownBody} mb-5`}
+          className={`${styles.markdownBody}`}
           dangerouslySetInnerHTML={{ __html: content }}
         ></main>
+
+        <p  className="text-xl text-center font-extrabold">Thanks for reading this article</p>
       </div>
     </div>
   );

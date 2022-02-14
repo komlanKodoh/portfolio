@@ -33,10 +33,10 @@ const BlogHome = ({ data }) => {
     },
   ]);
   return (
-    <div className=" w-full">
+    <div className=" w-full bg-cover" >
       <div className="relative">
         <h2 className="center-absolute z-10 text-white font-bold text-center  p-5 bg-opacity-50 text-4xl -sm:text-lg w-fit font-mono">
-          {"my thought, my evolution, my progress.".split("").map((char, index) => (
+          {"Welcome to my blog".split("").map((char, index) => (
             <motion.span whileHover="hover"key={index} >
               <motion.span variants={{hover: {y: -10, color: "rgb(255,0,0)"}} } className="inline-block whitespace-pre">{char}</motion.span>
             </motion.span>
@@ -49,7 +49,7 @@ const BlogHome = ({ data }) => {
         ></GatsbyImage>
       </div>
 
-      <main className="lm-size grid place-items-center grid-cols-1 sm:grid-cols-2 ">
+      <main className="lm-size grid place-items-center grid-cols-1 sm:grid-cols-2 py-16 ">
         {blogPosts.map((blogPost) => (
           <PostCard key={blogPost.id} {...blogPost}></PostCard>
         ))}

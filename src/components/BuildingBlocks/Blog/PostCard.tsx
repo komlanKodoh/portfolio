@@ -41,11 +41,13 @@ const PostCard: React.FC<Props> = ({
 }) => {
   return (
     <motion.div
+    initial="rest"
       whileHover={"hover"}
       variants={{
         hover: { y: -2 },
+        // rest: {y:1}
       }}
-      className="m-2 w-full overflow-hidden max-w-md shadow-md shadow-slate-500 leading-7 "
+      className="m-2 w-full overflow-hidden max-w-md leading-7 z-10 rounded-md"
     >
       <motion.div
         variants={{ hover: { scale: 1.05 } }}
@@ -58,9 +60,9 @@ const PostCard: React.FC<Props> = ({
         />
       </motion.div>
 
-      <motion.div className="p-4 origin-bottom bg-white">
-        <h2 className={" font-bold  text-xl  my-2 text-slate-900"}> {title}</h2>
-        <p className={" text-gray-800 my-4"}>{extract}</p>
+      <motion.div className="p-4 origin-bottom bg-black text-white">
+        <h2 className={" font-bold  text-xl  my-2 text-slate-900 "}> {title}</h2>
+        <p className={" text-slate-300 my-4"}>{extract}</p>
         <span className="text-gray-700 text-sm">{convertDate(createdAt)} </span>
         <Link className="text-green-500 underline block float-right" to={`./${title.replace(/ /g, "-")}`} >
           
