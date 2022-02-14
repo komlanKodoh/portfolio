@@ -13,22 +13,22 @@ import ShowProject from "../components/BuildingBlocks/ShowProject";
 import PageSection from "../components/BuildingBlocks/pageSection";
 import DottyBg from "../components/Basic/DottyBg";
 import StandingHuman from "../components/svg/Human/Standing";
-import { Variants, motion } from "framer-motion";
+import { Variants, motion, Transition } from "framer-motion";
 import { useNavStyle } from "../lib/hooks";
 
 const cardVariants: Variants = {
   offscreen: {
-    y: 30,
-    scale: 0.8,
+    y: 60,
     opacity: 0
   },
   onscreen: {
     y: 0,
-    scale: 1,
     opacity:1,
-    transition: {duration: 0.7}
+    transition: {duration: 0.7, damping: 0, velocity: 0.2}
   },
 };
+
+type d = (keyof Transition)[]
 
 const Page = ({ data }) => {
   const [int_index, setInt_index] = useState(10);
@@ -124,16 +124,12 @@ const Page = ({ data }) => {
           >
             <Human className="hidden sm:block my-auto w-full float-right" />
           </FadeIn>
+
           <DottyBg
             bgSize="1em"
             color="white"
-            className=" w-52 h-28 absolute bottom-0  -left-4  z-10 -sm:hidden -translate-x-full "
+            className=" w-52 h-72 absolute bottom-0  -left-4  z-10 -sm:hidden -translate-x-full translate-y-1/2 "
           />
-          {/* <DottyBg
-            bgSize="1em"
-            color="white"
-            className=" w-52 h-28 absolute bottom-0  -left-4  z-10 -sm:hidden -translate-x-full -translate-y-full "
-          /> */}
 
           <DottyBg
             bgSize="1em"
@@ -143,9 +139,9 @@ const Page = ({ data }) => {
         </div>
       </PageSection>
       <PageSection
-        className="flex text-gray-900 relative flex-wrap"
+        className=" bg-cover flex text-white relative flex-wrap"
         id="About"
-        theme="white"
+        theme="dark"
         index={2}
         data-cy="landing_about"
       >
@@ -194,8 +190,8 @@ const Page = ({ data }) => {
         theme="dark"
         data-cy={"landing_projects"}
       >
-        <div className="lm-size text-blue-200 relative flex-wrap py-14">
-          <h1 className=" text-4xl -sm:text-2xl text-center mb-12 underline">
+        <div className="lm-size text-blue-200 relative flex-wrap ">
+          <h1 className=" text-4xl -sm:text-2xl text-center mb-12 underline py-6">
             What I worked on
           </h1>
           {data.projects.edges.map((project, index) => (
@@ -209,14 +205,16 @@ const Page = ({ data }) => {
       </PageSection>
 
       <PageSection
-        theme="white"
-        className="flex justify-center align-center "
+        theme="dark"
+        className="bg-cover flex text-white justify-center align-center "
         index={4}
         id="Contact"
         data-cy="landing_contact"
       >
+
         <div className="lm-size pb-12 pt-8 px-2 w-[60ch] max-w-full ">
           <h1 className=" text-4xl -sm:text-2xl text-center underline">Contact Me</h1>
+          
           <ContactForm />
           <SeparationH color="black" padding="1em" >or</SeparationH>
           <div className="flex justify-center gap-4">

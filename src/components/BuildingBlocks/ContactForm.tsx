@@ -16,7 +16,7 @@ const ContactForm = () => {
         data-cy={"form_contact_field"}
         required={true}
         state={[inputValue, setInputValue]}
-        className={"w-full border-2 border-slate-900 p-1"}
+        className={"w-full border-2 border-slate-900 p-1 bg-black"}
       />
       <NormalInput
         name={"email"}
@@ -26,7 +26,7 @@ const ContactForm = () => {
         data-cy={"form_contact_field"}
         required={true}
         state={[inputValue, setInputValue]}
-        className={"w-full border-2 border-slate-900 p-1"}
+        className={"w-full border-2 border-slate-900 p-1 bg-black"}
       />
       <TextArea
         name={"message"}
@@ -35,7 +35,7 @@ const ContactForm = () => {
         data-cy={"form message_field"}
         required={true}
         state={[inputValue, setInputValue]}
-        className={"w-full border-2 border-slate-900 min-h-[250px] p-1" }
+        className={"w-full border-2 border-slate-900 min-h-[250px] p-1 bg-black" }
       />
       <Button className={" bg-blue-600 border-none text-white py-2"} type="submit">Submit Form</Button>
     </form>

@@ -107,7 +107,7 @@ const Layout = ({ children, ...props }) => {
         <motion.div className=" leading-loose min-h-screen" data-cy="main">
           {activePage}
         </motion.div>
-        <footer className="bg-cover text-white">
+        <footer className="bg-black text-white">
           <p className="lm-size flex justify-center py-2 ">
             Copyright 2021, created by Daniel kodoh
           </p>
