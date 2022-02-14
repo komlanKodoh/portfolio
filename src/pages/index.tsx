@@ -44,7 +44,7 @@ const Page = ({ data }) => {
   return (
     <>
       <PageSection
-        className=" bg-cover relative  -sm:h-auto max-h-[900px] overflow-hidden"
+        className=" bg-cover relative  -sm:h-auto max-h-[900px]"
         theme="dark"
         index={1}
         id="Home"
@@ -129,12 +129,11 @@ const Page = ({ data }) => {
             color="white"
             className=" w-52 h-28 absolute bottom-0  -left-4  z-10 -sm:hidden -translate-x-full "
           />
-
-          <DottyBg
+          {/* <DottyBg
             bgSize="1em"
-            color="black"
-            className=" w-52 absolute -bottom-0  -left-4  z-10 -sm:hidden -translate-x-full h-20 translate-y-20"
-          />
+            color="white"
+            className=" w-52 h-28 absolute bottom-0  -left-4  z-10 -sm:hidden -translate-x-full -translate-y-full "
+          /> */}
 
           <DottyBg
             bgSize="1em"
@@ -150,14 +149,16 @@ const Page = ({ data }) => {
         index={2}
         data-cy="landing_about"
       >
-        <div className="lm-size w-full grid md:grid-cols-2  py-10 text-justify">
-          <h1 className=" text-2xl text-center sm:hidden "> - About me </h1>
-          <motion.div className="w-full h-full py-8 flex" variants={cardVariants}>
+
+        <div className="lm-size w-full grid md:grid-cols-2  py-10 text-justify sm:text-lg">
+          <h1 className=" text-2xl text-center sm:hidden underline "> About me </h1>
+          <div className="w-full h-full py-8 flex">
             <StandingHuman className="w-full h-auto md:-translate-x-12" />
           </motion.div>
 
-          <motion.div className="max-w-prose m-auto " variants={cardVariants}>
-            <h1 className=" text-4xl -sm:hidden text-center m-4 ">About me</h1>
+
+          <div className="max-w-prose m-auto">
+            <h1 className=" text-4xl -sm:hidden text-center m-4 underline">About me</h1>
             <p className=" leading-loose ">
               I am Daniel, a computer science major. I like learning about new
               technology and building interactive user experiences.
@@ -165,8 +166,7 @@ const Page = ({ data }) => {
               <br /> While I explore all kinds of technologies, my set of skills
               makes me very qualified for web-related development. My knowledge
               of front-end and back-end technologies helps me create fast and
-              reliable web experiences. Some of the technologies I use to build
-              are :
+              reliable web experiences. 
             </p>
 
             <ul className="grid grid-cols-3 mt-1 list-inside list-disc py-4 sm:pl-0 gap-4">
@@ -216,8 +216,8 @@ const Page = ({ data }) => {
         id="Contact"
         data-cy="landing_contact"
       >
-        <div className="lm-size py-12 px-2 w-[60ch] max-w-full ">
-          <h1 className=" text-4xl -sm:text-2xl text-center m-4">Contact Me</h1>
+        <div className="lm-size pb-12 pt-8 px-2 w-[60ch] max-w-full ">
+          <h1 className=" text-4xl -sm:text-2xl text-center underline">Contact Me</h1>
           <ContactForm />
           <SeparationH color="black" padding="1em" >or</SeparationH>
           <div className="flex justify-center gap-4">
