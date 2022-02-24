@@ -1,12 +1,12 @@
 import React from "react";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { LinkButton } from "../Basic/Button";
+import { Link } from "gatsby";
 
 const ShowProject = ({ project, right }) => {
   return (
     <div className="grid sm:grid-cols-2 grid-cols-1 gap-x-12 place-items-center my-12">
       <div className="relative rounded-md overflow-hidden  w-full shadow-xl shadow-black">
-
         <GatsbyImage
           className=" bg-blue-500"
           image={project.previewImage?.gatsbyImageData}
@@ -33,17 +33,35 @@ const ShowProject = ({ project, right }) => {
             {project.description}
           </p>
           <br />
-          <LinkButton
-            href={project.previewUrl}
-            className={"mr-2 shadow-2xl border-red-500"}
-            target="_blank"
-            theme="one"
-          >
-            Preview
-          </LinkButton>
-          <LinkButton target="_blank" href={project.sourceCodeUrl} theme="one">
-            View Code
-          </LinkButton>
+
+          {project.moreAbout && (
+            <Link
+              to={project.moreAbout}
+              className="inline-block px-4 py-1 border-2 bg-black text-white shadow undefined border-blue-500 mr-2 transition-shadow hover:shadow-glow"
+            >
+              more Details
+            </Link>
+          )}
+
+          {project.previewUrl && (
+            <LinkButton
+              href={project.previewUrl}
+              className={"mr-2 border-red-500"}
+              target="_blank"
+              theme="one"
+            >
+              Preview
+            </LinkButton>
+          )}
+          {project.sourceCodeUrl && (
+            <LinkButton
+              target="_blank"
+              href={project.sourceCodeUrl}
+              theme="one"
+            >
+              View Code
+            </LinkButton>
+          )}
         </div>
       </div>
     </div>

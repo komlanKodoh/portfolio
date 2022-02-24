@@ -3,6 +3,14 @@ import { clamp } from "./utils";
 
 import { useState, useRef, useEffect, useMemo } from "react";
 
+/**
+ * These hooks serve as a connections Between an section and the navbar, to communicate a certain styling.
+ * The styles can be attributed a specific index and height to only be restrained to  
+ * 
+ * @param sectionData Custom styling desired by the section;
+ * @param index 
+ * @param listener 
+ */
 export function useNavStyle(sectionData: sectionData, index: number = 0, listener: any[] = []) {
   const dispatch = useAppDispatch();
 
@@ -43,7 +51,7 @@ export const useFirstTimeLoading = () => {
 
 export function useSequentialState<T>(
   states: readonly T[],
-  unauthorizedSequence: string[]
+  unauthorizedSequence: string[] = []
 ) {
   const [stateIndex, setState] = useState(0);
   const currentState = states[stateIndex];

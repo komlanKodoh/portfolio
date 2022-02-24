@@ -30,6 +30,15 @@ const Layout = ({ children, ...props }) => {
       pageState.waitFor("generalFade");
       setIsFaded(true);
     });
+
+    pageState.addEventListener("beforeSwap", (ctx) => {
+      document.getElementById("gatsby-focus-wrapper")?.scroll({
+        top: 0,
+        left: 0,
+        behavior: "auto"
+      });
+    })
+
   }, []);
 
   const state = isFaded && "faded" || "rest"
@@ -52,6 +61,7 @@ const Layout = ({ children, ...props }) => {
           enter: { opacity: 1, y: 0, scale: 1 },
         }}
         transition={{ easing: "anticipate", duration: 0.5 }}
+        className="max-w-screen "
       >
         <Helmet
           htmlAttributes={{
@@ -106,7 +116,7 @@ const Layout = ({ children, ...props }) => {
 
         <NavBar Links={Links}  />
 
-        <motion.div className=" leading-loose min-h-screen bg-neutral-900 overflow-hidden" data-cy="main">
+        <motion.div className=" leading-loose min-h-screen  bg-main overflow-hidden" data-cy="main">
           {activePage}
         </motion.div>
         <footer className="bg-neutral-800 text-white ">

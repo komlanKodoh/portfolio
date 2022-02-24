@@ -8,7 +8,7 @@
 #gatsby-focus-wrapper{
     scroll-padding-top: 2rem ;
     scroll-behavior: smooth;
-    /* overflow-x: hidden; */
+    overflow-x: hidden;
     overflow-y: auto;
     position:fixed;
     top: 0;
@@ -22,7 +22,8 @@
 } */
 
 html{
-    background: #171717;
+    background: #0d0d0d;
+
 }
 
 .lm-size{

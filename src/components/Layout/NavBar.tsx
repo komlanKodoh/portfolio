@@ -128,7 +128,7 @@ const NavBar = ({ Links }: Props) => {
                 <CrossSectionLink
                   to={`/blog`}
                   className={
-                    " text-red-500 h-full block font-bold sm:hidden  absolute"
+                    " text-red-500 h-full block font-bold sm:hidden  absolute top-0"
                   }
                 >
                   {"BLOG"}

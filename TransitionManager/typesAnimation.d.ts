@@ -6,5 +6,9 @@ export type AnimationConfig<Animation extends ChainedAnimation> = {
   animation: Animation;
   controllers: SameKeysWithType<AnimationControls, Animation["objects"]>;
   animationDependencies: Animation extends ChainedAnimation<any, infer T, any> ? T : null;
-  emitter: (message: string, payload?: any) => void
+  emitter: (message: string, payload?: any) => void,
+  directives: {
+    max: number,
+    
+  }
 };

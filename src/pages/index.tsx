@@ -18,17 +18,17 @@ import { useNavStyle } from "../lib/hooks";
 
 const cardVariants: Variants = {
   offscreen: {
-    y: 60,
-    opacity: 0
+    scale: 0.8,
+    opacity: 0,
   },
   onscreen: {
-    y: 0,
-    opacity:1,
-    transition: {duration: 0.7, damping: 0, velocity: 0.2}
+    scale: 1,
+    opacity: 1,
+    // transition: {duration: 0.7, damping: 0, velocity: 0.2}
   },
 };
 
-type d = (keyof Transition)[]
+type d = (keyof Transition)[];
 
 const Page = ({ data }) => {
   const [int_index, setInt_index] = useState(10);
@@ -36,11 +36,11 @@ const Page = ({ data }) => {
   useNavStyle(
     {
       theme: "",
-      height: 1
+      height: 1,
     },
     0
   );
-  
+
   return (
     <>
       <PageSection
@@ -74,7 +74,7 @@ const Page = ({ data }) => {
                 transition={{ ease: "easeOut", duration: 1.0 }}
               >
                 <span className=" text-4xl block py-2">
-                  A Full Stack Web developer
+                  An aspiring software engineer
                 </span>
               </FadeIn>
             </p>
@@ -87,14 +87,15 @@ const Page = ({ data }) => {
               transition={{ ease: "easeOut", duration: 1 }}
             >
               <p className="m-0 py-2 text-gray-500">
-                I design and build{" "}
-                <strong className="text-gray-400">beautiful</strong> and{" "}
-                <strong className="text-gray-400">accessible</strong> user
-                interfaces. My work focuses on{" "}
-                <strong className="text-gray-400">security</strong> and{" "}
-                <strong className="text-gray-400">performance</strong> by
-                leveraging the latest practices and tools of software
-                development.
+                To me, <strong className="text-gray-400"> technology </strong>{" "}
+                is <strong className="text-gray-400">beautiful </strong>.
+                Because of its ever-changing nature that creates an environment
+                with{" "}
+                <strong className="text-gray-400">
+                  {" "}
+                  endless opportunities{" "}
+                </strong>
+                . An environment with always more to learn.
               </p>
               <LinkButton
                 href="#Contact"
@@ -131,7 +132,6 @@ const Page = ({ data }) => {
             className=" w-52 h-72 absolute bottom-0  -left-4  z-10 -sm:hidden -translate-x-full translate-y-1/2 "
           />
 
-
           <DottyBg
             bgSize="1em"
             color="white"
@@ -147,13 +147,21 @@ const Page = ({ data }) => {
         data-cy="landing_about"
       >
         <div className="lm-size w-full grid md:grid-cols-2  py-10 text-justify">
-          <h1 className=" text-2xl text-center sm:hidden underline"> About me </h1>
-          <motion.div className="w-full h-full py-8 flex" variants={cardVariants}>
-            <StandingHuman className="w-full h-auto md:-translate-x-12" />
+          <h1 className=" text-2xl text-center sm:hidden underline">
+            {" "}
+            About me{" "}
+          </h1>
+          <motion.div
+            className=" w-full h-auto md:-translate-x-12f lex"
+            variants={cardVariants}
+          >
+            <StandingHuman className="w-full h-auto p-8 my-auto" />
           </motion.div>
 
           <motion.div className="max-w-prose m-auto " variants={cardVariants}>
-            <h1 className=" text-4xl -sm:hidden text-center m-4 underline ">About me</h1>
+            <h1 className=" text-4xl -sm:hidden text-center m-4 underline ">
+              About me
+            </h1>
             <p className=" leading-loose ">
               I am Daniel, a computer science major. I like learning about new
               technology and building interactive user experiences.
@@ -161,11 +169,10 @@ const Page = ({ data }) => {
               <br /> While I explore all kinds of technologies, my set of skills
               makes me very qualified for web-related development. My knowledge
               of front-end and back-end technologies helps me create fast and
-              reliable web experiences. Some of the technologies I use to build
-              are :
+              reliable web experiences
             </p>
 
-            <ul className="grid grid-cols-3 mt-1 list-inside list-disc py-4 sm:pl-0 gap-4">
+            <ul className="flex gap-5 flex-wrap">
               {[
                 "My sql",
                 "Java",
@@ -175,9 +182,10 @@ const Page = ({ data }) => {
                 "Vue",
                 "NoSql",
                 "Typescript",
+                "Rust"
               ].map((item, index) => (
-                <li className="inline-block whitespace-nowrap" key={item}>
-                  $_{item}
+                <li className="underline text-blue-500 inline-block whitespace-nowrap" key={item}>
+                  #{item}{ "  "}
                 </li>
               ))}
             </ul>
@@ -185,14 +193,14 @@ const Page = ({ data }) => {
         </div>
       </PageSection>
       <PageSection
-        className="   flex"
+        className="flex"
         index={3}
         id="Work"
         theme="dark"
         data-cy={"landing_projects"}
       >
         <div className="lm-size text-blue-200 relative flex-wrap ">
-          <h1 className=" text-4xl -sm:text-2xl text-center mb-12 underline py-6">
+          <h1 className=" text-4xl -sm:text--2xl text-center mb-12 underline py-6">
             What I worked on
           </h1>
           {data.projects.edges.map((project, index) => (
@@ -213,9 +221,13 @@ const Page = ({ data }) => {
         data-cy="landing_contact"
       >
         <div className="lm-size py-6 px-2 w-[60ch] max-w-full ">
-          <h1 className=" text-4xl -sm:text-2xl text-center underline m-4">Contact Me</h1>
+          <h1 className=" text-4xl -sm:text-2xl text-center underline m-4">
+            Contact Me
+          </h1>
           <ContactForm />
-          <SeparationH color="black" padding="1em" >or</SeparationH>
+          <SeparationH color="black" padding="1em">
+            or
+          </SeparationH>
           <div className="flex justify-center gap-4">
             <a href={"mailto:komlankodoh@gmail.com"} aria-label="gmail contact">
               <Gmail fill="white" className="w-11 h-auto" />
@@ -249,6 +261,7 @@ export const query = graphql`
           sourceCodeUrl
           techStack
           importance
+          moreAbout
           description
           name
           id

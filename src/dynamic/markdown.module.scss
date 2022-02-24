@@ -92,6 +92,14 @@
 //   }
 // }
 
+.markdownBody img{
+  max-width: 400px;
+}
+
+.markdownBody li {
+  list-style: disc;
+}
+
 .markdownBody .octicon {
   display: inline-block;
   fill: currentColor;
@@ -173,6 +181,7 @@
 .markdownBody img {
   border-style: none;
   max-width: 100%;
+  margin: 2em auto;
   box-sizing: content-box;
   background-color: var(--color-canvas-default);
 }
@@ -185,30 +194,30 @@
   font-size: 1em;
 }
 
-.markdownBody figure {
-  margin: 1em 40px;
-}
+// .markdownBody figure {
+//   margin: 1em 40px;
+// }
 
-.markdownBody hr {
-  box-sizing: content-box;
-  overflow: hidden;
-  background: transparent;
-  border-bottom: 1px solid var(--color-border-muted);
-  height: 0.25em;
-  padding: 0;
-  margin: 24px 0;
-  background-color: var(--color-border-default);
-  border: 0;
-}
+// .markdownBody hr {
+//   box-sizing: content-box;
+//   overflow: hidden;
+//   background: transparent;
+//   border-bottom: 1px solid var(--color-border-muted);
+//   height: 0.25em;
+//   padding: 0;
+//   margin: 24px 0;
+//   background-color: var(--color-border-default);
+//   border: 0;
+// }
 
-.markdownBody input {
-  font: inherit;
-  margin: 0;
-  overflow: visible;
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-}
+// .markdownBody input {
+//   font: inherit;
+//   margin: 0;
+//   overflow: visible;
+//   font-family: inherit;
+//   font-size: inherit;
+//   line-height: inherit;
+// }
 
 .markdownBody [type="button"],
 .markdownBody [type="reset"],

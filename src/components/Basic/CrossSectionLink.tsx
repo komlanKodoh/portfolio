@@ -10,10 +10,9 @@ interface Props extends React.HTMLProps<HTMLAnchorElement> {}
 function CrossSectionLink<Props>(props) {
   const router = useRoutingStateContext();
 
-  React.useEffect(() => {}, []);
 
   return (
-    <Link {...props} onClick={() => {}}>
+    <Link {...props} onClick={() => router.tryChange("exit")}>
       {props.children}
     </Link>
   );

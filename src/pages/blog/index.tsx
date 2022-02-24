@@ -6,9 +6,7 @@ import {
   withArtDirection,
 } from "gatsby-plugin-image";
 import React from "react";
-import { render } from "sass";
 import PostCard from "../../components/BuildingBlocks/Blog/PostCard";
-import PageSection from "../../components/BuildingBlocks/pageSection";
 import { useNavStyle } from "../../lib/hooks";
 
 const getImage = (image) => {
@@ -96,7 +94,7 @@ export const pageQuery = graphql`
         createdAt
         extract
         thumbnail {
-          gatsbyImageData(cropFocus: CENTER, layout: FULL_WIDTH, height: 1500)
+          gatsbyImageData(cropFocus: CENTER, layout: FULL_WIDTH)
         }
       }
     }

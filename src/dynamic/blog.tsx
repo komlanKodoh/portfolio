@@ -17,22 +17,23 @@ const UsingDSG = ({ data }) => {
   );
 
   return (
-    <div className=" pt-16    text-white  pb-5" >
+    <div className=" pt-16 text-white  pb-5" >
       <div className=" max-w-4xl mx-auto px-2 sm:px-5">
-        <h1 className="py-5 text-3xl font-serif">
+        <h1 className="py-5 text-5xl leading-snug font-bold letter tracking-wide mb-8">
           {blogPost.title}{" "}
         </h1>
-        <GatsbyImage
-          className="w-full"
+        {/* <GatsbyImage
+          className="w-full mb-5"
           image={blogPost.thumbnail.gatsbyImageData}
           alt={"article background image"}
-        />
+        /> */}
         <main
-          className={`${styles.markdownBody}`}
+          className={`${styles.markdownBody} text-xl leading-10 `}
           dangerouslySetInnerHTML={{ __html: content }}
         ></main>
 
-        <p  className="text-xl text-center font-extrabold">Thanks for reading this article</p>
+        <hr className="mt-12"></hr>
+        <p  className="text-xl text-center font-extrabold"><br/>Thanks for reading this article</p>
       </div>
     </div>
   );
@@ -47,6 +48,7 @@ export const query = graphql`
         node {
           id
           title
+          slug
           content {
             childMarkdownRemark {
               html

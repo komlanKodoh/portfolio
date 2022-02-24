@@ -122,7 +122,7 @@ const backgroundLogo: AnimationObject<
         y: window.innerHeight / 2 - parent.height / 2,
         opacity: 1,
         scale: scale * 1.1,
-        transition: { duration: 1 },
+        transition: { duration: 0.6 },
         transitionEnd: {
           notify: { message: "swap" },
         },
@@ -143,7 +143,7 @@ const backgroundLogo: AnimationObject<
         x: window.innerWidth / 2 - parent.width / 2,
         y: window.innerHeight / 2 - parent.height / 2,
         scale: scale * 1.1,
-        transition: {  },
+        transition: {  duration: 0.2},
         // applyDefault: false
       };
     },

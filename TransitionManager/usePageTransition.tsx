@@ -2,17 +2,16 @@
 import React from "react";
 import {
   useFirstTimeLoading,
-  useForcedRender,
-  useSequentialState,
 } from "../src/lib/hooks";
-import { useTracker } from "../src/lib/utils";
 
 type lifeCycleCallback = (ctx: { pageId: string; nextPageId: string }) => void;
 
 interface lifeCycle {
   beforeSwap: lifeCycleCallback[];
   afterSwap: lifeCycleCallback[];
+  onEnter: lifeCycleCallback[];
   onExit: lifeCycleCallback[];
+  cancel:lifeCycleCallback[]
 }
 
 // type waitList = Set<string>
@@ -20,21 +19,26 @@ export const usePageTransition = (
   children: React.ReactNode & { key: string }
 ) => {
   const firstTimeLoading = useFirstTimeLoading();
-  const render = useForcedRender();
 
   const [activePage, setActivePage] = React.useState(children);
+
+  // waitList is a set of all id with whose waiFor( id ) was called.
   const waitListRef = React.useRef(new Set() as Set<string>);
 
   const lifeCyclesRef = React.useRef<lifeCycle>({
     beforeSwap: [],
     afterSwap: [],
+    onEnter: [],
     onExit: [],
+    cancel: []
   });
 
-  const pageState = useSequentialState(["rest", "exit", "enter"] as const, [
-    "rest_enter",
-    "exit_rest",
-  ]);
+  const [pageState, setPageState] = React.useState<"enter" | "exit">("enter");
+
+  const tryChange = (newPageState: "enter"| "exit") =>
+    setPageState((prevState) => (prevState === newPageState? "exit" : "enter"));
+
+  // const pageState = useSequentialState(["exit", "enter"] as const);
 
   const executeLifeCycleCallBack = (lifeCycle: keyof lifeCycle) => {
     for (const callback of lifeCyclesRef.current[lifeCycle]) {
@@ -60,7 +64,10 @@ export const usePageTransition = (
 
   const removeHold = (id: string) => {
     waitListRef.current.delete(id);
-    if (waitListRef.current.size === 0) pageState.tryChange("enter");
+    if (waitListRef.current.size === 0) {
+      tryChange("enter");
+      executeLifeCycleCallBack("onEnter");
+    }
     // render();
   };
 
@@ -69,34 +76,35 @@ export const usePageTransition = (
   }, [activePage]);
 
   React.useEffect(() => {
-    if (firstTimeLoading) return;
+    // if (firstTimeLoading) return;
     // there is a page change but the component is the same as the active one the page assumes a enter state;
-    else if (children.key === activePage.key) pageState.tryChange("enter");
-    else {
-      pageState.tryChange("exit");
+    // If on page A. One could route to page B. The children would change but not finish updating. Then if he
+    // returns to page A, the page would change but the corresponding state would be a from exit to enter.
+    if (children.key === activePage.key) {
+      tryChange("enter");
+      console.log("I am loggin stuff")
+      executeLifeCycleCallBack("cancel");
+    } else {
+      tryChange("exit");
       executeLifeCycleCallBack("onExit");
     }
   }, [children]);
 
   React.useEffect(() => {
-
     if (waitListRef.current.size === 0) syncActivePage();
-    
-  }, [pageState.currentState, waitListRef.current.size]);
+  }, [pageState, waitListRef.current.size]);
 
   const page = {
-    ...pageState,
-    id: pageId,
     waitFor,
+    tryChange,
     removeHold,
+    id: pageId,
+    currentState: pageState,
     addEventListener: (event: keyof lifeCycle, callback: lifeCycleCallback) => {
       const validKeys = Object.keys(lifeCyclesRef.current);
-      if (validKeys.includes(event)) {
-        console.log("Adding a new event listener", event);
-        lifeCyclesRef.current[event].push(callback);
-      }
+      if (!validKeys.includes(event)) return;
 
-      return true;
+      lifeCyclesRef.current[event].push(callback);
     },
   };
 
@@ -107,14 +115,15 @@ export const usePageTransition = (
   };
 };
 
+
 export default usePageTransition;
 
 interface RoutingStateContext {
   id: string;
   waitFor: (id: string) => void;
   removeHold: (id: string) => void;
-  currentState: "exit" | "enter" | "rest";
-  tryChange: (desiredState: "exit" | "enter" | "rest") => void;
+  currentState: "exit" | "enter";
+  tryChange: (desiredState: "exit" | "enter") => void;
   addEventListener: (
     event: keyof lifeCycle,
     callback: lifeCycleCallback
@@ -123,7 +132,7 @@ interface RoutingStateContext {
 
 const RoutingStateContext = React.createContext<RoutingStateContext>({
   id: "",
-  currentState: "rest",
+  currentState: "enter",
   waitFor: () => undefined,
   removeHold: () => undefined,
   addEventListener: () => undefined,

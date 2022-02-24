@@ -37,11 +37,14 @@ const PageIconAnimated: React.FC<Props> = ({
         ctnRef: ctnRef,
       },
       emitter: (message: string, payload: any) => {
-        // console.log(message)/
+        console.log(message, )
         if (message === "swap") {
           page.removeHold("logoAnimation");
         }
       },
+      directives: {
+        max: 8
+      }
     });
 
   const animateRef = useSyncRef(animate);
@@ -51,9 +54,9 @@ const PageIconAnimated: React.FC<Props> = ({
   const forceRender = useForcedRender();
 
   React.useEffect(() => {
-    forceRender();
 
     page.addEventListener("onExit", (ctx) => {
+      
       const subSection = ["", "blog"];
 
       const currentSection = getMainSection(ctx.pageId);
@@ -62,7 +65,7 @@ const PageIconAnimated: React.FC<Props> = ({
       if (
         currentSection === null ||
         newSection === null ||
-        currentSection === newSection
+        currentSection === newSection 
       )
         return;
 
@@ -70,12 +73,23 @@ const PageIconAnimated: React.FC<Props> = ({
         subSection.includes(newSection) &&
         subSection.includes(currentSection)
       ) {
+
         page.waitFor("logoAnimation");
 
         setAnimationIndex(0);
         animateRef.current("forward");
+
       }
     });
+
+    page.addEventListener("cancel", (ctx ) => {
+
+      if (ctx.pageId === ctx.nextPageId) {
+        animateRef.current("backward")
+      }
+
+    })
+
   }, []);
 
   return (

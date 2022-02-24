@@ -11,7 +11,7 @@ import { ChainedAnimation } from "./Transitions/types";
 import { AnimationConfig } from "./typesAnimation";
 
 /**
- * Class that controlls and plan transitions created in framer motion
+ * Class that controls and plan transitions created in framer motion
  */
 
 export default function useAnimationSequence<
@@ -50,16 +50,24 @@ export default function useAnimationSequence<
    * @returns void
    */
   async function private_animate(state?: string) {
+    let initialAnimationIndex = animationIndexRef.current;
+    let animationIndex: number = initialAnimationIndex;
+
+    if (directionRef.current !== null) {
+      animationIndex =
+        directionRef.current === "forward"
+          ? animationIndexRef.current + 1
+          : animationIndexRef.current - 1;
+    }
+
+    if (animationIndex < 0 || animationIndex > config.directives.max) {
+      config.emitter("done");
+      isAnimatingRef.current = false;
+      return;
+    }
+
     isAnimatingRef.current = true;
     hasAnimatedRef.current = false;
-
-    const animationIndex = animationIndexRef.current;
-    const direction = directionRef.current;
-
-    if (direction !== null) {
-      animationIndexRef.current =
-        direction === "forward" ? animationIndex + 1 : animationIndex - 1;
-    }
 
     const objects = config.animation.objects;
     const abstractObjects = config.animation.abstractObjects || {};
@@ -76,12 +84,15 @@ export default function useAnimationSequence<
 
     await animateStyles(controllersStyles);
 
-    if (hasAnimatedRef.current) private_animate();
-    else {
-      config.emitter("done");
-      animationIndexRef.current = 0;
-      isAnimatingRef.current = false;
-    }
+    // console.log("key frame end")
+    // Checking if the animationIndex changed because I ran into a bug where
+    // one could change the animation index to 0 between the beginning of the animation
+    // and the time the keyframe is confirmed to be invalid. But that  would not trigger
+    // an animation because the key frame failed, but since the animationIndex was changed
+    // an animation should be always performed to reflect this change.
+
+    animationIndexRef.current = animationIndex;
+    private_animate();
   }
 
   /**
