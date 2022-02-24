@@ -7,6 +7,7 @@ import { Helmet } from "react-helmet";
 
 const UsingDSG = ({ data }) => {
   const blogPost = data.blogPosts.edges[0].node;
+  console.log(blogPost);
 
   const content = blogPost.content.childMarkdownRemark.html;
 
@@ -36,10 +37,7 @@ const UsingDSG = ({ data }) => {
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={blogPost.title} />
-        <meta
-          name="twitter:description"
-          content={blogPost.extract}
-        />
+        <meta name="twitter:description" content={blogPost.extract} />
         <meta
           name="twitter:image"
           content="https://komlankodoh.com/page_icon.png"
@@ -81,6 +79,9 @@ export const query = graphql`
           title
           slug
           extract
+          headers {
+            keywords
+          }
           content {
             childMarkdownRemark {
               html

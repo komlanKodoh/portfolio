@@ -77,6 +77,7 @@ const PageIconAnimated: React.FC<Props> = ({
         page.waitFor("logoAnimation");
 
         setAnimationIndex(0);
+        console.log("should have started animating")
         animateRef.current("forward");
 
       }
