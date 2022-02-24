@@ -3,6 +3,7 @@ import { Link, graphql } from "gatsby";
 import * as styles from "./markdown.module.scss";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { useNavStyle } from "../lib/hooks";
+import { Helmet } from "react-helmet";
 
 const UsingDSG = ({ data }) => {
   const blogPost = data.blogPosts.edges[0].node;
@@ -17,23 +18,53 @@ const UsingDSG = ({ data }) => {
   );
 
   return (
-    <div className=" pt-16 text-white  pb-5" >
+    <div className=" pt-16 text-white  pb-5">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{blogPost.title} </title>
+        <meta name="keyword" content={blogPost.headers.keywords} />
+        <meta name="description" content={blogPost.extract} />
+
+        <meta property="og:title" content={blogPost.title} />
+        <meta property="og:description" content={blogPost.extract} />
+        <meta
+          property="og:image"
+          content="https://komlankodoh.com/page_icon.png"
+        />
+        <meta property="og:url" content="https://komlankodoh.com" />
+        <meta property="og:type" content="website" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={blogPost.title} />
+        <meta
+          name="twitter:description"
+          content={blogPost.extract}
+        />
+        <meta
+          name="twitter:image"
+          content="https://komlankodoh.com/page_icon.png"
+        />
+
+        <meta name="geo.region" content="US-NE" />
+        <meta name="geo.placename" content="Omaha" />
+        <meta name="geo.position" content="39.78373;-100.445882" />
+        <meta name="ICBM" content="39.78373, -100.445882" />
+      </Helmet>
+
       <div className=" max-w-4xl mx-auto px-2 sm:px-5">
         <h1 className="py-5 text-5xl leading-snug font-bold letter tracking-wide mb-8">
           {blogPost.title}{" "}
         </h1>
-        {/* <GatsbyImage
-          className="w-full mb-5"
-          image={blogPost.thumbnail.gatsbyImageData}
-          alt={"article background image"}
-        /> */}
         <main
           className={`${styles.markdownBody} text-xl leading-10 `}
           dangerouslySetInnerHTML={{ __html: content }}
         ></main>
 
         <hr className="mt-12"></hr>
-        <p  className="text-xl text-center font-extrabold"><br/>Thanks for reading this article</p>
+        <p className="text-xl text-center font-extrabold">
+          <br />
+          Thanks for reading this article
+        </p>
       </div>
     </div>
   );
@@ -49,6 +80,7 @@ export const query = graphql`
           id
           title
           slug
+          extract
           content {
             childMarkdownRemark {
               html
