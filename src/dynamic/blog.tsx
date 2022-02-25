@@ -7,7 +7,6 @@ import { Helmet } from "react-helmet";
 
 const UsingDSG = ({ data }) => {
   const blogPost = data.blogPosts.edges[0].node;
-  console.log(blogPost);
 
   const content = blogPost.content.childMarkdownRemark.html;
 

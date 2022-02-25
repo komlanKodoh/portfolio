@@ -142,6 +142,7 @@ export const pageQuery = graphql`
       nodes {
         id
         title
+        slug
         createdAt
         extract
         thumbnail {

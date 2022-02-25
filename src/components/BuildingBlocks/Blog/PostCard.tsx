@@ -4,6 +4,7 @@ import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 import React from "react";
 
 interface Props {
+  slug: string;
   title: string;
   extract: string;
   createdAt: string;
@@ -34,6 +35,7 @@ function convertDate(date_str) {
 }
 
 const PostCard: React.FC<Props> = ({
+  slug,  
   title,
   extract,
   thumbnail,
@@ -64,7 +66,7 @@ const PostCard: React.FC<Props> = ({
         <h2 className={" font-bold  text-xl  my-2 text-neutral-200 "}> {title}</h2>
         <p className={" text-slate-300 my-4"}>{extract}</p>
         <span className="text-gray-700 text-sm">{convertDate(createdAt)} </span>
-        <Link className="text-green-500 underline block float-right" to={`./${title.replace(/ /g, "-")}`} >
+        <Link className="text-green-500 underline block float-right" to={`./${slug}`} >
           
           {"Read >>"}
         </Link>

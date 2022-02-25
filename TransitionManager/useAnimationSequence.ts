@@ -50,7 +50,8 @@ export default function useAnimationSequence<
    * @returns void
    */
   async function private_animate(state?: string) {
-    console.log(animationIndexRef.current);
+
+    
     let initialAnimationIndex = animationIndexRef.current;
     let animationIndex: number = initialAnimationIndex;
 
@@ -63,7 +64,6 @@ export default function useAnimationSequence<
 
     if (animationIndex < 0 || animationIndex > config.directives.max) {
       config.emitter("done");
-      console.log(animationIndex);
       isAnimatingRef.current = false;
       return;
     }
