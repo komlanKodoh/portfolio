@@ -8,12 +8,13 @@ module.exports = {
     siteUrl: `https://komlankodoh.com/`,
   },
   plugins: [
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-image`,
+    `gatsby-plugin-mdx`,
     `gatsby-plugin-sass`,
     `gatsby-plugin-sharp`,
-    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-image`,
+    `gatsby-transformer-sharp`,
     `gatsby-transformer-remark`,
+    `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {

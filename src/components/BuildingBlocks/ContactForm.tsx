@@ -8,7 +8,7 @@ const ContactForm = () => {
 
 
   return (
-    <form className="flex flex-col gap-4" action="https://formsubmit.co/kodohdaniel@gmail.com" method="POST" >
+    <form className="flex flex-col gap-4" action="https://formspree.io/f/mzbogpnd" method="POST" >
       <NormalInput
         name={"name"}
         label={"Name"}

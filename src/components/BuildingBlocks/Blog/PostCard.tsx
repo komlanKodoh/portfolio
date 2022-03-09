@@ -27,10 +27,14 @@ var months = [
 ];
 
 function convertDate(date_str) {
-  const temp_date = new Date(date_str).toLocaleDateString().split("/");
+  
+  const temp_date = new Date(date_str);
+
+  let month = temp_date.getMonth();
+  let day = temp_date.getDate();
 
   return (
-    months[Number(temp_date[1]) - 1] + " " + temp_date[0] + ", " + temp_date[2]
+    months[month ] + " " + day + ", " + temp_date.getFullYear()
   );
 }
 

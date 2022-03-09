@@ -2,8 +2,6 @@ import { HTMLMotionProps, motion, useAnimation } from "framer-motion";
 import React from "react";
 
 import {
-  useFirstTimeLoading,
-  useForcedRender,
   useSyncRef,
 } from "../../lib/hooks";
 
@@ -43,15 +41,13 @@ const PageIconAnimated: React.FC<Props> = ({
         }
       },
       directives: {
-        max: 8
+        max: 7 
       }
     });
 
   const animateRef = useSyncRef(animate);
 
   const page = useRoutingStateContext();
-
-  const forceRender = useForcedRender();
 
   React.useEffect(() => {
 
@@ -77,7 +73,6 @@ const PageIconAnimated: React.FC<Props> = ({
         page.waitFor("logoAnimation");
 
         setAnimationIndex(0);
-        console.log("should have started animating")
         animateRef.current("forward");
 
       }
@@ -118,7 +113,7 @@ const PageIconAnimated: React.FC<Props> = ({
         }}
       >
         <svg
-          className="z-10 transition-height inline-block h-full w-auto absolute top-2/4 left-2/4 -translate-x-1/2 -translate-y-1/2"
+          className="z-10 inline-block h-full w-auto absolute top-2/4 left-2/4 -translate-x-1/2 -translate-y-1/2"
           width="512"
           height="512"
           viewBox="-17 -80 200 400"

@@ -99,7 +99,7 @@ const BlogHome = ({ data }) => {
         ></GatsbyImage>
       </div>
 
-      <main className="lm-size grid place-items-center grid-cols-1 sm:grid-cols-2 py-16 ">
+      <main className="lm-size grid place-items-center grid-cols-1 sm:grid-cols-2 py-16 gap-4">
         {blogPosts.map((blogPost) => (
           <PostCard key={blogPost.id} {...blogPost}></PostCard>
         ))}

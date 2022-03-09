@@ -1,14 +1,16 @@
 import * as React from "react";
 import { Link, graphql } from "gatsby";
 import * as styles from "./markdown.module.scss";
-import { GatsbyImage } from "gatsby-plugin-image";
+import { MDXProvider } from "@mdx-js/react";
 import { useNavStyle } from "../lib/hooks";
 import { Helmet } from "react-helmet";
+import { MDXRenderer } from "gatsby-plugin-mdx";
 
 const UsingDSG = ({ data }) => {
   const blogPost = data.blogPosts.edges[0].node;
 
-  const content = blogPost.content.childMarkdownRemark.html;
+  const content = blogPost.content.childMdx.body;
+  const thumbnail = blogPost.thumbnail.file.url;
 
   useNavStyle(
     {
@@ -27,20 +29,14 @@ const UsingDSG = ({ data }) => {
 
         <meta property="og:title" content={blogPost.title} />
         <meta property="og:description" content={blogPost.extract} />
-        <meta
-          property="og:image"
-          content="https://komlankodoh.com/page_icon.png"
-        />
-        <meta property="og:url" content="https://komlankodoh.com" />
+        <meta property="og:image" content={thumbnail} />
+        <meta property="og:url" content={thumbnail} />
         <meta property="og:type" content="website" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={blogPost.title} />
         <meta name="twitter:description" content={blogPost.extract} />
-        <meta
-          name="twitter:image"
-          content="https://komlankodoh.com/page_icon.png"
-        />
+        <meta name="twitter:image" content={thumbnail} />
 
         <meta name="geo.region" content="US-NE" />
         <meta name="geo.placename" content="Omaha" />
@@ -49,18 +45,20 @@ const UsingDSG = ({ data }) => {
       </Helmet>
 
       <div className=" max-w-4xl mx-auto px-2 sm:px-5">
-        <h1 className="py-5 text-5xl leading-snug font-bold letter tracking-wide mb-8">
+        <h1 className=" text-4xl sm:py-5 sm:text-6xl leading-relaxed font-bold tracking-wide text-gray-300 mb-8 px-2">
           {blogPost.title}{" "}
         </h1>
-        <main
-          className={`${styles.markdownBody} text-xl leading-10 `}
-          dangerouslySetInnerHTML={{ __html: content }}
-        ></main>
+        <MDXProvider components={{ Link }}>
+          <main className={`${styles.markdownBody} text-xl leading-10 px-2 `}>
+            <MDXRenderer>{content}</MDXRenderer>
+          </main>
+        </MDXProvider>
 
         <hr className="mt-12"></hr>
+
         <p className="text-xl text-center font-extrabold">
           <br />
-          Thanks for reading this article
+          Thanks you for reading 😁
         </p>
       </div>
     </div>
@@ -82,13 +80,15 @@ export const query = graphql`
             keywords
           }
           content {
-            childMarkdownRemark {
-              html
+            childMdx {
+              body
             }
           }
           createdAt
           thumbnail {
-            gatsbyImageData(cropFocus: BOTTOM, layout: FULL_WIDTH)
+            file {
+              url
+            }
           }
         }
       }

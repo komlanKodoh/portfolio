@@ -10,10 +10,9 @@ const logo: AnimationObject<
       if (["bgFull", "hidden"].includes(dependencies.backgroundLogo.activeState || "") ) {
         return {
           ...dependencies.backgroundLogo,
-          scale: 5,
           rotate: "-35deg",
-          // backgroundColor: undefined,
-          transition: {},
+          scale: undefined,
+          transitionEnd: undefined
         };
       }
       return dependencies.backgroundLogo;
@@ -106,6 +105,7 @@ const backgroundLogo: AnimationObject<
         transition: {
           duration: 0.5,
         },
+
       };
     },
     bgFull: (dependencies) => {
@@ -122,7 +122,6 @@ const backgroundLogo: AnimationObject<
         y: window.innerHeight / 2 - parent.height / 2,
         opacity: 1,
         scale: scale * 1.1,
-        transition: { duration: 0.6 },
         transitionEnd: {
           notify: { message: "swap" },
         },
@@ -143,8 +142,7 @@ const backgroundLogo: AnimationObject<
         x: window.innerWidth / 2 - parent.width / 2,
         y: window.innerHeight / 2 - parent.height / 2,
         scale: scale * 1.1,
-        transition: {  duration: 0.2},
-        // applyDefault: false
+        applyDefault: false
       };
     },
   },
@@ -163,6 +161,9 @@ const backgroundLogo: AnimationObject<
       offsetTop_instantMiddle: {
         transition: { duration: 0 },
       },
+      offsetTop_default: {
+        transition: { duration: 0.3}
+      }
     },
   },
 };

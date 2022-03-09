@@ -20,6 +20,7 @@ const Layout = ({ children, ...props }) => {
       const currentSection = getMainSection(ctx.pageId) as string;
       const newSection = getMainSection(ctx.nextPageId) as string;
 
+
       if (
         subSection.includes(newSection) &&
         subSection.includes(currentSection) &&
@@ -60,7 +61,7 @@ const Layout = ({ children, ...props }) => {
           rest: { opacity: 1, y: 0, scale: 1 },
           enter: { opacity: 1, y: 0, scale: 1 },
         }}
-        transition={{ easing: "anticipate", duration: 0.5 }}
+        transition={{ easing: "anticipate", duration: 0.2 }}
         className="max-w-screen "
       >
         <Helmet

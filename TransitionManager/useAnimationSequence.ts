@@ -34,6 +34,7 @@ export default function useAnimationSequence<
   });
 
   function animate(direction: Direction, index?: number) {
+    
     directionRef.current = direction;
     if (index) targetRef.current = index;
 
@@ -50,23 +51,25 @@ export default function useAnimationSequence<
    * @returns void
    */
   async function private_animate(state?: string) {
-
     
     let initialAnimationIndex = animationIndexRef.current;
     let animationIndex: number = initialAnimationIndex;
-
+    
     if (directionRef.current !== null) {
       animationIndex =
-        directionRef.current === "forward"
-          ? animationIndexRef.current + 1
-          : animationIndexRef.current - 1;
+      directionRef.current === "forward"
+      ? animationIndexRef.current + 1
+      : animationIndexRef.current - 1;
     }
+    
 
     if (animationIndex < 0 || animationIndex > config.directives.max) {
+      console.log("I said I was done")
       config.emitter("done");
       isAnimatingRef.current = false;
       return;
     }
+
 
     isAnimatingRef.current = true;
     hasAnimatedRef.current = false;
@@ -75,17 +78,18 @@ export default function useAnimationSequence<
     const abstractObjects = config.animation.abstractObjects || {};
 
     let abstractStyles: { [key: string]: ProcessedStyle } =
-      getObjectMappedStyles(abstractObjects, { animationIndex }, state);
+      getObjectMappedStyles(abstractObjects, animationIndex , { animationIndex }, state);
 
     let controllersStyles: { [key: string]: ProcessedStyle } =
       getObjectMappedStyles(
         objects,
+        animationIndex,
         { ...abstractStyles, animationIndex },
         state
       );
 
     await animateStyles(controllersStyles);
-
+   
     // console.log("key frame end")
     // Checking if the animationIndex changed because I ran into a bug where
     // one could change the animation index to 0 between the beginning of the animation
@@ -93,6 +97,7 @@ export default function useAnimationSequence<
     // an animation because the key frame failed, but since the animationIndex was changed
     // an animation should be always performed to reflect this change.
 
+    // console.log(initialAnimationIndex, animationIndex.current)
     if (initialAnimationIndex === animationIndexRef.current) {
       animationIndexRef.current = animationIndex;
     }
@@ -110,6 +115,7 @@ export default function useAnimationSequence<
    */
   function getObjectMappedStyles(
     objects: { [key: string]: AnimationObject },
+    animationIndex: number,
     addOnsDependencies: AnimationDependencies,
     state?: string
   ) {
@@ -121,15 +127,12 @@ export default function useAnimationSequence<
       const objectPreviousState = object.meta.previousState;
       const objectActiveState =
         state ||
-        object.meta.directions[animationIndexRef.current] ||
+        object.meta.directions[animationIndex] ||
         (object.meta.defaultDirections as string);
 
-      // if (objectName === "backgroundLogo"){
-      //   console.log(objectActiveState)
-      // }
 
       // turning on the flag to allow next animation because a minimun of one object had animation to correspond to this key frames.
-      if (object.meta.directions[animationIndexRef.current])
+      if (object.meta.directions[animationIndex])
         hasAnimatedRef.current = true;
       let objetStyles = getStyles(
         object.states[objectActiveState],

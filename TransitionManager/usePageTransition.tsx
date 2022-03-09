@@ -1,8 +1,6 @@
 "strict";
 import React from "react";
-import {
-  useFirstTimeLoading,
-} from "../src/lib/hooks";
+import { useFirstTimeLoading } from "../src/lib/hooks";
 
 type lifeCycleCallback = (ctx: { pageId: string; nextPageId: string }) => void;
 
@@ -11,7 +9,7 @@ interface lifeCycle {
   afterSwap: lifeCycleCallback[];
   onEnter: lifeCycleCallback[];
   onExit: lifeCycleCallback[];
-  cancel:lifeCycleCallback[]
+  cancel: lifeCycleCallback[];
 }
 
 // type waitList = Set<string>
@@ -30,13 +28,17 @@ export const usePageTransition = (
     afterSwap: [],
     onEnter: [],
     onExit: [],
-    cancel: []
+    cancel: [],
   });
 
   const [pageState, setPageState] = React.useState<"enter" | "exit">("enter");
 
-  const tryChange = (newPageState: "enter"| "exit") =>
-    setPageState((prevState) => (prevState === newPageState? "exit" : "enter"));
+  const tryChange = (newPageState: "enter" | "exit") => {
+
+    setPageState((prevState) =>
+      prevState === newPageState ? "exit" : "enter"
+    );
+  };
 
   // const pageState = useSequentialState(["exit", "enter"] as const);
 
@@ -82,7 +84,7 @@ export const usePageTransition = (
     // returns to page A, the page would change but the corresponding state would be a from exit to enter.
     if (children.key === activePage.key) {
       tryChange("enter");
-      console.log("I am loggin stuff")
+      console.log("I am loggin stuff");
       executeLifeCycleCallBack("cancel");
     } else {
       tryChange("exit");
@@ -114,7 +116,6 @@ export const usePageTransition = (
     Provider: RoutingStateProvider,
   };
 };
-
 
 export default usePageTransition;
 
