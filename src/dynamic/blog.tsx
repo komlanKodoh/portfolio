@@ -44,8 +44,8 @@ const UsingDSG = ({ data }) => {
         <meta name="ICBM" content="39.78373, -100.445882" />
       </Helmet>
 
-      <div className=" max-w-4xl mx-auto px-2 sm:px-5">
-        <h1 className=" text-4xl sm:py-5 sm:text-6xl leading-relaxed font-bold tracking-wide text-gray-300 mb-8 px-2">
+      <div className=" max-w-4xl mx-auto px-2 sm:px-5 text-gray-400">
+        <h1 className=" text-4xl sm:py-5 sm:text-6xl leading-relaxed font-bold tracking-wide  mb-8 px-2">
           {blogPost.title}{" "}
         </h1>
         <MDXProvider components={{ Link }}>
