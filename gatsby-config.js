@@ -44,9 +44,10 @@ module.exports = {
         ],
         gtagConfig: {
           optimize_id: "OPT_CONTAINER_ID",
-          anonymize_ip: true,
+          anonymize_ip: false,
           cookie_expires: 0,
         },
+        defer: false,
         pluginConfig: {
           // Puts tracking script in the head instead of the body
           head: false,

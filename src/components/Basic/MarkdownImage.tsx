@@ -23,8 +23,9 @@ const MarkdownResponsiveImage: React.FC<Props> = ({ src, sizes, ...props }) => {
   return (
     <img
       src={src}
-      srcSet = {src && createSrcSet(src)}
       {...props}
+      loading="lazy"
+      srcSet = {src && createSrcSet(src)}
       sizes="(max-width: 900px) 80vw, 900px"
     ></img>
   );
