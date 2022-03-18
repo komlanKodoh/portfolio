@@ -6,7 +6,7 @@ import { usePageTransition } from "../../../TransitionManager";
 import { motion } from "framer-motion";
 import { getMainSection } from "../../lib/utils";
 import { useScrollBinding } from "../../lib/useScrollBinding";
-import { useFirstTimeLoading, useSyncRef } from "../../lib/hooks";
+import { useFirstTimeLoading, useIdSelector, useSyncRef } from "../../lib/hooks";
 
 export const Links = ["About", "Work", "Contact"];
 
@@ -14,10 +14,8 @@ const Layout = ({ children, ...props }) => {
   const firstTimeLoading = useFirstTimeLoading();
 
   const { Provider, pageState, activePage } = usePageTransition(children);
-  const container = React.useMemo(() => {
-    return document.getElementById("gatsby-focus-wrapper");
-  }, [firstTimeLoading]);
 
+  const container = useIdSelector("gatsby-focus-wrapper")
 
   const [isFaded, setIsFaded] = React.useState(false);
 

@@ -36,6 +36,21 @@ export function useSyncRef<T>(state: T) {
 }
 
 /**
+ * Selects a component of the given id from the DOM
+ * @param id 
+ * @returns 
+ */
+export const useIdSelector = (id: string) => {
+  const containerRef = useRef<HTMLElement | null>(null) ;
+  
+  useEffect(() => {
+    containerRef.current = document.getElementById(id) ;
+  }, [])
+
+  return containerRef.current;
+}
+
+/**
  * Hook that indicate it's the first time the component is loading
  *
  * @returns a boolean indicating if the it's the first time a component is loading
@@ -150,6 +165,7 @@ import section, {
   sectionData,
   updateSectionData,
 } from "../Redux/slices/section";
+import React from "react";
 
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch = () => useDispatch<AppDispatch>();
