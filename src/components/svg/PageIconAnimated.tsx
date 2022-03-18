@@ -35,7 +35,6 @@ const PageIconAnimated: React.FC<Props> = ({
         ctnRef: ctnRef,
       },
       emitter: (message: string, payload: any) => {
-        console.log(message, )
         if (message === "swap") {
           page.removeHold("logoAnimation");
         }

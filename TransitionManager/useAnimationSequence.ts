@@ -64,7 +64,6 @@ export default function useAnimationSequence<
     
 
     if (animationIndex < 0 || animationIndex > config.directives.max) {
-      console.log("I said I was done")
       config.emitter("done");
       isAnimatingRef.current = false;
       return;

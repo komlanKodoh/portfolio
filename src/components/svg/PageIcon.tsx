@@ -11,22 +11,22 @@ const kTransitionPath = "";
 
 const PageIcon: React.FC<Props> = ({ href, textClass, ...props }) => {
   return (
-    <div style={{ backgroundColor: "#1F1C24", borderRadius: "20%" }} {...props}>
+    <div style={{ backgroundColor: "#1F1C24", borderRadius: "20%" }} {...props} >
       <svg
-        className="inline-block h-full w-auto"
         width="512"
+        fill="none"
         height="512"
         viewBox="0 0 512 512"
-        fill="none"
+        className="inline-block h-full w-auto"
       >
         <path d={`${kRestPath}`} fill="white">
           <animate
             dur="5s"
-            repeatCount="indefinite"
-            attributeName="d"
             values=""
             fill="freeze"
+            attributeName="d"
             calcMode="spline"
+            repeatCount="indefinite"
             keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"
           ></animate>
         </path>

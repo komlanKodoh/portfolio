@@ -84,13 +84,13 @@ export const usePageTransition = (
     // returns to page A, the page would change but the corresponding state would be a from exit to enter.
     if (children.key === activePage.key) {
       tryChange("enter");
-      console.log("I am loggin stuff");
       executeLifeCycleCallBack("cancel");
     } else {
       tryChange("exit");
       executeLifeCycleCallBack("onExit");
     }
-  }, [children]);
+    //@ts-ignore
+  }, [children.props.location.pathname]);
 
   React.useEffect(() => {
     if (waitListRef.current.size === 0) syncActivePage();

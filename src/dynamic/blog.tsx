@@ -5,6 +5,7 @@ import { MDXProvider } from "@mdx-js/react";
 import { useNavStyle } from "../lib/hooks";
 import { Helmet } from "react-helmet";
 import { MDXRenderer } from "gatsby-plugin-mdx";
+import MarkdownResponsiveImage from "../components/Basic/MarkdownImage";
 
 const UsingDSG = ({ data }) => {
   const blogPost = data.blogPosts.edges[0].node;
@@ -44,11 +45,12 @@ const UsingDSG = ({ data }) => {
         <meta name="ICBM" content="39.78373, -100.445882" />
       </Helmet>
 
-      <div className=" max-w-4xl mx-auto px-2 sm:px-5 text-gray-300">
+      <div className=" max-w-4xl mx-auto px-2 sm:px-5 text-gray-400">
         <h1 className=" text-4xl sm:py-5 sm:text-6xl text-gray-200 leading-relaxed font-bold tracking-wide  mb-8 px-2">
-          {blogPost.title}{" "}
+          {blogPost.title}
         </h1>
-        <MDXProvider components={{ Link }}>
+
+        <MDXProvider components={{ Link, MarkdownResponsiveImage }}>
           <main className={`${styles.markdownBody} text-xl leading-10 px-2 `}>
             <MDXRenderer>{content}</MDXRenderer>
           </main>
@@ -56,7 +58,7 @@ const UsingDSG = ({ data }) => {
 
         <hr className="mt-12"></hr>
 
-        <p className="text-xl text-center font-extrabold">
+        <p className="text-xl text-white text-center font-extrabold">
           <br />
           Thanks you for reading 😁
         </p>

@@ -5,21 +5,34 @@ import NavBar from "./NavBar";
 import { usePageTransition } from "../../../TransitionManager";
 import { motion } from "framer-motion";
 import { getMainSection } from "../../lib/utils";
+import { useScrollBinding } from "../../lib/useScrollBinding";
+import { useFirstTimeLoading, useSyncRef } from "../../lib/hooks";
 
 export const Links = ["About", "Work", "Contact"];
 
 const Layout = ({ children, ...props }) => {
+  const firstTimeLoading = useFirstTimeLoading();
+
   const { Provider, pageState, activePage } = usePageTransition(children);
+  const container = React.useMemo(() => {
+    return document.getElementById("gatsby-focus-wrapper");
+  }, [firstTimeLoading]);
+
 
   const [isFaded, setIsFaded] = React.useState(false);
 
+  const pageRef = React.useRef<HTMLDivElement>(null);
+
+  const scrollBinder = useScrollBinding(container, pageState.id);
+
   React.useEffect(() => {
     pageState.addEventListener("onExit", (ctx) => {
+      scrollBinder.takeSnapshot();
+
       const subSection = ["", "blog"];
 
       const currentSection = getMainSection(ctx.pageId) as string;
       const newSection = getMainSection(ctx.nextPageId) as string;
-
 
       if (
         subSection.includes(newSection) &&
@@ -31,19 +44,9 @@ const Layout = ({ children, ...props }) => {
       pageState.waitFor("generalFade");
       setIsFaded(true);
     });
-
-    pageState.addEventListener("beforeSwap", (ctx) => {
-      document.getElementById("gatsby-focus-wrapper")?.scroll({
-        top: 0,
-        left: 0,
-        behavior: "auto"
-      });
-    })
-
   }, []);
 
-  const state = isFaded && "faded" || "rest"
-
+  const state = (isFaded && "faded") || "rest";
 
   return (
     <Provider {...pageState}>
@@ -115,9 +118,13 @@ const Layout = ({ children, ...props }) => {
           <meta name="ICBM" content="39.78373, -100.445882" />
         </Helmet>
 
-        <NavBar Links={Links}  />
+        <NavBar Links={Links} />
 
-        <motion.div className=" leading-loose min-h-screen  bg-main overflow-hidden" data-cy="main">
+        <motion.div
+          className="leading-loose min-h-screen  bg-main overflow-hidden"
+          data-cy="main"
+          ref={pageRef}
+        >
           {activePage}
         </motion.div>
         <footer className="bg-neutral-800 text-white ">
