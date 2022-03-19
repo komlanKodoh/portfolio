@@ -10,7 +10,7 @@ const ShowProject = ({ project, right }) => {
         <GatsbyImage
           className=" bg-blue-500"
           image={project.previewImage?.gatsbyImageData}
-          alt={project.previewImage?.title}
+          alt={project.previewImage?.title || "decoration image"}
         />
       </div>
       <div
