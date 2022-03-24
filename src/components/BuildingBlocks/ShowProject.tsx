@@ -37,7 +37,7 @@ const ShowProject = ({ project, right }) => {
           {project.moreAbout && (
             <Link
               to={project.moreAbout}
-              className="inline-block px-4 py-1 border-2 bg-black text-white shadow undefined border-blue-500 mr-2 transition-shadow hover:shadow-glow"
+              className="inline-block px-4 py-1 border-2 bg-black text-white shadow undefined border-blue-500 mr-2"
             >
               more Details
             </Link>

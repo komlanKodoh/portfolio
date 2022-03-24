@@ -3,7 +3,7 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-        glow: "0px 0px 20px black",
+        glow: "0px 0px 7px black",
       },
       colors: {
         cover: "rgb(0 0 0 / 95%)",
