@@ -254,7 +254,7 @@ export default Page;
 
 export const query = graphql`
   query MyQuery {
-    projects: allContentfulProject {
+    projects: allContentfulProject ( sort: {fields: importance, order: ASC} ) {
       edges {
         node {
           previewUrl
