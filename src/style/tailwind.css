@@ -423,7 +423,7 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: none;
 }
 
-.-translate-x-full, .translate-y-1\/2, .translate-x-1\/2, .-translate-x-1\/2, .-translate-y-1\/2, .hover\:translate-y-1 {
+.-translate-x-full, .translate-y-1\/2, .translate-x-1\/2, .-translate-x-1\/2, .-translate-y-1\/2 {
   --tw-translate-x: 0;
   --tw-translate-y: 0;
   --tw-rotate: 0;
@@ -439,7 +439,7 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
 
-.shadow, .shadow-xl, .shadow-glow, .hover\:shadow-glow {
+.shadow, .shadow-xl {
   --tw-ring-offset-shadow: 0 0 #0000;
   --tw-ring-shadow: 0 0 #0000;
   --tw-shadow: 0 0 #0000;
@@ -856,10 +856,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   place-items: center;
 }
 
-.justify-end {
-  justify-content: flex-end;
-}
-
 .justify-center {
   justify-content: center;
 }
@@ -948,6 +944,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-neutral-900 {
   --tw-bg-opacity: 1;
   background-color: rgb(23 23 23 / var(--tw-bg-opacity));
+}
+
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .bg-black {
@@ -1224,12 +1225,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.shadow-glow {
-  --tw-shadow: 0px 0px 7px black;
-  --tw-shadow-colored: 0px 0px 7px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
 .shadow-black {
   --tw-shadow-color: #000;
   --tw-shadow: var(--tw-shadow-colored);
@@ -1243,18 +1238,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
-.transition-shadow {
-  transition-property: box-shadow;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
-.transition-transform {
-  transition-property: transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -1301,22 +1284,6 @@ html{
   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.hover\:translate-y-1:hover {
-  --tw-translate-y: 0.25rem;
-  transform: var(--tw-transform);
-}
-
-.hover\:shadow-glow:hover {
-  --tw-shadow: 0px 0px 7px black;
-  --tw-shadow-colored: 0px 0px 7px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.hover\:shadow-blue-50:hover {
-  --tw-shadow-color: #eff6ff;
-  --tw-shadow: var(--tw-shadow-colored);
-}
-
 @media (min-width: 640px) {
   .sm\:order-2 {
     order: 2;
@@ -1352,6 +1319,10 @@ html{
 
   .sm\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sm\:justify-end {
+    justify-content: flex-end;
   }
 
   .sm\:px-5 {
