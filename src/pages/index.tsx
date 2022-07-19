@@ -174,6 +174,9 @@ const Page = ({ data }) => {
 
             <ul className="flex gap-5 flex-wrap">
               {[
+                "postgres",
+                "C#",
+                "Dynamo DB",
                 "My sql",
                 "Java",
                 "CSS",
@@ -233,13 +236,13 @@ const Page = ({ data }) => {
               <Gmail fill="white" className="w-11 h-auto" />
             </a>
             <a href="tel:5312256403" aria-label="phone contact">
-              <Phone fill="#42c452" className="w-11 h-auto" />
+              <Phone fill="#36f5b2" className="w-11 h-auto bg-white" />
             </a>
             <a
               href="https://www.linkedin.com/in/komlankodoh"
               aria-label="linkedin contact"
             >
-              <Linkedin fill="#0a66c2" className="w-11 h-auto" />
+              <Linkedin fill="#1ca7f4" className="w-11 h-auto" />
             </a>
           </div>
         </div>
@@ -254,7 +257,7 @@ export default Page;
 
 export const query = graphql`
   query MyQuery {
-    projects: allContentfulProject ( sort: {fields: importance, order: ASC} ) {
+    projects: allContentfulProject ( sort: {fields: createdAt, order: DESC} ) {
       edges {
         node {
           previewUrl

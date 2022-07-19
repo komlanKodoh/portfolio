@@ -20,7 +20,7 @@ const ShowProject = ({ project, right }) => {
       >
         <div className="my-auto sm:text-right ">
           <h2 className=" text-2xl my-4">{project.name}</h2>
-          <ul className="sm:flex flex-start justify-end gap-2  my-2 flex-wrap">
+          <ul className="flex flex-start justify-end gap-2  my-2 flex-wrap">
             {project.techStack?.sort().map((item) => (
               <li key={item}>
                 <div className=" rounded-md px-4 py-0 bg-black inline-block my-1">
