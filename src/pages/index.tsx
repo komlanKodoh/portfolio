@@ -236,7 +236,7 @@ const Page = ({ data }) => {
               <Gmail fill="white" className="w-11 h-auto" />
             </a>
             <a href="tel:5312256403" aria-label="phone contact">
-              <Phone fill="#36f5b2" className="w-11 h-aut" />
+              <Phone fill="#36f5b2" className="w-11 h-auto" />
             </a>
             <a
               href="https://www.linkedin.com/in/komlankodoh"
