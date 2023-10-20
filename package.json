@@ -47,8 +47,6 @@
     "tailwindcss": "^3.0.1"
   },
   "devDependencies": {
-    "cypress": "^9.2.0",
-    "netlify-cli": "^8.4.2",
     "prettier": "^2.4.1",
     "start-server-and-test": "^1.14.0"
   },
