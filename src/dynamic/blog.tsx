@@ -50,7 +50,7 @@ const UsingDSG = ({ data }) => {
           {blogPost.title}
         </h1>
 
-        <MDXProvider components={{ Link, MarkdownResponsiveImage}}>
+        <MDXProvider components={{ Link, MarkdownResponsiveImage }}>
           <main className={`${styles.markdownBody} text-xl leading-10 px-2 `}>
             <MDXRenderer>{content}</MDXRenderer>
           </main>

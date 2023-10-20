@@ -24,7 +24,6 @@ exports.createPages = async ({ actions, graphql }) => {
       context: {
         id: blogPost.node.id,
       },
-      defer: true,
     });
   });
 };
