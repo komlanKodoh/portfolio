@@ -74,7 +74,7 @@ const Page = ({ data }) => {
                 transition={{ ease: "easeOut", duration: 1.0 }}
               >
                 <span className=" text-4xl block py-2">
-                  An aspiring software engineer
+                  An Software Engineer
                 </span>
               </FadeIn>
             </p>
@@ -163,13 +163,13 @@ const Page = ({ data }) => {
               About me
             </h1>
             <p className=" leading-loose ">
-              I am Daniel, a computer science major. I like learning about new
-              technology and building interactive user experiences.
+              I am Daniel, a Software Engineer. I like learning about new
+              technology and building fun and challenging projects.
               <br />
               <br /> While I explore all kinds of technologies, my set of skills
               makes me very qualified for web-related development. My knowledge
               of front-end and back-end technologies helps me create fast and
-              reliable web experiences
+              reliable web experiences.
             </p>
 
             <ul className="flex gap-5 flex-wrap">
