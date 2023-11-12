@@ -74,7 +74,7 @@ const Page = ({ data }) => {
                 transition={{ ease: "easeOut", duration: 1.0 }}
               >
                 <span className=" text-4xl block py-2">
-                  An Software Engineer
+                  A Software Engineer
                 </span>
               </FadeIn>
             </p>
@@ -147,7 +147,7 @@ const Page = ({ data }) => {
         data-cy="landing_about"
       >
         <div className="lm-size w-full grid md:grid-cols-2  py-10 text-justify">
-          <h1 className=" text-2xl text-center sm:hidden underline">
+          <h1 className=" text-2xl text-center sm:hidden underline underline-offset-8">
             {" "}
             About me{" "}
           </h1>
@@ -158,9 +158,12 @@ const Page = ({ data }) => {
             <StandingHuman className="w-full h-auto p-8 my-auto" />
           </motion.div>
 
-          <motion.div className="max-w-prose m-auto " variants={cardVariants}>
-            <h1 className=" text-4xl -sm:hidden text-center m-4 underline ">
-              About me
+          <motion.div
+            className="max-w-prose m-auto text-gray-400"
+            variants={cardVariants}
+          >
+            <h1 className=" text-4xl -sm:hidden text-gray-200 text-center m-4 bold">
+              <strong>About me</strong>
             </h1>
             <p className=" leading-loose ">
               I am Daniel, a Software Engineer. I like learning about new
@@ -172,7 +175,7 @@ const Page = ({ data }) => {
               reliable web experiences.
             </p>
 
-            <ul className="flex gap-5 flex-wrap">
+            <ul className="flex gap-5 flex-wrap pt-5">
               {[
                 "postgres",
                 "C#",
@@ -185,10 +188,13 @@ const Page = ({ data }) => {
                 "Vue",
                 "NoSql",
                 "Typescript",
-                "Rust"
+                "Rust",
               ].map((item, index) => (
-                <li className="underline text-blue-500 inline-block whitespace-nowrap" key={item}>
-                  #{item}{ "  "}
+                <li
+                  className=" bg-zinc-900 h-fit rounded-md text-white px-3 inline-block whitespace-nowrap"
+                  key={item}
+                >
+                  {item}
                 </li>
               ))}
             </ul>
@@ -202,9 +208,9 @@ const Page = ({ data }) => {
         theme="dark"
         data-cy={"landing_projects"}
       >
-        <div className="lm-size text-blue-200 relative flex-wrap ">
-          <h1 className=" text-4xl -sm:text--2xl text-center mb-12 underline py-6">
-            What I worked on
+        <div className="lm-size text-gray-200 relative flex-wrap ">
+          <h1 className=" text-4xl -sm:text--2xl text-center mb-12 py-6 underline-offset-8">
+            <strong>What I worked on</strong>
           </h1>
           {data.projects.edges.map((project, index) => (
             <ShowProject
@@ -224,8 +230,8 @@ const Page = ({ data }) => {
         data-cy="landing_contact"
       >
         <div className="lm-size py-6 px-2 w-[60ch] max-w-full ">
-          <h1 className=" text-4xl -sm:text-2xl text-center underline m-4">
-            Contact Me
+          <h1 className=" text-4xl -sm:text-2xl text-center m-4">
+            <strong>Contact</strong>
           </h1>
           <ContactForm />
           <SeparationH color="black" padding="1em">
@@ -257,7 +263,7 @@ export default Page;
 
 export const query = graphql`
   query MyQuery {
-    projects: allContentfulProject ( sort: {fields: createdAt, order: DESC} ) {
+    projects: allContentfulProject(sort: { fields: createdAt, order: DESC }) {
       edges {
         node {
           previewUrl
