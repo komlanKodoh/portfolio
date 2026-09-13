@@ -57,7 +57,7 @@ const ShowProject = ({ project, right }) => {
             {project.previewUrl && (
               <LinkButton
                 href={project.previewUrl}
-                className="px-5 py-2 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 text-white font-medium text-sm transition-all hover:opacity-90 shadow-lg shadow-red-600/20"
+                className="px-5 py-2 rounded-xl bg-gradient-to-r from-[#3b82f6] to-[#1d4ed8] text-white font-medium text-sm transition-all hover:opacity-90 shadow-lg shadow-[#3b82f6]/20"
                 target="_blank"
                 theme="one"
               >

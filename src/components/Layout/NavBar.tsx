@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import CrossSectionLink from "../Basic/CrossSectionLink";
-import { useRoutingStateContext } from "../../../TransitionManager/usePageTransition";
-import { useSectionIs } from "../../lib/hooks";
 
 interface ComponentProps {
   Links: string[];
@@ -9,22 +7,20 @@ interface ComponentProps {
 
 const NavBar = ({ Links }: ComponentProps) => {
   const [open, setOpen] = useState(false);
-  const page = useRoutingStateContext();
-  const blogIsShown = useSectionIs("/blog", page.id);
 
   return (
     <nav className="sticky top-0 w-full z-50 backdrop-blur-md bg-[#0d0d0d]/85 border-b border-zinc-800/80 transition-all">
       <div className="max-w-screen-lg mx-auto px-4 h-16 flex items-center justify-between">
         {/* Brand / Logo */}
         <div className="flex items-center gap-3">
-          <CrossSectionLink to="/#Home" className="text-lg font-extrabold tracking-wider text-white hover:text-red-500 transition-colors">
+          <CrossSectionLink to="/#Home" className="text-lg font-extrabold tracking-wider text-white hover:text-[#c2716f] transition-colors">
             KODOH
           </CrossSectionLink>
         </div>
 
         {/* Desktop Links */}
         <div className="hidden sm:flex items-center gap-8 text-sm font-medium text-zinc-300">
-          {!blogIsShown && Links.map((link) => (
+          {Links.map((link) => (
             <a
               key={link}
               href={`#${link}`}
@@ -33,12 +29,6 @@ const NavBar = ({ Links }: ComponentProps) => {
               {link}
             </a>
           ))}
-          <CrossSectionLink
-            to="/blog"
-            className="text-red-500 font-semibold hover:text-red-400 transition-colors tracking-wide"
-          >
-            BLOG
-          </CrossSectionLink>
         </div>
 
         {/* Mobile Menu Button */}
@@ -61,26 +51,17 @@ const NavBar = ({ Links }: ComponentProps) => {
       {open && (
         <div className="sm:hidden absolute top-16 left-0 w-full bg-[#0d0d0d]/95 backdrop-blur-xl border-b border-zinc-800 py-6 px-6 shadow-2xl">
           <ul className="flex flex-col gap-4 text-center text-lg font-medium text-zinc-200">
-            {!blogIsShown && Links.map((link) => (
+            {Links.map((link) => (
               <li key={link}>
                 <a
                   href={`#${link}`}
                   onClick={() => setOpen(false)}
-                  className="block py-2 hover:text-red-500 transition-colors"
+                  className="block py-2 hover:text-[#c2716f] transition-colors"
                 >
                   {link}
                 </a>
               </li>
             ))}
-            <li>
-              <CrossSectionLink
-                to="/blog"
-                onClick={() => setOpen(false)}
-                className="block py-2 text-red-500 font-bold"
-              >
-                Blog
-              </CrossSectionLink>
-            </li>
           </ul>
         </div>
       )}

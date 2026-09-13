@@ -4,7 +4,6 @@ import "../../style/tailwind.css";
 import NavBar from "./NavBar";
 import { usePageTransition } from "../../../TransitionManager";
 import { motion } from "framer-motion";
-import { getMainSection } from "../../lib/utils";
 import { useScrollBinding } from "../../lib/useScrollBinding";
 import { useFirstTimeLoading, useIdSelector, useSyncRef } from "../../lib/hooks";
 
@@ -26,18 +25,6 @@ const Layout = ({ children, ...props }) => {
   React.useEffect(() => {
     pageState.addEventListener("onExit", (ctx) => {
       scrollBinder.takeSnapshot();
-
-      const subSection = ["", "blog"];
-
-      const currentSection = getMainSection(ctx.pageId) as string;
-      const newSection = getMainSection(ctx.nextPageId) as string;
-
-      if (
-        subSection.includes(newSection) &&
-        subSection.includes(currentSection) &&
-        currentSection !== newSection
-      )
-        return;
 
       pageState.waitFor("generalFade");
       setIsFaded(true);
