@@ -59,11 +59,17 @@ const PostCard: React.FC<Props> = ({
         variants={{ hover: { scale: 1.05 } }}
         className="relative -z-10 flex-1"
       >
-        <GatsbyImage
-          className="w-full h-full "
-          image={thumbnail.gatsbyImageData}
-          alt={`article "${title}"'s thumbnail `}
-        />
+        {thumbnail?.gatsbyImageData ? (
+          <GatsbyImage
+            className="w-full h-full "
+            image={thumbnail.gatsbyImageData}
+            alt={`article "${title}"'s thumbnail `}
+          />
+        ) : (
+          <div className="w-full h-48 bg-gradient-to-br from-zinc-800 to-zinc-950 flex items-center justify-center text-zinc-500 font-mono">
+            Article Thumbnail
+          </div>
+        )}
       </motion.div>
 
       <motion.div className="p-4 origin-bottom bg-black text-white">

@@ -15,7 +15,22 @@ const getImage = (image) => {
 };
 
 const BlogHome = ({ data }) => {
-  const blogPosts = data.blogPosts.nodes;
+  const blogPosts = [
+    {
+      id: "1",
+      title: "Building Aether AI: Canvas Neural Fields in React",
+      slug: "building-aether-ai",
+      createdAt: "2026-09-01",
+      extract: "An in-depth look at architecting hand-rolled canvas animation engines and modern AI interfaces with TypeScript and React.",
+    },
+    {
+      id: "2",
+      title: "High-Performance Systems Programming with Rust",
+      slug: "rust-systems-programming",
+      createdAt: "2026-08-15",
+      extract: "Exploring custom convolutional neural network implementation from scratch in Rust without external ML frameworks.",
+    },
+  ];
 
   useNavStyle(
     {
@@ -134,19 +149,6 @@ export const pageQuery = graphql`
           childImageSharp {
             gatsbyImageData(placeholder: BLURRED, quality: 100, aspectRatio: 2)
           }
-        }
-      }
-    }
-
-    blogPosts: allContentfulBlogPost(limit: 10) {
-      nodes {
-        id
-        title
-        slug
-        createdAt
-        extract
-        thumbnail {
-          gatsbyImageData(cropFocus: CENTER, layout: FULL_WIDTH)
         }
       }
     }

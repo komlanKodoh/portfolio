@@ -125,10 +125,21 @@ const Layout = ({ children, ...props }) => {
         >
           {activePage}
         </motion.div>
-        <footer className="bg-neutral-800 text-white ">
-          <p className="lm-size flex justify-center py-2 ">
-            Copyright 2021, created by Daniel kodoh
-          </p>
+        <footer className="bg-[#0d0d0d] border-t border-zinc-800/80 text-zinc-400 py-12">
+          <div className="max-w-screen-lg mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-6 text-sm">
+            <div className="flex items-center gap-2 font-bold text-white tracking-wider">
+              <span>DANIEL KODOH</span>
+            </div>
+            <p className="text-zinc-500 text-center">
+              © {new Date().getFullYear()} Daniel Kodoh. Built with Gatsby & Tailwind CSS.
+            </p>
+            <div className="flex items-center gap-6">
+              <a href="#Home" className="hover:text-white transition-colors">Home</a>
+              <a href="#About" className="hover:text-white transition-colors">About</a>
+              <a href="#Work" className="hover:text-white transition-colors">Work</a>
+              <a href="#Contact" className="hover:text-white transition-colors">Contact</a>
+            </div>
+          </div>
         </footer>
       </motion.div>
     </Provider>
