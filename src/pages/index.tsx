@@ -219,6 +219,16 @@ const Page = ({ data }) => {
               key={project.node.id}
             />
           ))}
+          <ShowProject
+            project={{
+              name: "Aether AI Showcase",
+              description: "An elegant single-page showcase of modern artificial intelligence capabilities: reason, see, speak, write code, and act. Features a hand-rolled canvas neural field animation engine, interactive streaming studio, and strict accessibility.",
+              techStack: ["TypeScript", "React", "Tailwind CSS", "Vite", "Vitest"],
+              previewUrl: "https://aether.komlankodoh.com/",
+              sourceCodeUrl: "https://github.com/komlanKodoh/aether-ai",
+            }}
+            right={data.projects.edges.length % 2 === 1}
+          />
         </div>
       </PageSection>
 
